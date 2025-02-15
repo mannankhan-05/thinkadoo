@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import user from "../models/user";
 import bcrypt from "bcrypt";
 import path from "path";
@@ -74,11 +74,7 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 // To login a user (sign in)
-export const loginUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const loginUser = async (req: Request, res: Response) => {
   const { email, password }: { email: string; password: string } = req.body;
 
   try {
@@ -101,7 +97,6 @@ export const loginUser = async (
     }
   } catch (err) {
     logger.error(`Error logging in user with email : ${email}. Error : ${err}`);
-    // res.sendStatus(500);
-    next(err);
+    res.sendStatus(500);
   }
 };

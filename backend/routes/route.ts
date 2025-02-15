@@ -1,13 +1,30 @@
 import express from "express";
 const router = express.Router();
-
 import { getUsers, createUser, loginUser } from "../controllers/user";
+import {
+  getBooks,
+  getBookById,
+  addNewBook,
+  updateBook,
+  deleteBook,
+} from "../controllers/book";
 
 // user routes :
 router.get("/users", getUsers);
 
 router.post("/createUser", createUser);
 
-router.post("/loginUser", loginUser);
+// router.post("/login", loginUser);
+
+// book routes :
+router.get("/books", getBooks);
+
+router.get("/book/:bookId", getBookById);
+
+router.post("/addBook", addNewBook);
+
+router.put("/updateBook/:bookId", updateBook);
+
+router.delete("/deleteBook/:bookId", deleteBook);
 
 export default router;

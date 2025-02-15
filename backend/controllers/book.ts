@@ -24,3 +24,137 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
+// To get all books (through infinite scrolling)
+export const getBooks = async (req: Request, res: Response) => {
+  const limit = parseInt(req.query.limit as string) || 10;
+  const offset = parseInt(req.query.offset as string) || 0;
+
+  try {
+    const { count, rows: books } = await book.findAndCountAll({
+      limit,
+      offset,
+    });
+
+    const result = books.map((allBooks: Book | any) => {
+      if (allBooks.image) {
+        allBooks.image = `http://localhost:5000/bookImages/${allBooks.image}`;
+      }
+      return allBooks;
+    });
+
+    res.json({ books: result, totalBooks: count });
+  } catch (err) {
+    logger.error(`Error getting all books : ${err}`);
+    res.sendStatus(500);
+  }
+};
+
+// To get a book by id
+export const getBookById = async (req: Request, res: Response) => {
+  const bookId: number = parseInt(req.params.bookId);
+
+  await book
+    .findOne({ where: { id: bookId } })
+    .then((bookById) => {
+      if (bookById) {
+        logger.info(`Book with id ${bookId} found`);
+        const bookData = { ...bookById.get() }; // get() method is used to get the data from the object
+        if (bookData.image) {
+          bookData.image = `http://localhost:5000/bookImages/${bookData.image}`;
+        }
+
+        res.json(bookData);
+      } else {
+        logger.error(`Book with id ${bookId} not found`);
+        res.sendStatus(404);
+      }
+    })
+    .catch((err) => {
+      logger.error(`Error getting book with id ${bookId} : ${err}`);
+      res.sendStatus(500);
+    });
+};
+
+// To add a new book (admin only)
+export const addNewBook = async (req: Request, res: Response) => {
+  upload.single("bookImage")(req, res, (err) => {
+    logger.error(`Error uploading book image : ${err}`);
+    res.sendStatus(500);
+  });
+
+  const {
+    title,
+    description,
+    price,
+  }: { title: string; description: string; price: number } = req.body;
+  const image: string = req.file ? req.file.filename : "";
+
+  await book
+    .create({
+      title,
+      image,
+      description,
+      price,
+    })
+    .then(() => {
+      logger.info(`Book with title ${title} added`);
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      logger.error(`Error adding book with title ${title} : ${err}`);
+      res.sendStatus(500);
+    });
+};
+
+// To update a book (admin only)
+export const updateBook = async (req: Request, res: Response) => {
+  const bookId: number = parseInt(req.params.bookId);
+
+  upload.single("bookImage")(req, res, (err) => {
+    logger.error(`Error updpating book image : ${err}`);
+    res.sendStatus(500);
+  });
+
+  const {
+    title,
+    description,
+    price,
+  }: { title: string; description: string; price: number } = req.body;
+  const image: string = req.file ? req.file.filename : "";
+
+  await book
+    .update(
+      {
+        title,
+        image,
+        description,
+        price,
+      },
+      { where: { id: bookId } }
+    )
+    .then(() => {
+      logger.info(`Book with id ${bookId} is updated`);
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      logger.error(`Error updating book with id ${bookId} : ${err}`);
+      res.sendStatus(500);
+    });
+};
+
+// To delete a book (admin only)
+export const deleteBook = async (req: Request, res: Response) => {
+  const bookId: number = parseInt(req.params.bookId);
+
+  await book
+    .destroy({ where: { id: bookId } })
+    .then(() => {
+      logger.info(`Book with id ${bookId} is deleted`);
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      logger.error(`Error deleting book with id ${bookId} : ${err}`);
+      res.sendStatus(500);
+    });
+};
