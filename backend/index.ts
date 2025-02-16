@@ -1,11 +1,18 @@
 import express from "express";
 import logger from "./logger";
 import router from "./routes/route";
+import cors from "cors";
 import db from "./config/database";
 const app = express();
 
-app.use(express.json());
+app.use(cors());
+app.use(express.json()); // Only for JSON payloads
+app.use(express.urlencoded({ extended: true })); // Handles form-data (excluding files)
 app.use(router);
+
+app.use(cors());
+
+app.use("/bookImages", express.static("bookImages"));
 
 const PORT = process.env.PORT || 5000;
 

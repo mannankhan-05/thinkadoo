@@ -76,35 +76,50 @@ export const getBookById = async (req: Request, res: Response) => {
     });
 };
 
-// To add a new book (admin only)
-export const addNewBook = async (req: Request, res: Response) => {
-  upload.single("bookImage")(req, res, (err) => {
-    logger.error(`Error uploading book image : ${err}`);
-    res.sendStatus(500);
-  });
-
-  const {
-    title,
-    description,
-    price,
-  }: { title: string; description: string; price: number } = req.body;
-  const image: string = req.file ? req.file.filename : "";
-
+// To get 4 random books
+export const getRandomBooks = async (req: Request, res: Response) => {
   await book
-    .create({
-      title,
-      image,
-      description,
-      price,
-    })
-    .then(() => {
-      logger.info(`Book with title ${title} added`);
-      res.sendStatus(200);
+    .findAll({ order: [["id", "DESC"]], limit: 4 })
+    .then((randomBooks) => {
+      const result = randomBooks.map((allBooks: Book | any) => {
+        if (allBooks.image) {
+          allBooks.image = `http://localhost:5000/bookImages/${allBooks.image}`;
+        }
+        return allBooks;
+      });
+
+      res.json(result);
     })
     .catch((err) => {
-      logger.error(`Error adding book with title ${title} : ${err}`);
+      logger.error(`Error getting random books : ${err}`);
       res.sendStatus(500);
     });
+};
+
+// To add a new book (admin only)
+export const addNewBook = async (req: Request, res: Response) => {
+  upload.single("bookImage")(req, res, async (err) => {
+    if (err) {
+      logger.error(`Error uploading book image : ${err}`);
+      return res.status(500).json({ error: "Error uploading image" });
+    }
+
+    const { title, description, price } = req.body;
+    const image = req.file ? req.file.filename : "";
+
+    if (!title || !description || !price) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    try {
+      await book.create({ title, image, description, price });
+      logger.info(`Book with title ${title} added`);
+      return res.status(200).json({ message: "Book added successfully" });
+    } catch (error) {
+      logger.error(`Error adding book: ${error}`);
+      return res.status(500).json({ error: "Database error" });
+    }
+  });
 };
 
 // To update a book (admin only)

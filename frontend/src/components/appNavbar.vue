@@ -11,8 +11,9 @@
           :src="require('../assets/thinkadoo.png')"
           contain
           alt="Logo"
+          @click="this.$router.push({ name: 'home' })"
         />
-        <h2 class="home">Home</h2>
+        <h2 class="home" @click="this.$router.push({ name: 'home' })">Home</h2>
         <h2 class="about">About</h2>
         <h2 class="category">Category</h2>
       </template>
@@ -61,6 +62,9 @@ export default defineComponent({
   height: 150px;
   width: 230px;
 }
+.thinkadoo-logo:hover {
+  cursor: pointer;
+}
 
 .thinkadoo-heading {
   font-family: "Sigmar", serif;
@@ -84,5 +88,11 @@ export default defineComponent({
   margin-top: 8px;
   font-size: 30px;
   color: black;
+}
+
+.home,
+.about,
+.category:hover {
+  cursor: pointer;
 }
 </style>
