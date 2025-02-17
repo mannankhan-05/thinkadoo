@@ -1,33 +1,35 @@
 import { DataTypes, Model } from "sequelize";
 import db from "../config/database";
 
-class user extends Model {}
+class book_review extends Model {}
 
-user.init(
+book_review.init(
   {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    name: {
+    book_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    review: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    password: {
-      type: DataTypes.STRING,
+    rating: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },
   {
     sequelize: db,
-    modelName: "user",
+    modelName: "book_review",
     timestamps: true,
   }
 );
-
-export default user;

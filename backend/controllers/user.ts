@@ -3,7 +3,6 @@ import user from "../models/user";
 import bcrypt from "bcrypt";
 import path from "path";
 const saltRounds = 5;
-import multer from "multer";
 import logger from "../logger";
 
 // User model
@@ -14,18 +13,6 @@ interface User {
   email: string;
   password: string;
 }
-
-// Multer configuration
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "userProfileImages/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage: storage });
 
 // To get all users
 export const getUsers = (req: Request, res: Response) => {
@@ -41,12 +28,6 @@ export const getUsers = (req: Request, res: Response) => {
 
 // To create a user (sign up)
 export const createUser = async (req: Request, res: Response) => {
-  upload.single("userProfileImage")(req, res, (err) => {
-    logger.error(`Error uploading userprofile image. Error : ${err}`);
-    res.sendStatus(500);
-  });
-
-  const image: string = req.file ? req.file.filename : "";
   const {
     name,
     email,
@@ -59,7 +40,6 @@ export const createUser = async (req: Request, res: Response) => {
   await user
     .create({
       name,
-      image,
       email,
       password: hashedPassword,
     })
