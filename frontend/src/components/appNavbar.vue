@@ -4,7 +4,7 @@
     <div class="top-navbar"></div>
 
     <!-- navbar -->
-    <v-app-bar :elevation="0" height="80" class="mt-13">
+    <v-app-bar :elevation="0" height="80" class="mt-12">
       <template v-slot:prepend>
         <img
           class="thinkadoo-logo"
@@ -44,17 +44,17 @@ export default defineComponent({
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Sigmar&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Sigmar&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
 
 .top-navbar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 60px;
   width: 100%;
   height: 50px;
   background-color: #283618;
+  z-index: 1000; /* Ensures it stays above other content */
 }
 
 .thinkadoo-logo {
@@ -64,10 +64,6 @@ export default defineComponent({
 }
 .thinkadoo-logo:hover {
   cursor: pointer;
-}
-
-.thinkadoo-heading {
-  font-family: "Sigmar", serif;
 }
 
 .navbar-icons {

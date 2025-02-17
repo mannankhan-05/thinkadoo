@@ -15,18 +15,31 @@
       </v-col>
     </v-row>
 
+    <!-- Best Selling Books -->
     <bestSellingBooks />
+
+    <!-- why choose printed books image -->
+    <img
+      class="whychoose-ebook-image"
+      :src="require('../assets/whychoose-ebook.png')"
+      alt=""
+    />
+
+    <!-- Books Loved By You -->
+    <lovedByYouBooks />
   </v-container>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import bestSellingBooks from "./bestSellingBooks.vue";
+import lovedByYouBooks from "./lovedByYouBooks.vue";
 
 export default defineComponent({
   name: "homePage",
   components: {
     bestSellingBooks,
+    lovedByYouBooks,
   },
   data() {
     return {
@@ -48,5 +61,10 @@ export default defineComponent({
 .v-carousel-item {
   width: 100%;
   height: 100vh;
+}
+
+.whychoose-ebook-image {
+  width: 100%;
+  margin-bottom: 40px;
 }
 </style>

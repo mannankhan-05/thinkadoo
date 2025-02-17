@@ -4,7 +4,8 @@ import { getUsers, createUser, loginUser } from "../controllers/user";
 import {
   getBooks,
   getBookById,
-  getRandomBooks,
+  getBestSellingBooks,
+  getLovedByYouBooks,
   addNewBook,
   updateBook,
   deleteBook,
@@ -22,7 +23,9 @@ router.get("/books", getBooks);
 
 router.get("/book/:bookId", getBookById);
 
-router.get("/bestSellingBooks", getRandomBooks);
+router.get("/bestSellingBooks", getBestSellingBooks);
+
+router.get("/lovedByYouBooks", getLovedByYouBooks);
 
 router.post("/addBook", addNewBook);
 

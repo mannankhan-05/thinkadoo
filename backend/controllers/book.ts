@@ -76,8 +76,8 @@ export const getBookById = async (req: Request, res: Response) => {
     });
 };
 
-// To get 4 random books
-export const getRandomBooks = async (req: Request, res: Response) => {
+// To get 4 random books (best selling books)
+export const getBestSellingBooks = async (req: Request, res: Response) => {
   await book
     .findAll({ order: [["id", "DESC"]], limit: 4 })
     .then((randomBooks) => {
@@ -92,6 +92,25 @@ export const getRandomBooks = async (req: Request, res: Response) => {
     })
     .catch((err) => {
       logger.error(`Error getting random books : ${err}`);
+      res.sendStatus(500);
+    });
+};
+
+// To get 8 random books (loved by you)
+export const getLovedByYouBooks = async (req: Request, res: Response) => {
+  await book
+    .findAll({ order: [["id", "DESC"]], limit: 8 })
+    .then((lovedByYouBooks) => {
+      const result = lovedByYouBooks.map((allBooks: Book | any) => {
+        if (allBooks.image) {
+          allBooks.image = `http://localhost:5000/bookImages/${allBooks.image}`;
+        }
+        return allBooks;
+      });
+      res.json(result);
+    })
+    .catch((err) => {
+      logger.error(`Error getting loved by you books : ${err}`);
       res.sendStatus(500);
     });
 };
