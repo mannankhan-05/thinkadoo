@@ -13,7 +13,9 @@
         <v-card :elevation="0" class="lovedbyyou-book-card">
           <div class="book-image-container">
             <v-img class="book-image" :src="book.image"></v-img>
-            <v-btn class="buy-now-btn">Buy Now</v-btn>
+            <v-btn class="buy-now-btn" @click="pushToSingleBookPage(book.id)"
+              >Buy Now</v-btn
+            >
             <v-rating
               class="prduct-rating"
               hover
@@ -53,6 +55,11 @@ export default defineComponent({
   async mounted() {
     let response = await axios.get("http://localhost:5000/lovedByYouBooks");
     this.lovedByYouBooks = response.data;
+  },
+  methods: {
+    pushToSingleBookPage(bookId: number) {
+      this.$router.push({ name: "singleBookPreview", params: { id: bookId } });
+    },
   },
 });
 </script>

@@ -13,7 +13,9 @@
         <v-card :elevation="0" class="best-selling-book-card">
           <div class="book-image-container">
             <v-img class="book-image" :src="book.image"></v-img>
-            <v-btn class="buy-now-btn">Buy Now</v-btn>
+            <v-btn class="buy-now-btn" @click="pushToSingleBookPage(book.id)"
+              >Buy Now</v-btn
+            >
             <div class="book-title-container">
               <h1 class="ml-3 mt-3">{{ book.title }}</h1>
               <h3 class="book-description ml-3">{{ book.description }}</h3>
@@ -39,6 +41,11 @@ export default defineComponent({
   async mounted() {
     let response = await axios.get("http://localhost:5000/bestSellingBooks");
     this.bestSellingBooks = response.data;
+  },
+  methods: {
+    pushToSingleBookPage(bookId: number) {
+      this.$router.push({ name: "singleBookPreview", params: { id: bookId } });
+    },
   },
 });
 </script>
