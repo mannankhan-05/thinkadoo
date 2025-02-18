@@ -30,6 +30,17 @@
 
     <!-- home Page Reviews -->
     <homePageReviews />
+
+    <!-- Sign In Banner -->
+    <div class="get-off-banner">
+      <h1 class="get-10-off-heading">
+        SIGN UP TO GET 10% OFF ON YOUR FIRST ORDER
+      </h1>
+
+      <div class="button-container">
+        <v-btn class="sign-up-btn">Sign Up</v-btn>
+      </div>
+    </div>
   </v-container>
 </template>
 
@@ -71,5 +82,38 @@ export default defineComponent({
 .whychoose-ebook-image {
   width: 100%;
   margin-bottom: 40px;
+}
+
+.get-off-banner {
+  margin-top: 130px;
+  width: 100%;
+  height: 500px;
+  background-color: #fefae0;
+  left: 0;
+}
+
+.get-10-off-heading {
+  font-size: 70px;
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.sign-up-btn {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #283618;
+  color: white;
+  font-size: 30px;
+  font-weight: 400;
+  padding: 40px 50px;
+  border-radius: 50px;
 }
 </style>
