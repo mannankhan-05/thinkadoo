@@ -10,6 +10,7 @@ import {
   updateBook,
   deleteBook,
 } from "../controllers/book";
+import { getBookReviews, createBookReview } from "../controllers/book_review";
 
 // user routes :
 router.get("/users", getUsers);
@@ -33,4 +34,8 @@ router.put("/updateBook/:bookId", updateBook);
 
 router.delete("/deleteBook/:bookId", deleteBook);
 
+// book review routes :
+router.get("/getBookReviews", getBookReviews);
+
+router.post("/createBookReview", createBookReview);
 export default router;

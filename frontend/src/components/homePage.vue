@@ -27,6 +27,9 @@
 
     <!-- Books Loved By You -->
     <lovedByYouBooks />
+
+    <!-- home Page Reviews -->
+    <homePageReviews />
   </v-container>
 </template>
 
@@ -34,12 +37,14 @@
 import { defineComponent } from "vue";
 import bestSellingBooks from "./bestSellingBooks.vue";
 import lovedByYouBooks from "./lovedByYouBooks.vue";
+import homePageReviews from "./homePageReviews.vue";
 
 export default defineComponent({
   name: "homePage",
   components: {
     bestSellingBooks,
     lovedByYouBooks,
+    homePageReviews,
   },
   data() {
     return {
