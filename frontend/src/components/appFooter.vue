@@ -34,7 +34,7 @@
             </v-col>
           </v-row>
 
-          <div class="icons">
+          <!-- <div class="icons">
             <div class="icon icon1">
               <img :src="require('../assets/facebook.svg')" alt="" />
             </div>
@@ -50,7 +50,7 @@
             <div class="icon icon4">
               <img :src="require('../assets/instagram.svg')" alt="" />
             </div>
-          </div>
+          </div> -->
         </div>
       </v-col>
     </v-row>
@@ -65,7 +65,7 @@ export default defineComponent({});
 
 <style>
 .full-footer {
-  position: absolute;
+  /* position: absolute; */
   bottom: 0;
   left: 0;
   right: 0;

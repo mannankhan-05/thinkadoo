@@ -54,25 +54,27 @@
     />
 
     <!-- anoter image -->
-    <v-row>
-      <v-col cols="12" md="6" lg="6">
-        <img
-          class="heroes-image"
-          :src="require('../assets/heroes.jpeg')"
-          alt=""
-        />
-      </v-col>
-      <v-col cols="12" md="6" lg="6">
-        <span class="heroes-text"
-          >Watch their eyes light up as they turn each page. Our stories aren’t
-          just tales—they’re tools to spark curiosity, kindness, and courage.
-          Whether snuggled up with a printed book or exploring an e-book on-
-          the-go, every story celebrates everyday heroes and lifelong values.
-          Let’s turn reading time into heart- growing time. Ready to start their
-          journey?</span
-        >
-      </v-col>
-    </v-row>
+    <div class="bookImageContainer">
+      <v-row>
+        <v-col cols="12" md="6" lg="6">
+          <img
+            class="heroes-image"
+            :src="require('../assets/heroes.jpeg')"
+            alt=""
+          />
+        </v-col>
+        <v-col cols="12" md="6" lg="6">
+          <span class="heroes-text"
+            >Watch their eyes light up as they turn each page. Our stories
+            aren’t just tales—they’re tools to spark curiosity, kindness, and
+            courage. Whether snuggled up with a printed book or exploring an
+            e-book on- the-go, every story celebrates everyday heroes and
+            lifelong values. Let’s turn reading time into heart- growing time.
+            Ready to start their journey?</span
+          >
+        </v-col>
+      </v-row>
+    </div>
   </v-container>
 </template>
 

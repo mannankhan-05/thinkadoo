@@ -3,6 +3,8 @@ import homePage from "@/components/homePage.vue";
 import addBook from "@/components/addBook.vue";
 import singleBookPreview from "@/components/singleBookPreview.vue";
 import authSelection from "@/components/authSelection.vue";
+import loginPage from "@/components/loginPage.vue";
+import signUpPage from "@/components/signUpPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,6 +26,16 @@ const routes: Array<RouteRecordRaw> = [
     path: "/authSelection",
     name: "authSelection",
     component: authSelection,
+  },
+  {
+    path: "/login",
+    name: "loginPage",
+    component: loginPage,
+  },
+  {
+    path: "/signUp",
+    name: "signUpPage",
+    component: signUpPage,
   },
 ];
 
