@@ -23,7 +23,7 @@
           <v-icon>mdi-magnify</v-icon>
         </div>
 
-        <div class="navbar-icons">
+        <div class="navbar-icons" @click="gotoAuthSelectionPage">
           <v-icon>mdi-account</v-icon>
         </div>
 
@@ -40,6 +40,12 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "appNavbar",
+
+  methods: {
+    gotoAuthSelectionPage() {
+      this.$router.push({ name: "authSelection" });
+    },
+  },
 });
 </script>
 

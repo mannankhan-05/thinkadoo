@@ -86,6 +86,7 @@ export default defineComponent({
 
 .get-off-banner {
   margin-top: 130px;
+  margin-bottom: 700px;
   width: 100%;
   height: 500px;
   background-color: #fefae0;
