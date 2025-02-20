@@ -13,6 +13,7 @@
             class="email-input"
             placeholder="Enter Your Email"
             type="email"
+            v-model="email"
           />
 
           <h1 class="password-label">Password</h1>
@@ -20,6 +21,7 @@
             class="email-input"
             placeholder="Enter Your Password"
             type="password"
+            v-model="password"
           />
 
           <h1 class="forget-password-label">Forget Password?</h1>
@@ -32,7 +34,18 @@
           <div
             class="login-button-container d-flex flex-column justify-center align-center"
           >
-            <v-btn class="login-button"> Login </v-btn>
+            <v-btn
+              class="login-button"
+              :disabled="!email || !password || !validEmail || !validPassword"
+              @click="loginExistingUser"
+            >
+              <span v-if="!loginButtonLoading">Login</span>
+              <v-progress-circular
+                v-if="loginButtonLoading"
+                indeterminate
+                :size="40"
+              ></v-progress-circular>
+            </v-btn>
             <div class="have-an-account mt-10">
               Don't Have An Account?
               <v-btn variant="text" class="signUpButton" @click="gotoSignUpPage"
@@ -50,10 +63,39 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   name: "loginPage",
+  data() {
+    return {
+      email: "" as string,
+      password: "" as string,
+      loginButtonLoading: false as boolean,
+    };
+  },
+
+  computed: {
+    validEmail() {
+      return this.email.includes("@") && this.email.includes(".com");
+    },
+    validPassword() {
+      return this.password.length >= 8;
+    },
+  },
 
   methods: {
     gotoSignUpPage() {
       this.$router.push({ name: "signUpPage" });
+    },
+    async loginExistingUser() {
+      this.loginButtonLoading = true;
+      const { email, password } = this;
+
+      await this.$store.dispatch("loginUser", {
+        email,
+        password,
+      });
+
+      this.email = "";
+      this.password = "";
+      this.loginButtonLoading = false;
     },
   },
 });

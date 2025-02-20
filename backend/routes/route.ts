@@ -17,7 +17,7 @@ router.get("/users", getUsers);
 
 router.post("/createUser", createUser);
 
-// router.post("/login", loginUser);
+router.post("/loginUser", loginUser);
 
 // book routes :
 router.get("/books", getBooks);

@@ -8,7 +8,7 @@
         <v-sheet
           class="signUp-sheet"
           :elevation="1"
-          :height="1000"
+          :height="1100"
           :width="800"
         >
           <h1 class="signUp-heading">Sign Up</h1>
@@ -18,6 +18,7 @@
             class="email-input"
             placeholder="Enter Your Name"
             type="text"
+            v-model="name"
           />
 
           <h1 class="email-label">Email</h1>
@@ -25,6 +26,7 @@
             class="email-input"
             placeholder="Enter Your Email"
             type="email"
+            v-model="email"
           />
 
           <h1 class="password-label">Password</h1>
@@ -32,6 +34,14 @@
             class="email-input"
             placeholder="Enter Your Password"
             type="password"
+            v-model="password"
+          />
+
+          <input
+            class="confirm-password email-input"
+            placeholder="Confirm Password"
+            type="password"
+            v-model="confirmPassword"
           />
 
           <v-checkbox
@@ -48,14 +58,43 @@ from Thinkadoo!"
           <div
             class="signUp-button-container d-flex flex-column justify-center align-center"
           >
-            <v-btn class="signUp-button"> Sign Up </v-btn>
+            <v-btn
+              class="signUp-button"
+              @click="RegisterNewUser"
+              :disabled="
+                !name ||
+                !email ||
+                !password ||
+                !password ||
+                !confirmPassword ||
+                !validEmail ||
+                !validPassword
+              "
+            >
+              <span v-if="!signUpButtonLoading">Sign Up</span>
+              <v-progress-circular
+                v-if="signUpButtonLoading"
+                indeterminate
+                :size="40"
+              ></v-progress-circular>
+            </v-btn>
             <div class="have-an-account mt-10">
               Already Have An Account?
-              <v-btn variant="text" class="signUpButton" @click="gotoLoginPage"
-                >Login</v-btn
-              >
+              <v-btn variant="text" class="signUpButton" @click="gotoLoginPage">
+                Login
+              </v-btn>
             </div>
           </div>
+
+          <v-snackbar
+            v-model="passwordDontMatch"
+            top
+            color="error"
+            timeout="3000"
+            multi-line
+          >
+            Passwords Do Not Match. Please Try Again.
+          </v-snackbar>
         </v-sheet>
       </v-col>
     </v-row>
@@ -64,12 +103,57 @@ from Thinkadoo!"
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
 export default defineComponent({
   name: "loginPage",
+  data() {
+    return {
+      name: "" as string,
+      email: "" as string,
+      password: "" as string,
+      confirmPassword: "" as string,
+      passwordDontMatch: false as boolean,
+      signUpButtonLoading: false as boolean,
+    };
+  },
+
+  computed: {
+    validEmail() {
+      return this.email.includes("@") && this.email.includes(".com");
+    },
+    validPassword() {
+      return this.password.length >= 8;
+    },
+  },
 
   methods: {
     gotoLoginPage() {
       this.$router.push({ name: "loginPage" });
+    },
+    async RegisterNewUser() {
+      this.signUpButtonLoading = true;
+      const { name, email, password } = this;
+
+      try {
+        if (this.password !== this.confirmPassword) {
+          this.passwordDontMatch = true;
+        } else {
+          await this.$store.dispatch("registerUser", {
+            name,
+            email,
+            password,
+            // router: this.$router,
+          });
+        }
+
+        this.name = "";
+        this.email = "";
+        this.password = "";
+        this.confirmPassword = "";
+        this.signUpButtonLoading = false;
+      } catch (err) {
+        throw new Error("Error Registering A New User : " + err);
+      }
     },
   },
 });
@@ -78,7 +162,7 @@ export default defineComponent({
 <style scoped>
 .signUp-container {
   width: 100%;
-  height: 100%;
+  height: 1400px;
   background-color: #fefae0;
 }
 
@@ -121,6 +205,10 @@ export default defineComponent({
   font-size: 30px;
   font-weight: 100;
   color: grey;
+}
+
+.confirm-password {
+  margin-top: 30px;
 }
 
 .remember-me-checkbox {

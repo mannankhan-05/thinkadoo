@@ -1,7 +1,6 @@
-import { Request, Response } from "express";
+import { Request, Response, RequestHandler } from "express";
 import user from "../models/user";
 import bcrypt from "bcrypt";
-import path from "path";
 const saltRounds = 5;
 import logger from "../logger";
 
@@ -43,9 +42,9 @@ export const createUser = async (req: Request, res: Response) => {
       email,
       password: hashedPassword,
     })
-    .then(() => {
+    .then((addedUser) => {
       logger.info(`User created with email : ${email}`);
-      res.sendStatus(200);
+      res.json(addedUser);
     })
     .catch((err) => {
       logger.error(`Error creating user with email : ${email}. Error : ${err}`);
@@ -62,7 +61,8 @@ export const loginUser = async (req: Request, res: Response) => {
 
     if (!userFound) {
       logger.error(`User with email : ${email} not found`);
-      return res.sendStatus(404);
+      res.sendStatus(500);
+      return;
     }
 
     // Comparing the password
@@ -73,7 +73,7 @@ export const loginUser = async (req: Request, res: Response) => {
       res.json(userFound);
     } else {
       logger.error(`User with email : ${email} entered wrong password`);
-      return res.sendStatus(401);
+      res.sendStatus(401);
     }
   } catch (err) {
     logger.error(`Error logging in user with email : ${email}. Error : ${err}`);

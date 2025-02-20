@@ -23,12 +23,12 @@
           <v-icon>mdi-magnify</v-icon>
         </div>
 
-        <div class="navbar-icons" @click="gotoAuthSelectionPage">
-          <v-icon>mdi-account</v-icon>
-        </div>
-
         <div class="navbar-icons">
           <v-icon>mdi-cart</v-icon>
+        </div>
+
+        <div class="navbar-icons" @click="gotoAuthSelectionPage">
+          <v-icon>mdi-account</v-icon>
         </div>
       </template>
     </v-app-bar>
