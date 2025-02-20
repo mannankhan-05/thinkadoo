@@ -1,48 +1,48 @@
 <template>
-  <v-container
-    fluid
-    class="signUp-container d-flex flex-column justify-center align-center"
-  >
-    <v-row>
-      <v-col cols="12" lg="6" md="6" sm="8" xs="12">
-        <v-sheet
-          class="signUp-sheet"
-          :elevation="1"
-          :height="1100"
-          :width="800"
-        >
+  <v-container fluid class="signUp-container">
+    <v-row justify="center">
+      <v-col cols="12" lg="6" md="6" sm="10" xs="12">
+        <v-sheet class="signUp-sheet" :elevation="1">
           <h1 class="signUp-heading">Sign Up</h1>
 
           <h1 class="email-label">Name</h1>
-          <input
-            class="email-input"
-            placeholder="Enter Your Name"
-            type="text"
-            v-model="name"
-          />
+          <div class="d-flex justify-center">
+            <input
+              class="email-input"
+              placeholder="Enter Your Name"
+              type="text"
+              v-model="name"
+            />
+          </div>
 
           <h1 class="email-label">Email</h1>
-          <input
-            class="email-input"
-            placeholder="Enter Your Email"
-            type="email"
-            v-model="email"
-          />
+          <div class="d-flex justify-center">
+            <input
+              class="email-input"
+              placeholder="Enter Your Email"
+              type="email"
+              v-model="email"
+            />
+          </div>
 
           <h1 class="password-label">Password</h1>
-          <input
-            class="email-input"
-            placeholder="Enter Your Password"
-            type="password"
-            v-model="password"
-          />
+          <div class="d-flex justify-center">
+            <input
+              class="email-input"
+              placeholder="Enter Your Password"
+              type="password"
+              v-model="password"
+            />
+          </div>
 
-          <input
-            class="confirm-password email-input"
-            placeholder="Confirm Password"
-            type="password"
-            v-model="confirmPassword"
-          />
+          <div class="d-flex justify-center">
+            <input
+              class="confirm-password email-input"
+              placeholder="Confirm Password"
+              type="password"
+              v-model="confirmPassword"
+            />
+          </div>
 
           <v-checkbox
             label="Remember me"
@@ -167,6 +167,7 @@ export default defineComponent({
 }
 
 .signUp-sheet {
+  width: 100%;
   margin-top: 130px;
   display: flex;
   flex-direction: column;
@@ -200,7 +201,6 @@ export default defineComponent({
   border-radius: 10px;
   width: 92%;
   height: 70px;
-  margin-left: 30px;
   padding-left: 20px;
   font-size: 30px;
   font-weight: 100;

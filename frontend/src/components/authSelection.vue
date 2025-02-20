@@ -52,8 +52,10 @@ export default defineComponent({
 
 <style scoped>
 .user-auth-image {
-  width: 1500px;
-  height: 1600px;
+  width: 100vw;
+  height: auto;
+  /* max-height: 700px; */
+  object-fit: cover;
 }
 
 .login-heading {
