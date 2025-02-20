@@ -6,15 +6,6 @@
           <h1 class="login-heading">Login</h1>
 
           <h1 class="email-label">Email</h1>
-          <!-- <v-text-field
-            clearable
-            label="Email"
-            placeholder="Enter Your Email"
-            variant="outlined"
-            prepend-inner-icon="mdi-email"
-            class="email-input"
-            v-model="email"
-          ></v-text-field> -->
           <div class="d-flex justify-center">
             <input
               class="email-input"
@@ -94,6 +85,9 @@ export default defineComponent({
     gotoSignUpPage() {
       this.$router.push({ name: "signUpPage" });
     },
+    // gotoForgetPasswordPage(){
+    //   this.$router.push({name: 'forgetPasswordPage'})
+    // },
     async loginExistingUser() {
       this.loginButtonLoading = true;
       const { email, password } = this;
@@ -148,6 +142,9 @@ export default defineComponent({
   margin-left: 30px;
   font-weight: 400;
   color: #3e5e1a;
+}
+.forget-password-label:hover {
+  cursor: pointer;
 }
 
 .email-input {

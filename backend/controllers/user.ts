@@ -61,7 +61,7 @@ export const loginUser = async (req: Request, res: Response) => {
 
     if (!userFound) {
       logger.error(`User with email : ${email} not found`);
-      res.sendStatus(500);
+      res.status(500);
       return;
     }
 
@@ -73,10 +73,10 @@ export const loginUser = async (req: Request, res: Response) => {
       res.json(userFound);
     } else {
       logger.error(`User with email : ${email} entered wrong password`);
-      res.sendStatus(401);
+      res.status(500);
     }
   } catch (err) {
     logger.error(`Error logging in user with email : ${email}. Error : ${err}`);
-    res.sendStatus(500);
+    res.status(500);
   }
 };
