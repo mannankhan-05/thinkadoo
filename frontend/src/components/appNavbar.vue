@@ -9,27 +9,43 @@
         <v-app-bar :elevation="0" height="80" class="mt-12">
           <template v-slot:prepend>
             <img
-              class="thinkadoo-logo d-none d-sm-flex d-sm-none d-md-flex"
+              class="thinkadoo-logo d-none d-md-flex"
               :src="require('../assets/thinkadoo.png')"
               contain
               alt="Logo"
               @click="this.$router.push({ name: 'home' })"
             />
+            <!-- drawer icon -->
             <v-icon
-              class="drawer-icon d-flex d-sm-none d-none d-sm-flex d-md-none"
+              class="drawer-icon d-flex d-md-none"
+              @click="drawer = !drawer"
               >mdi-format-list-bulleted</v-icon
             >
 
+            <!-- Drawer -->
+            <!-- <v-navigation-drawer class="drawer" v-model="drawer" app>
+              <v-list>
+                <v-list-item @click="this.$router.push({ name: 'home' })">
+                  <v-list-item-title>Home</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="this.$router.push({ name: 'about' })">
+                  <v-list-item-title>About</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="this.$router.push({ name: 'category' })">
+                  <v-list-item-title>Category</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-navigation-drawer> -->
+
+            <!-- list in md and lg screens -->
             <h2
-              class="home d-none d-sm-flex d-sm-none d-md-flex"
+              class="home d-none d-md-flex"
               @click="this.$router.push({ name: 'home' })"
             >
               Home
             </h2>
-            <h2 class="about d-none d-sm-flex d-sm-none d-md-flex">About</h2>
-            <h2 class="category d-none d-sm-flex d-sm-none d-md-flex">
-              Category
-            </h2>
+            <h2 class="about d-none d-md-flex">About</h2>
+            <h2 class="category d-none d-md-flex">Category</h2>
           </template>
 
           <template v-slot:append>
@@ -37,7 +53,7 @@
               <v-icon>mdi-magnify</v-icon>
             </div>
 
-            <div class="navbar-icons d-none d-sm-flex d-sm-none d-md-flex">
+            <div class="navbar-icons d-none d-md-flex">
               <v-icon>mdi-cart</v-icon>
             </div>
 
@@ -62,21 +78,24 @@
                 <v-list class="menu-popover-list">
                   <v-list-item>
                     <v-list-item-title>
-                      <div>{{ this.$store.state.userName }}</div>
+                      <div class="user-name">
+                        {{ this.$store.state.userName }}
+                      </div>
                       <span>{{ this.$store.state.userEmail }}</span>
                       <v-divider class="mt-3"></v-divider>
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item
-                    class="d-flex d-sm-none d-none d-sm-flex d-md-none"
-                  >
+                  <v-list-item class="d-flex d-md-none">
                     <v-list-item-title>
-                      <v-icon>mdi-cart</v-icon>
-                      <span>Cart</span>
+                      <v-icon class="text-h5 mr-3">mdi-cart</v-icon>
+                      <span class="text-h5">Cart</span>
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item @click="logout">
-                    <v-list-item-title>Logout</v-list-item-title>
+                    <v-list-item-title>
+                      <v-icon class="text-h5 mr-3">mdi-logout</v-icon>
+                      <span class="text-h5">Logout</span>
+                    </v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
@@ -93,10 +112,18 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "appNavbar",
+  data() {
+    return {
+      drawer: false as boolean,
+    };
+  },
 
   methods: {
     gotoAuthSelectionPage() {
       this.$router.push({ name: "authSelection" });
+    },
+    logout() {
+      this.$store.dispatch("logoutUser");
     },
   },
 
@@ -142,7 +169,7 @@ export default defineComponent({
 .home,
 .about,
 .category {
-  font-family: "Ubuntu", serif;
+  /* font-family: "Ubuntu", serif; */
   font-weight: 300;
   margin-left: 40px;
   margin-right: 40px;
@@ -166,12 +193,17 @@ export default defineComponent({
   text-transform: uppercase;
 }
 
+.user-name {
+  font-weight: bold;
+  color: #283618;
+}
+
 .menu-popover-list {
   width: 400px;
 }
 
 .drawer-icon {
   font-size: 40px;
-  margin-left: 20px;
+  margin-left: 25px;
 }
 </style>

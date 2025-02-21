@@ -64,6 +64,14 @@ export default createStore({
       const userEmail: string = response.data.email;
       commit("setUserEmail", userEmail);
     },
+    async logoutUser({ state, commit }) {
+      state.isUserLoggedIn = false;
+      commit("setIsUserLoggedIn", false);
+
+      commit("setUserId", null);
+      commit("setUserName", null);
+      commit("setUserEmail", null);
+    },
   },
   modules: {},
 });
