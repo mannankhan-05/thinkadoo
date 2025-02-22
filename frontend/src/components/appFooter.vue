@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="full-footer">
     <v-row no-gutters>
-      <v-col>
+      <v-col cols="12" lg="12" md="12" sm="12" xs="12">
         <img
           class="footer-image"
           :src="require('../assets/footerImage.png')"
@@ -10,22 +10,30 @@
 
         <div class="footer">
           <v-row>
-            <v-col cols="12" lg="4" md="4" sm="6" xs="12">
+            <v-col cols="12" lg="4" md="4" sm="12" xs="12">
               <div class="d-flex flex-column align-center text-center">
                 <h1 class="footer-heading">HELP AND INFORMATION</h1>
                 <h2 class="footer-subheading">HELP AND FAQS</h2>
                 <h2 class="footer-subheading">DELIVERY INFORMATION</h2>
               </div>
+              <v-divider
+                class="mt-4 mb-4 d-flex d-md-none"
+                :thickness="4"
+              ></v-divider>
             </v-col>
 
-            <v-col cols="12" lg="4" md="4" sm="6" xs="12">
+            <v-col cols="12" lg="4" md="4" sm="12" xs="12">
               <div class="d-flex flex-column align-center text-center">
                 <h1 class="footer-heading">ABOUT THINKADOO</h1>
                 <h2 class="footer-subheading">OUR STORY</h2>
               </div>
+              <v-divider
+                class="mt-4 mb-4 d-flex d-md-none"
+                :thickness="4"
+              ></v-divider>
             </v-col>
 
-            <v-col cols="12" lg="4" md="4" sm="6" xs="12">
+            <v-col cols="12" lg="4" md="4" sm="12" xs="12">
               <div class="d-flex flex-column align-center text-center">
                 <h1 class="footer-heading">CORPORATE INFORMATION</h1>
                 <h2 class="footer-subheading">PRIVACY POLICY</h2>
@@ -80,7 +88,7 @@ export default defineComponent({});
 
 .footer {
   width: 100%;
-  height: 400px;
+  height: 100%;
   background-color: #bc6c25;
 }
 

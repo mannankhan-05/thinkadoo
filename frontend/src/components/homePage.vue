@@ -32,15 +32,18 @@
     <homePageReviews />
 
     <!-- Sign In Banner -->
-    <div class="get-off-banner">
-      <h1 class="get-10-off-heading">
-        SIGN UP TO GET 10% OFF ON YOUR FIRST ORDER
-      </h1>
-
-      <div class="button-container">
-        <v-btn class="sign-up-btn">Sign Up</v-btn>
-      </div>
-    </div>
+    <v-container fluid class="get-off-banner">
+      <v-row justify="center">
+        <v-col cols="12" md="8" lg="6" class="text-center">
+          <h1 class="get-10-off-heading">
+            SIGN UP TO GET 10% OFF ON YOUR FIRST ORDER
+          </h1>
+          <div class="button-container">
+            <v-btn class="sign-up-btn">Sign Up</v-btn>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-container>
 </template>
 
@@ -86,23 +89,23 @@ export default defineComponent({
 
 .get-off-banner {
   margin-top: 130px;
-  /* margin-bottom: 700px; */
   width: 100%;
-  height: 500px;
+  height: auto;
   background-color: #fefae0;
   left: 0;
 }
 
 .get-10-off-heading {
-  font-size: 70px;
+  font-size: 50px;
   display: flex;
   justify-content: center;
-  padding-top: 50px;
+  padding-top: 30px;
 }
 
 .button-container {
   display: flex;
   justify-content: center;
+  margin-bottom: 30px;
 }
 
 .sign-up-btn {
