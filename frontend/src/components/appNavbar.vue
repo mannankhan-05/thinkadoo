@@ -8,6 +8,7 @@
         <!-- Navbar -->
         <v-app-bar :elevation="0" height="80" class="mt-12">
           <template v-slot:prepend>
+            <!-- logo in md and lg screens -->
             <img
               class="thinkadoo-logo d-none d-md-flex"
               :src="require('../assets/thinkadoo.png')"
@@ -15,6 +16,7 @@
               alt="Logo"
               @click="this.$router.push({ name: 'home' })"
             />
+
             <!-- drawer icon -->
             <v-icon
               class="drawer-icon d-flex d-md-none"
@@ -22,20 +24,14 @@
               >mdi-format-list-bulleted</v-icon
             >
 
-            <!-- Drawer -->
-            <!-- <v-navigation-drawer class="drawer" v-model="drawer" app>
-              <v-list>
-                <v-list-item @click="this.$router.push({ name: 'home' })">
-                  <v-list-item-title>Home</v-list-item-title>
-                </v-list-item>
-                <v-list-item @click="this.$router.push({ name: 'about' })">
-                  <v-list-item-title>About</v-list-item-title>
-                </v-list-item>
-                <v-list-item @click="this.$router.push({ name: 'category' })">
-                  <v-list-item-title>Category</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-navigation-drawer> -->
+            <!-- logo in sm and xs screens -->
+            <!-- <img
+              class="thinkadoo-logo d-flex d-sm-flex justify-center align-center"
+              :src="require('../assets/thinkadoo.png')"
+              contain
+              alt="Logo"
+              @click="this.$router.push({ name: 'home' })"
+            /> -->
 
             <!-- list in md and lg screens -->
             <h2
@@ -54,7 +50,7 @@
             </div>
 
             <div class="navbar-icons d-none d-md-flex">
-              <v-icon>mdi-cart</v-icon>
+              <v-icon @click="gotoCartPage">mdi-cart</v-icon>
             </div>
 
             <div class="navbar-icons">
@@ -85,7 +81,7 @@
                       <v-divider class="mt-3"></v-divider>
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item class="d-flex d-md-none">
+                  <v-list-item class="d-flex d-md-none" @click="gotoCartPage">
                     <v-list-item-title>
                       <v-icon class="text-h5 mr-3">mdi-cart</v-icon>
                       <span class="text-h5">Cart</span>
@@ -124,6 +120,9 @@ export default defineComponent({
     },
     logout() {
       this.$store.dispatch("logoutUser");
+    },
+    gotoCartPage() {
+      this.$router.push({ name: "cartPage" });
     },
   },
 
@@ -191,6 +190,11 @@ export default defineComponent({
   background-color: #283618;
   color: white;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
 }
 
 .user-name {

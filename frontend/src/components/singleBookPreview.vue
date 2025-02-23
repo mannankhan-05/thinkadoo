@@ -40,7 +40,9 @@
           </div>
 
           <div class="mt-8">
-            <v-btn class="add-to-card-btn">Add To Cart</v-btn>
+            <v-btn class="add-to-card-btn" @click="addToLocalStorage(book)"
+              >Add To Cart</v-btn
+            >
           </div>
         </div>
       </v-col>
@@ -90,11 +92,25 @@ export default defineComponent({
       book: {} as object,
     };
   },
+
   async mounted() {
     let response = await axios.get(
       `http://localhost:5000/book/${this.$route.params.id}`
     );
     this.book = response.data;
+  },
+
+  methods: {
+    addToLocalStorage(book: object) {
+      let cart = localStorage.getItem("cart");
+      if (cart) {
+        let cartArray = JSON.parse(cart);
+        cartArray.push(book);
+        localStorage.setItem("cart", JSON.stringify(cartArray));
+      } else {
+        localStorage.setItem("cart", JSON.stringify([book]));
+      }
+    },
   },
 });
 </script>

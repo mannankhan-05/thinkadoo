@@ -5,6 +5,7 @@ import singleBookPreview from "@/components/singleBookPreview.vue";
 import authSelection from "@/components/authSelection.vue";
 import loginPage from "@/components/loginPage.vue";
 import signUpPage from "@/components/signUpPage.vue";
+import userCart from "@/components/userCart.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -36,6 +37,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/signUp",
     name: "signUpPage",
     component: signUpPage,
+  },
+  {
+    path: "/cart",
+    name: "cartPage",
+    component: userCart,
   },
 ];
 
