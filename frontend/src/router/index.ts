@@ -6,6 +6,7 @@ import authSelection from "@/components/authSelection.vue";
 import loginPage from "@/components/loginPage.vue";
 import signUpPage from "@/components/signUpPage.vue";
 import userCart from "@/components/userCart.vue";
+import adminPanel from "@/components/adminPanel.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -42,6 +43,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/cart",
     name: "cartPage",
     component: userCart,
+  },
+  {
+    path: "/admin",
+    name: "adminPanel",
+    component: adminPanel,
   },
 ];
 

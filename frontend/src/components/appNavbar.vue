@@ -84,6 +84,19 @@
                     </v-list-item-title>
                   </v-list-item>
 
+                  <!-- If the user is admin -->
+                  <v-list-item
+                    v-if="this.$store.state.isAdmin"
+                    @click="this.$router.push({ name: 'adminPanel' })"
+                  >
+                    <v-list-item-title>
+                      <v-btn class="admin-button">
+                        <v-icon class="text-h5 mr-3">mdi-account-cog</v-icon>
+                        <span class="text-h5">Admin Panel</span>
+                      </v-btn>
+                    </v-list-item-title>
+                  </v-list-item>
+
                   <v-list-item class="d-flex d-md-none" @click="gotoCartPage">
                     <v-list-item-title>
                       <v-icon class="text-h5 mr-3">mdi-cart</v-icon>
@@ -145,7 +158,7 @@ export default defineComponent({
   name: "appNavbar",
   data() {
     return {
-      drawer: true as boolean,
+      drawer: false as boolean,
     };
   },
 
@@ -170,7 +183,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Sigmar&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Sigmar&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"); */
 
 .top-navbar {
   position: fixed;
@@ -259,5 +272,19 @@ export default defineComponent({
 
 .drawer-list {
   font-size: 24px;
+}
+
+.admin-button {
+  width: 100%;
+  height: auto;
+  background-color: #213012;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+}
+.admin-button:hover {
+  cursor: pointer;
+  background-color: #fefae0;
+  color: #283618;
 }
 </style>

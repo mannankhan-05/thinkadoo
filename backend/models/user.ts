@@ -26,6 +26,10 @@ user.init(
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
   },
   {
     sequelize: db,

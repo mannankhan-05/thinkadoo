@@ -11,7 +11,7 @@ import {
   deleteBook,
 } from "../controllers/book";
 import { getBookReviews, createBookReview } from "../controllers/book_review";
-import { getOrders } from "../controllers/order";
+import { getOrders, createOrder } from "../controllers/order";
 
 // user routes :
 router.get("/users", getUsers);
@@ -42,5 +42,7 @@ router.post("/createBookReview", createBookReview);
 
 // order routes :
 router.get("/orders", getOrders);
+
+router.post("/createOrder", createOrder);
 
 export default router;

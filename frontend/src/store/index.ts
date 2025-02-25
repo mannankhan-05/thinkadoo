@@ -7,6 +7,7 @@ export default createStore({
     userId: localStorage.getItem("userId"),
     userName: localStorage.getItem("userName"),
     userEmail: localStorage.getItem("userEmail"),
+    isAdmin: localStorage.getItem("isAdmin"),
   },
   mutations: {
     setIsUserLoggedIn(state, isUserLoggedIn) {
@@ -24,6 +25,10 @@ export default createStore({
     setUserEmail(state, userEmail) {
       state.userEmail = userEmail;
       localStorage.setItem("userEmail", userEmail);
+    },
+    setIsAdmin(state, isAdmin) {
+      state.isAdmin = isAdmin;
+      localStorage.setItem("isAdmin", isAdmin);
     },
   },
   actions: {
@@ -49,6 +54,9 @@ export default createStore({
 
       const userEmail: string = response.data.email;
       commit("setUserEmail", userEmail);
+
+      const isAdmin: boolean = response.data.isAdmin;
+      commit("setIsAdmin", isAdmin);
     },
     async loginUser({ state, commit }, { email, password }) {
       const response = await axios.post("http://localhost:5000/loginUser", {
@@ -67,6 +75,9 @@ export default createStore({
 
       const userEmail: string = response.data.email;
       commit("setUserEmail", userEmail);
+
+      const isAdmin: boolean = response.data.isAdmin;
+      commit("setIsAdmin", isAdmin);
     },
     async logoutUser({ state, commit }) {
       state.isUserLoggedIn = false;
@@ -75,6 +86,7 @@ export default createStore({
       commit("setUserId", null);
       commit("setUserName", null);
       commit("setUserEmail", null);
+      commit("setIsAdmin", null);
     },
   },
   modules: {},

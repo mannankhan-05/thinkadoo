@@ -35,6 +35,14 @@ export const createUser = async (req: Request, res: Response) => {
   }: { name: string; email: string; password: string; promotions: boolean } =
     req.body;
 
+  // Checking if the user is admin
+  let isAdmin = false;
+  if (email == "abdulmannan.khan005@gmail.com") {
+    isAdmin = true;
+  } else {
+    isAdmin = false;
+  }
+
   // Hashing the password
   const hashedPassword = await bcrypt.hash(password, saltRounds);
 
@@ -44,6 +52,7 @@ export const createUser = async (req: Request, res: Response) => {
       email,
       password: hashedPassword,
       promotions,
+      isAdmin,
     })
     .then((addedUser) => {
       logger.info(`User created with email : ${email}`);
