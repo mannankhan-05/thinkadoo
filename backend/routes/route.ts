@@ -11,6 +11,7 @@ import {
   deleteBook,
 } from "../controllers/book";
 import { getBookReviews, createBookReview } from "../controllers/book_review";
+import { getOrders } from "../controllers/order";
 
 // user routes :
 router.get("/users", getUsers);
@@ -38,4 +39,8 @@ router.delete("/deleteBook/:bookId", deleteBook);
 router.get("/getBookReviews", getBookReviews);
 
 router.post("/createBookReview", createBookReview);
+
+// order routes :
+router.get("/orders", getOrders);
+
 export default router;
