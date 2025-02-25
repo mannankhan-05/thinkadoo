@@ -73,7 +73,6 @@ export default defineComponent({});
 
 <style>
 .full-footer {
-  /* position: absolute; */
   bottom: 0;
   left: 0;
   right: 0;
@@ -122,5 +121,15 @@ export default defineComponent({});
 
 .icon4 {
   margin-left: 150px;
+}
+
+@media (max-width: 600px) {
+  .footer-heading {
+    font-size: 30px;
+  }
+
+  .footer-subheading {
+    font-size: 25px;
+  }
 }
 </style>

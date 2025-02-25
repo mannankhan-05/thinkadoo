@@ -8,7 +8,7 @@
         <!-- Navbar -->
         <v-app-bar :elevation="0" height="80" class="mt-12">
           <template v-slot:prepend>
-            <!-- logo in md and lg screens -->
+            <!-- Logo in md and lg screens -->
             <img
               class="thinkadoo-logo d-none d-md-flex"
               :src="require('../assets/thinkadoo.png')"
@@ -17,23 +17,15 @@
               @click="this.$router.push({ name: 'home' })"
             />
 
-            <!-- drawer icon -->
+            <!-- Drawer Icon (Visible in xs and sm screens) -->
             <v-icon
               class="drawer-icon d-flex d-md-none"
               @click="drawer = !drawer"
-              >mdi-format-list-bulleted</v-icon
             >
+              mdi-format-list-bulleted
+            </v-icon>
 
-            <!-- logo in sm and xs screens -->
-            <!-- <img
-              class="thinkadoo-logo d-flex d-sm-flex justify-center align-center"
-              :src="require('../assets/thinkadoo.png')"
-              contain
-              alt="Logo"
-              @click="this.$router.push({ name: 'home' })"
-            /> -->
-
-            <!-- list in md and lg screens -->
+            <!-- List in md and lg screens (Home , About, Category) -->
             <h2
               class="home d-none d-md-flex"
               @click="this.$router.push({ name: 'home' })"
@@ -44,6 +36,16 @@
             <h2 class="category d-none d-md-flex">Category</h2>
           </template>
 
+          <!-- thinkadoo logo in sm and xs screens -->
+          <img
+            class="thinkadoo-logo thinkadoo-logo-sm-xs d-flex d-md-none"
+            :src="require('../assets/thinkadoo-image-logo.png')"
+            contain
+            alt="Logo"
+            @click="this.$router.push({ name: 'home' })"
+          />
+
+          <!-- search, cart, account icons -->
           <template v-slot:append>
             <div class="navbar-icons">
               <v-icon>mdi-magnify</v-icon>
@@ -81,12 +83,14 @@
                       <v-divider class="mt-3"></v-divider>
                     </v-list-item-title>
                   </v-list-item>
+
                   <v-list-item class="d-flex d-md-none" @click="gotoCartPage">
                     <v-list-item-title>
                       <v-icon class="text-h5 mr-3">mdi-cart</v-icon>
                       <span class="text-h5">Cart</span>
                     </v-list-item-title>
                   </v-list-item>
+
                   <v-list-item @click="logout">
                     <v-list-item-title>
                       <v-icon class="text-h5 mr-3">mdi-logout</v-icon>
@@ -98,6 +102,37 @@
             </div>
           </template>
         </v-app-bar>
+
+        <!-- Drawer -->
+        <v-row>
+          <v-col cols="12" sm="8" xs="12">
+            <v-navigation-drawer
+              class="drawer mt-11"
+              v-model="drawer"
+              temporary
+              width="500"
+            >
+              <!-- cancel drawer icon -->
+              <v-icon class="drawer-close-icon" @click="drawer = !drawer"
+                >mdi-window-close</v-icon
+              >
+
+              <v-list density="compact" nav class="drawer-list mt-10">
+                <v-list-item
+                  prepend-icon="mdi-home"
+                  title="Home"
+                  @click="this.$router.push({ name: 'home' })"
+                >
+                </v-list-item>
+
+                <v-list-item
+                  prepend-icon="mdi-forum"
+                  title="About"
+                ></v-list-item>
+              </v-list>
+            </v-navigation-drawer>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -110,7 +145,7 @@ export default defineComponent({
   name: "appNavbar",
   data() {
     return {
-      drawer: false as boolean,
+      drawer: true as boolean,
     };
   },
 
@@ -145,7 +180,7 @@ export default defineComponent({
   width: 100%;
   height: 50px;
   background-color: #283618;
-  z-index: 1000; /* Ensures it stays above other content */
+  z-index: 1000;
 }
 
 .thinkadoo-logo {
@@ -155,6 +190,12 @@ export default defineComponent({
 }
 .thinkadoo-logo:hover {
   cursor: pointer;
+}
+
+.thinkadoo-logo-sm-xs {
+  font-size: 40px;
+  height: 80px;
+  width: 120px;
 }
 
 .navbar-icons {
@@ -168,7 +209,6 @@ export default defineComponent({
 .home,
 .about,
 .category {
-  /* font-family: "Ubuntu", serif; */
   font-weight: 300;
   margin-left: 40px;
   margin-right: 40px;
@@ -209,5 +249,15 @@ export default defineComponent({
 .drawer-icon {
   font-size: 40px;
   margin-left: 25px;
+}
+
+.drawer-close-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.drawer-list {
+  font-size: 24px;
 }
 </style>

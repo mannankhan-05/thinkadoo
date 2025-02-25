@@ -27,11 +27,15 @@ export default createStore({
     },
   },
   actions: {
-    async registerUser({ state, commit }, { name, email, password }) {
+    async registerUser(
+      { state, commit },
+      { name, email, password, promotions }
+    ) {
       const response = await axios.post("http://localhost:5000/createUser", {
         name,
         email,
         password,
+        promotions,
       });
 
       state.isUserLoggedIn = true;

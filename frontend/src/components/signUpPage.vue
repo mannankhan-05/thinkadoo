@@ -53,6 +53,7 @@
             label="Yes, I’d love to hear
 from Thinkadoo!"
             class="hear-from-thinkadoo-checkbox"
+            @click="promotions = !promotions"
           ></v-checkbox>
 
           <div
@@ -113,6 +114,7 @@ export default defineComponent({
       password: "" as string,
       confirmPassword: "" as string,
       passwordDontMatch: false as boolean,
+      promotions: false as boolean,
       signUpButtonLoading: false as boolean,
     };
   },
@@ -132,7 +134,7 @@ export default defineComponent({
     },
     async RegisterNewUser() {
       this.signUpButtonLoading = true;
-      const { name, email, password } = this;
+      const { name, email, password, promotions } = this;
 
       try {
         if (this.password !== this.confirmPassword) {
@@ -142,6 +144,7 @@ export default defineComponent({
             name,
             email,
             password,
+            promotions,
             // router: this.$router,
           });
         }

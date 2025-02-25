@@ -22,6 +22,10 @@ user.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    promotions: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
   },
   {
     sequelize: db,

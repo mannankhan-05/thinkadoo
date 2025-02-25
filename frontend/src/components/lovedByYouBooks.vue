@@ -1,7 +1,7 @@
 <template>
   <v-container class="lovedbyyou-books-container" fluid>
     <h1 class="lovedbyyou-book-heading">Loved By You</h1>
-    <v-row justify="center">
+    <!-- <v-row justify="center">
       <v-col
         cols="12"
         md="3"
@@ -36,7 +36,55 @@
           </div>
         </v-card>
       </v-col>
-    </v-row>
+    </v-row> -->
+
+    <v-carousel v-model="currentSlide" class="custom-carousel" hide-delimiters>
+      <v-carousel-item
+        class="carousel-item"
+        v-for="(bookGroup, index) in groupedBooks"
+        :key="index"
+      >
+        <v-row justify="center">
+          <v-col
+            v-for="book in bookGroup"
+            :key="book.id"
+            cols="12"
+            lg="3"
+            md="4"
+            sm="6"
+            xs="12"
+          >
+            <v-card :elevation="0" class="lovedbyyou-book-card">
+              <div class="book-image-container">
+                <v-img class="book-image" :src="book.image"></v-img>
+                <v-btn
+                  class="buy-now-btn"
+                  @click="pushToSingleBookPage(book.id)"
+                  >Buy Now</v-btn
+                >
+                <v-rating
+                  class="prduct-rating"
+                  hover
+                  readonly
+                  :length="5"
+                  :size="32"
+                  :model-value="5"
+                  color="orange"
+                  active-color="orange"
+                  empty-icon="mdi-heart-outline"
+                  half-icon="mdi-heart-half-full"
+                  full-icon="mdi-heart"
+                />
+                <div class="book-title-container">
+                  <h1 class="ml-3 mt-3">{{ book.title }}</h1>
+                  <h3 class="book-description ml-3">{{ book.description }}</h3>
+                </div>
+              </div>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-carousel-item>
+    </v-carousel>
   </v-container>
 </template>
 
@@ -50,15 +98,31 @@ export default defineComponent({
   data() {
     return {
       lovedByYouBooks: [] as object[],
+      groupedBooks: [] as object[][],
+      currentSlide: 0 as number,
     };
   },
   async mounted() {
     let response = await axios.get("http://localhost:5000/lovedByYouBooks");
     this.lovedByYouBooks = response.data;
+    await this.groupBooks();
+    this.currentSlide = 0;
   },
   methods: {
     pushToSingleBookPage(bookId: number) {
       this.$router.push({ name: "singleBookPreview", params: { id: bookId } });
+    },
+    groupBooks() {
+      this.groupedBooks = [];
+      for (let i = 0; i < this.lovedByYouBooks.length; i += 4) {
+        this.groupedBooks.push(this.lovedByYouBooks.slice(i, i + 4));
+      }
+    },
+  },
+
+  watch: {
+    lovedByYouBooks() {
+      this.groupBooks();
     },
   },
 });
@@ -86,6 +150,16 @@ export default defineComponent({
   justify-content: center;
   border-radius: 0;
 }
+
+.custom-carousel {
+  height: auto;
+  overflow: hidden;
+  background-color: transparent; /* Ensure it matches container */
+}
+
+/* .carousel-item {
+  height: auto !important;
+} */
 
 .book-image-container {
   display: flex;

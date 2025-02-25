@@ -31,7 +31,9 @@ export const createUser = async (req: Request, res: Response) => {
     name,
     email,
     password,
-  }: { name: string; email: string; password: string } = req.body;
+    promotions,
+  }: { name: string; email: string; password: string; promotions: boolean } =
+    req.body;
 
   // Hashing the password
   const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -41,6 +43,7 @@ export const createUser = async (req: Request, res: Response) => {
       name,
       email,
       password: hashedPassword,
+      promotions,
     })
     .then((addedUser) => {
       logger.info(`User created with email : ${email}`);

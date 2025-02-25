@@ -1,17 +1,19 @@
 <template>
   <v-container fluid>
     <v-row justify="center">
-      <v-col cols="12" lg="6" md="6" sm="6" xs="12">
-        <img
-          class="user-auth-image"
-          :src="require('../assets/userAuthImage.png')"
-          alt=""
-        />
+      <v-col cols="12" lg="6" md="6" sm="12" xs="12" class="m-0 p-0">
+        <div class="user-auth-image-container">
+          <img
+            class="user-auth-image"
+            :src="require('../assets/userAuthImage.png')"
+            alt=""
+          />
+        </div>
       </v-col>
 
-      <v-col cols="12" lg="6" md="6" sm="6" xs="12">
+      <v-col cols="12" lg="6" md="6" sm="12" xs="12">
         <div
-          class="login-container d-flex flex-column justify-center align-center"
+          class="login-container mt-md-10 d-flex flex-column justify-center align-center"
         >
           <h1 class="login-heading">Let's Log You In</h1>
 
@@ -51,11 +53,21 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.user-auth-image {
-  width: 100vw;
+.user-auth-image-container {
+  width: 100%;
   height: auto;
-  /* max-height: 700px; */
-  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0; /* Ensure no extra padding */
+  margin: 0; /* Ensure no extra margin */
+}
+
+.user-auth-image {
+  width: 100%;
+  max-width: 800px;
+
+  height: auto !important;
 }
 
 .login-heading {
@@ -63,9 +75,9 @@ export default defineComponent({
   font-weight: bold;
 }
 
-.login-container {
+/* .login-container {
   margin-top: 120px;
-}
+} */
 
 .login-email-btn {
   width: 620px;
@@ -102,5 +114,25 @@ export default defineComponent({
   font-size: 35px;
   color: grey;
   cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .login-heading {
+    font-size: 50px;
+  }
+
+  .login-email-btn {
+    width: 620px;
+    font-size: 28px;
+  }
+
+  .user-auth-image-container {
+    width: 100% !important;
+  }
+
+  .user-auth-image {
+    width: 100% !important;
+    height: auto !important;
+  }
 }
 </style>

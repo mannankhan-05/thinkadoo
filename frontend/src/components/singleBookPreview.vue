@@ -7,7 +7,7 @@
         </div>
       </v-col>
       <v-col cols="12" md="6" lg="6">
-        <div class="product-details ml-5 mt-15">
+        <div class="product-details ml-md-5 mt-md-0 mt-3">
           <h1 class="book-title">{{ book.title }}</h1>
 
           <span class="book-reviews">Reviews</span>
@@ -50,7 +50,7 @@
 
     <!-- quote (image) -->
     <img
-      class="quote-image mb-15"
+      class="quote-image mb-md-15 mb-5"
       :src="require('../assets/quote.png')"
       alt=""
     />
@@ -118,7 +118,7 @@ export default defineComponent({
 <style scoped>
 .bookImageContainer {
   width: 100%;
-  height: 800px;
+  min-height: 400px;
 }
 
 .bookImage {
@@ -195,5 +195,27 @@ export default defineComponent({
   justify-content: center;
   font-weight: thin;
   margin-top: 140px;
+}
+
+@media (max-width: 600px) {
+  .book-title {
+    font-size: 30px; /* Reduce size on small screens */
+  }
+  .book-reviews {
+    font-size: 20px;
+  }
+  .book-text,
+  .baby-icon-text,
+  .book-price {
+    font-size: 20px;
+  }
+  .add-to-card-btn {
+    font-size: 25px;
+    padding: 20px;
+  }
+  .heroes-text {
+    font-size: 18px;
+    margin-top: 50px;
+  }
 }
 </style>
