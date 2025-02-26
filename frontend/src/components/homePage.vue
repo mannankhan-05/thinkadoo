@@ -1,7 +1,7 @@
 <template>
   <v-container fluid justify="center">
-    <v-row no-gutters>
-      <v-col cols="12">
+    <!-- <v-row no-gutters> -->
+    <!-- <v-col cols="12">
         <div class="slider">
           <v-carousel :show-arrows="false" height="100vh" cycle interval="3000">
             <v-carousel-item
@@ -12,6 +12,40 @@
             ></v-carousel-item>
           </v-carousel>
         </div>
+      </v-col>
+    </v-row> -->
+
+    <v-row no-gutters>
+      <v-col
+        cols="12"
+        lg="4"
+        md="6"
+        sm="12"
+        xs="12"
+        class="order-sm-2 order-xs-2 order-md-1 order-lg-1"
+      >
+        <div class="hero-section-text flex-column">
+          <h1 class="hero-section-heading">TURN PAGES, BUILD BONDS.</h1>
+          <h2 class="hero-section-description">
+            Stories that celebrate love, family and everyday heroes.
+          </h2>
+          <v-btn class="CTA-button">Explore Stories</v-btn>
+        </div>
+      </v-col>
+
+      <v-col
+        cols="12"
+        lg="8"
+        md="6"
+        sm="12"
+        xs="12"
+        class="order-sm-1 order-xs-1 order-md-2 order-lg-2"
+      >
+        <img
+          class="hero-section-image"
+          :src="require('../assets/hero-section-image.jpg')"
+          alt=""
+        />
       </v-col>
     </v-row>
 
@@ -62,13 +96,64 @@ export default defineComponent({
   },
   data() {
     return {
-      items: [{ src: "/slider1.png" }, { src: "/slider2.png" }],
+      // items: [{ src: "/slider1.png" }, { src: "/slider2.png" }],
     };
   },
 });
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lilita+One&family=Sigmar&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Varela+Round&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lilita+One&family=Playwrite+GB+J:ital,wght@0,100..400;1,100..400&family=Sigmar&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Varela+Round&display=swap");
+
+.hero-section-text {
+  text-align: left;
+  width: 100%;
+  /* min-height: 800px; */
+  /* max-height: 800px; */
+  height: 800px;
+  background-color: #e7e2bf;
+  padding-left: 30px;
+}
+
+.hero-section-heading {
+  font-family: "Lilita One", serif;
+  font-size: 50px;
+  font-weight: bolder;
+  color: #283618;
+  padding-top: 100px;
+}
+
+.hero-section-description {
+  margin-top: 80px;
+  font-size: 30px;
+  font-weight: 400;
+  color: #283618;
+}
+
+.CTA-button {
+  margin-top: 80px;
+  font-family: "Playwrite GB J", serif;
+  width: 55%;
+  height: 60px;
+  font-size: 23px;
+  font-weight: 100;
+  background-color: #283618;
+  color: white;
+}
+
+.hero-section-image {
+  width: 100%;
+  height: 800px;
+}
+
+/* @media (max-width: 600px) {
+  .hero-section-text {
+    height: auto;
+  }
+} */
+
 .slider {
   width: 100vw;
 }
