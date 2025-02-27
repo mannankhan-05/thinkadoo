@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="full-footer">
+  <v-container fluid class="full-footer pa-0 ma-0">
     <v-row no-gutters>
       <v-col cols="12" lg="12" md="12" sm="12" xs="12">
         <img

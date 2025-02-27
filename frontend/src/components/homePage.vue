@@ -1,20 +1,6 @@
 <template>
   <v-container fluid justify="center">
-    <!-- <v-row no-gutters> -->
-    <!-- <v-col cols="12">
-        <div class="slider">
-          <v-carousel :show-arrows="false" height="100vh" cycle interval="3000">
-            <v-carousel-item
-              v-for="(item, i) in items"
-              :key="i"
-              :src="item.src"
-              cover
-            ></v-carousel-item>
-          </v-carousel>
-        </div>
-      </v-col>
-    </v-row> -->
-
+    <!-- Hero Section -->
     <v-row no-gutters>
       <v-col
         cols="12"
@@ -73,7 +59,7 @@
             SIGN UP TO GET 10% OFF ON YOUR FIRST ORDER
           </h1>
           <div class="button-container">
-            <v-btn class="sign-up-btn">Sign Up</v-btn>
+            <v-btn class="sign-up-btn" @click="gotoSignUpPage">Sign Up</v-btn>
           </div>
         </v-col>
       </v-row>
@@ -95,9 +81,13 @@ export default defineComponent({
     homePageReviews,
   },
   data() {
-    return {
-      // items: [{ src: "/slider1.png" }, { src: "/slider2.png" }],
-    };
+    return {};
+  },
+
+  methods: {
+    gotoSignUpPage() {
+      this.$router.push({ name: "signUpPage" });
+    },
   },
 });
 </script>

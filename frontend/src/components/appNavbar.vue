@@ -48,7 +48,7 @@
           <!-- search, cart, account icons -->
           <template v-slot:append>
             <div class="navbar-icons">
-              <v-icon>mdi-magnify</v-icon>
+              <v-icon @click="searchDrawer = !searchDrawer">mdi-magnify</v-icon>
             </div>
 
             <div class="navbar-icons d-none d-md-flex">
@@ -116,7 +116,7 @@
           </template>
         </v-app-bar>
 
-        <!-- Drawer -->
+        <!-- Home Drawer -->
         <v-row>
           <v-col cols="12" sm="8" xs="12">
             <v-navigation-drawer
@@ -146,6 +146,26 @@
             </v-navigation-drawer>
           </v-col>
         </v-row>
+
+        <!-- Search Drawer -->
+        <v-row>
+          <v-col cols="12" sm="8" xs="12">
+            <v-navigation-drawer
+              class="drawer mt-11"
+              v-model="searchDrawer"
+              temporary
+              width="500"
+            >
+              <v-icon
+                class="drawer-close-icon"
+                @click="searchDrawer = !searchDrawer"
+                >mdi-window-close</v-icon
+              >
+
+              <div>this is search drawer</div>
+            </v-navigation-drawer>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -159,6 +179,7 @@ export default defineComponent({
   data() {
     return {
       drawer: false as boolean,
+      searchDrawer: false as boolean,
     };
   },
 
@@ -183,8 +204,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* @import url("https://fonts.googleapis.com/css2?family=Sigmar&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"); */
-
 .top-navbar {
   position: fixed;
   top: 0;
