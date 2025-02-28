@@ -25,7 +25,18 @@
             Edit/Delete Book
           </h2>
           <v-divider class="mt-5 mb-5"></v-divider>
-          <v-btn class="goto-button">go to Books</v-btn>
+          <v-btn class="goto-button" @click="gotoAllBooks">go to Books</v-btn>
+        </v-card>
+      </v-col>
+
+      <v-col cols="12" lg="4" md="4" sm="6" xs="6">
+        <v-card class="card">
+          <h2 class="add-new-book">
+            <v-icon class="mr-2">mdi-clipboard-list-outline</v-icon>
+            Orders
+          </h2>
+          <v-divider class="mt-5 mb-5"></v-divider>
+          <v-btn class="goto-button">See All Orders</v-btn>
         </v-card>
       </v-col>
     </v-row>
@@ -39,6 +50,9 @@ export default defineComponent({
   methods: {
     gotoAddBook() {
       this.$router.push({ name: "addBook" });
+    },
+    gotoAllBooks() {
+      this.$router.push({ name: "adminBooks" });
     },
   },
 });

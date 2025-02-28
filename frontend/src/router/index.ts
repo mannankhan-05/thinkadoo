@@ -1,23 +1,19 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import homePage from "@/components/homePage.vue";
-import addBook from "@/components/addBook.vue";
 import singleBookPreview from "@/components/singleBookPreview.vue";
 import authSelection from "@/components/authSelection.vue";
 import loginPage from "@/components/loginPage.vue";
 import signUpPage from "@/components/signUpPage.vue";
 import userCart from "@/components/userCart.vue";
 import adminPanel from "@/components/adminPanel.vue";
+import addBook from "@/components/addBook.vue";
+import editOrDeleteBooks from "@/components/editOrDeleteBooks.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "home",
     component: homePage,
-  },
-  {
-    path: "/addBook",
-    name: "addBook",
-    component: addBook,
   },
   {
     path: "/bookPreview/:id",
@@ -48,6 +44,16 @@ const routes: Array<RouteRecordRaw> = [
     path: "/admin",
     name: "adminPanel",
     component: adminPanel,
+  },
+  {
+    path: "/admin/addBook",
+    name: "addBook",
+    component: addBook,
+  },
+  {
+    path: "/admin/books",
+    name: "adminBooks",
+    component: editOrDeleteBooks,
   },
 ];
 
