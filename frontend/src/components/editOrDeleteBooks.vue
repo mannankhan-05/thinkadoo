@@ -10,7 +10,7 @@
         v-for="book in books"
         :key="book.id"
       >
-        <v-card height="400" :elevation="8">
+        <v-card height="400" class="book-card">
           <div class="book-image-container">
             <img class="book-image" :src="book.image" alt="" />
           </div>
@@ -19,7 +19,7 @@
 
           <v-row class="mt-15">
             <v-col cols="6">
-              <v-btn class="edit-button">
+              <v-btn class="edit-button" @click="editBook(book.id)">
                 <v-icon class="mr-2">mdi-book-edit-outline</v-icon>
                 Edit</v-btn
               >
@@ -35,6 +35,41 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <!-- Edit Dialog -->
+    <v-dialog v-model="editDialog">
+      <v-card class="edit-dialog-card">
+        <h1 class="edit-book-heading">Edit Book</h1>
+        <v-divider class="mt-3 mb-3"> </v-divider>
+
+        <v-form>
+          <v-text-field
+            label="Title"
+            outlined
+            class="mt-5"
+            v-model="bookToEdit.title"
+          ></v-text-field>
+          <v-file-input label="Picture" outlined class="mt-5"></v-file-input>
+          <v-text-field
+            label="Description"
+            outlined
+            class="mt-5"
+            v-model="bookToEdit.description"
+          ></v-text-field>
+          <v-text-field
+            label="Price ($)"
+            outlined
+            class="mt-5"
+            v-model="bookToEdit.price"
+          ></v-text-field>
+        </v-form>
+
+        <v-btn class="update-button mt-10">Update</v-btn>
+        <v-btn class="cancel-button mt-5" @click="editDialog = false"
+          >Cancel</v-btn
+        >
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -46,13 +81,24 @@ export default defineComponent({
   data() {
     return {
       books: [] as object[],
+      editDialog: false as boolean,
+      bookToEdit: {} as object,
     };
   },
 
   async mounted() {
     const response = await axios.get("http://localhost:5000/books");
     this.books = response.data.books;
-    console.log(this.books);
+  },
+
+  methods: {
+    async editBook(bookId: number) {
+      this.editDialog = true;
+
+      // Fetch book details
+      const response = await axios.get(`http://localhost:5000/book/${bookId}`);
+      this.bookToEdit = response.data;
+    },
   },
 });
 </script>
@@ -99,5 +145,49 @@ export default defineComponent({
 
 .delete-button {
   border-top-left-radius: 20px;
+}
+
+.book-card {
+  border: 2px solid #2b381d;
+}
+
+.edit-dialog-card {
+  width: 500px;
+  height: auto;
+  background-color: #fefae0;
+  color: #2b381d;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.edit-book-heading {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 700;
+  color: #2b381d;
+}
+
+.update-button {
+  width: 100%;
+  height: 50px;
+  background-color: #2b381d;
+  color: white;
+  font-size: 22px;
+  font-weight: 100;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cancel-button {
+  width: 100%;
+  height: 50px;
+  background-color: red;
+  color: white;
+  font-size: 22px;
+  font-weight: 100;
+  border-radius: 6px;
+  cursor: pointer;
 }
 </style>
