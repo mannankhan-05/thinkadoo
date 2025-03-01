@@ -142,39 +142,41 @@ export const addNewBook = async (req: Request, res: Response) => {
 };
 
 // To update a book (admin only)
-export const updateBook = async (req: Request, res: Response) => {
+export const updateBook = (req: Request, res: Response) => {
   const bookId: number = parseInt(req.params.bookId);
 
-  upload.single("bookImage")(req, res, (err) => {
-    logger.error(`Error updpating book image : ${err}`);
-    res.sendStatus(500);
+  upload.single("bookImage")(req, res, async (err) => {
+    if (err) {
+      logger.error(`Error updating book image : ${err}`);
+      res.status(500);
+    }
+
+    const {
+      title,
+      description,
+      price,
+    }: { title: string; description: string; price: number } = req.body;
+    const image: string = req.file ? req.file.filename : "";
+
+    await book
+      .update(
+        {
+          title,
+          image,
+          description,
+          price,
+        },
+        { where: { id: bookId } }
+      )
+      .then(() => {
+        logger.info(`Book with id ${bookId} is updated`);
+        res.sendStatus(200);
+      })
+      .catch((err) => {
+        logger.error(`Error updating book with id ${bookId} : ${err}`);
+        res.sendStatus(500);
+      });
   });
-
-  const {
-    title,
-    description,
-    price,
-  }: { title: string; description: string; price: number } = req.body;
-  const image: string = req.file ? req.file.filename : "";
-
-  await book
-    .update(
-      {
-        title,
-        image,
-        description,
-        price,
-      },
-      { where: { id: bookId } }
-    )
-    .then(() => {
-      logger.info(`Book with id ${bookId} is updated`);
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      logger.error(`Error updating book with id ${bookId} : ${err}`);
-      res.sendStatus(500);
-    });
 };
 
 // To delete a book (admin only)

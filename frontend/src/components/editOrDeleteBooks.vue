@@ -26,7 +26,7 @@
             </v-col>
 
             <v-col cols="6">
-              <v-btn class="delete-button">
+              <v-btn class="delete-button" @click="deleteBook(book.id)">
                 <v-icon class="mr-2">mdi-delete-outline</v-icon>
                 Delete</v-btn
               >
@@ -42,6 +42,9 @@
         <h1 class="edit-book-heading">Edit Book</h1>
         <v-divider class="mt-3 mb-3"> </v-divider>
 
+        <!-- Image -->
+        <img class="image" :src="bookToEdit.image" alt="" />
+
         <v-form>
           <v-text-field
             label="Title"
@@ -49,7 +52,24 @@
             class="mt-5"
             v-model="bookToEdit.title"
           ></v-text-field>
-          <v-file-input label="Picture" outlined class="mt-5"></v-file-input>
+          <!-- <v-file-input label="Picture" outlined class="mt-5"></v-file-input> -->
+          <v-file-input
+            class="mt-5"
+            clearable
+            name="bookImage"
+            label="Book Image"
+            outlined
+            prepend-icon="mdi-camera"
+            v-model="bookToEdit.image"
+            @change="handleFileChange($event)"
+          >
+            <template v-slot:selection="{ text }">
+              <v-avatar v-if="imageUrl" size="30" class="mr-3 rounded">
+                <img :src="imageUrl" alt="Selected Image" />
+              </v-avatar>
+              {{ text }}
+            </template>
+          </v-file-input>
           <v-text-field
             label="Description"
             outlined
@@ -64,7 +84,9 @@
           ></v-text-field>
         </v-form>
 
-        <v-btn class="update-button mt-10">Update</v-btn>
+        <v-btn class="update-button mt-10" @click="updateBook(bookToEdit.id)"
+          >Update</v-btn
+        >
         <v-btn class="cancel-button mt-5" @click="editDialog = false"
           >Cancel</v-btn
         >
@@ -77,12 +99,21 @@
 import { defineComponent } from "vue";
 import axios from "axios";
 
+interface book {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+}
+
 export default defineComponent({
   data() {
     return {
       books: [] as object[],
       editDialog: false as boolean,
-      bookToEdit: {} as object,
+      bookToEdit: {} as book,
+      imageUrl: "" as string,
     };
   },
 
@@ -97,7 +128,50 @@ export default defineComponent({
 
       // Fetch book details
       const response = await axios.get(`http://localhost:5000/book/${bookId}`);
-      this.bookToEdit = response.data;
+      //   this.bookToEdit = response.data;
+
+      this.bookToEdit = {
+        id: response.data.id,
+        title: response.data.title,
+        description: response.data.description,
+        price: response.data.price,
+        image: response.data.image,
+      };
+    },
+    async deleteBook(bookId: number) {
+      await axios.delete(`http://localhost:5000/deleteBook/${bookId}`);
+
+      // update books array
+      this.books = [];
+      const response = await axios.get("http://localhost:5000/books");
+      this.books = response.data.books;
+    },
+    async updateBook(bookId: number) {
+      const formData = new FormData();
+      formData.append("title", this.bookToEdit.title);
+      formData.append("description", this.bookToEdit.description);
+      formData.append("price", this.bookToEdit.price.toString());
+      formData.append("bookImage", this.bookToEdit.image);
+
+      //   if (this.bookToEdit.image instanceof File) {
+      //     formData.append("bookImage", this.bookToEdit.image);
+      //   }
+
+      await axios.put(`http://localhost:5000/updateBook/${bookId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      this.editDialog = false;
+    },
+    handleFileChange(event: any) {
+      const file = event.target.files[0];
+      if (file && file instanceof File) {
+        this.imageUrl = URL.createObjectURL(file);
+      } else {
+        this.imageUrl = "";
+      }
     },
   },
 });
@@ -189,5 +263,11 @@ export default defineComponent({
   font-weight: 100;
   border-radius: 6px;
   cursor: pointer;
+}
+
+.image {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
 }
 </style>
