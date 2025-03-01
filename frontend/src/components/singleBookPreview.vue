@@ -77,6 +77,8 @@
         </v-col>
       </v-row>
     </div>
+
+    <!-- add reviews section -->
   </v-container>
 </template>
 
@@ -178,6 +180,12 @@ export default defineComponent({
   padding: 40px 40px;
   font-weight: 300;
   border-radius: 0;
+  transition: 0.3s ease-in-out;
+}
+
+.add-to-card-btn:hover {
+  background-color: #fefae0;
+  color: #283618;
 }
 
 .quote-image {

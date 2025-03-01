@@ -188,6 +188,8 @@
                     class="search-field"
                     type="text"
                     placeholder="Search Books"
+                    v-model="searchQuery"
+                    @keypress="getRelevantBooks"
                   />
                 </v-col>
 
@@ -199,7 +201,19 @@
               </v-row>
 
               <!--  Suggested Searches -->
-              <h2>Suggested searches</h2>
+              <h1 class="suggested-searches-heading">Suggested searches</h1>
+
+              <v-list>
+                <v-list-item
+                  v-for="suggestedSearches in titles"
+                  :key="suggestedSearches.id"
+                  ><span
+                    class="relevant-searches-list"
+                    @click="gotoBookReviewPage(suggestedSearches.id)"
+                    >{{ suggestedSearches.title }}</span
+                  ></v-list-item
+                >
+              </v-list>
             </v-navigation-drawer>
           </v-col>
         </v-row>
@@ -210,13 +224,16 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import axios from "axios";
 
 export default defineComponent({
   name: "appNavbar",
   data() {
     return {
       drawer: false as boolean,
-      searchDrawer: true as boolean,
+      searchDrawer: false as boolean,
+      searchQuery: "" as string,
+      titles: [] as object[],
     };
   },
 
@@ -230,6 +247,16 @@ export default defineComponent({
     gotoCartPage() {
       this.$router.push({ name: "cartPage" });
     },
+    gotoBookReviewPage(bookId: number) {
+      this.searchQuery = "";
+      this.$router.push({ name: "singleBookPreview", params: { id: bookId } });
+    },
+    async getRelevantBooks() {
+      let response = await axios.get(
+        `http://localhost:5000/searchBooks?q=${this.searchQuery}`
+      );
+      this.titles = response.data;
+    },
   },
 
   computed: {
@@ -241,6 +268,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lilita+One&family=Playwrite+GB+J:ital,wght@0,100..400;1,100..400&family=Sigmar&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Varela+Round&display=swap");
+
 .top-navbar {
   position: fixed;
   top: 0;
@@ -385,5 +414,26 @@ export default defineComponent({
 
 .search-field:focus {
   outline: none;
+}
+
+.suggested-searches-heading {
+  font-family: "Bitter", serif;
+  font-weight: 400;
+  margin-top: 40px;
+  margin-left: 40px;
+  color: grey;
+  font-size: 28px;
+}
+
+.relevant-searches-list {
+  font-family: "Bitter", serif;
+  font-size: 21px;
+  font-weight: 500;
+  margin-left: 28px;
+  color: black;
+}
+.relevant-searches-list:hover {
+  cursor: pointer;
+  color: #293f12;
 }
 </style>

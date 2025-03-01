@@ -101,6 +101,11 @@ export default defineComponent({});
   font-size: 30px;
   margin-bottom: 5px;
   font-weight: normal;
+  transition: 0.3s ease-in-out;
+}
+.footer-subheading:hover {
+  color: #fff;
+  cursor: pointer;
 }
 
 .icon {

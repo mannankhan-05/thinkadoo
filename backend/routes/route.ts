@@ -9,6 +9,7 @@ import {
   addNewBook,
   updateBook,
   deleteBook,
+  searchBooks,
 } from "../controllers/book";
 import { getBookReviews, createBookReview } from "../controllers/book_review";
 import { getOrders, createOrder } from "../controllers/order";
@@ -34,6 +35,8 @@ router.post("/addBook", addNewBook);
 router.put("/updateBook/:bookId", updateBook);
 
 router.delete("/deleteBook/:bookId", deleteBook);
+
+router.get("/searchBooks", searchBooks);
 
 // book review routes :
 router.get("/getBookReviews", getBookReviews);

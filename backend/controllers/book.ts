@@ -3,6 +3,7 @@ import book from "../models/book";
 import logger from "../logger";
 import multer from "multer";
 import path from "path";
+import { Op } from "sequelize";
 
 // Book model
 interface Book {
@@ -191,6 +192,35 @@ export const deleteBook = async (req: Request, res: Response) => {
     })
     .catch((err) => {
       logger.error(`Error deleting book with id ${bookId} : ${err}`);
+      res.sendStatus(500);
+    });
+};
+
+// To search for a book and get 5 relevant books according to the search query
+export const searchBooks = async (req: Request, res: Response) => {
+  const searchQuery: string = req.query.q as string;
+
+  await book
+    .findAll({
+      where: {
+        title: {
+          [Op.like]: `%${searchQuery}%`,
+        },
+      },
+      limit: 5,
+    })
+    .then((searchedBooks) => {
+      const result = searchedBooks.map((allBooks: Book | any) => {
+        if (allBooks.image) {
+          allBooks.image = `http://localhost:5000/bookImages/${allBooks.image}`;
+        }
+        return allBooks;
+      });
+
+      res.json(result);
+    })
+    .catch((err) => {
+      logger.error(`Error searching books : ${err}`);
       res.sendStatus(500);
     });
 };

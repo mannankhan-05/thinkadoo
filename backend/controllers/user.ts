@@ -35,6 +35,13 @@ export const createUser = async (req: Request, res: Response) => {
   }: { name: string; email: string; password: string; promotions: boolean } =
     req.body;
 
+  const checkEmailValidation = await user.findOne({ where: { email } });
+  if (checkEmailValidation) {
+    logger.error(`User with email : ${email} already exists`);
+    res.status(200).json({ error: "User with this email already exists" });
+    return;
+  }
+
   // Checking if the user is admin
   let isAdmin = false;
   if (email == "abdulmannan.khan005@gmail.com") {

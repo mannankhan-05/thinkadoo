@@ -43,6 +43,8 @@ export default createStore({
         promotions,
       });
 
+      console.log("response", response.data);
+
       state.isUserLoggedIn = true;
       commit("setIsUserLoggedIn", true);
 
