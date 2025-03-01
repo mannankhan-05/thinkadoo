@@ -6,7 +6,7 @@
         <div class="top-navbar"></div>
 
         <!-- Navbar -->
-        <v-app-bar :elevation="0" height="80" class="mt-12">
+        <v-app-bar :elevation="0" height="80" class="navbar mt-12">
           <template v-slot:prepend>
             <!-- Logo in md and lg screens -->
             <img
@@ -130,25 +130,45 @@
                 >mdi-window-close</v-icon
               >
 
-              <v-list density="compact" nav class="drawer-list mt-10">
+              <v-list density="compact" nav class="drawer-list mt-13">
                 <v-list-item
-                  prepend-icon="mdi-home"
-                  title="Home"
                   @click="this.$router.push({ name: 'home' })"
+                  class="mb-5"
                 >
+                  <v-icon class="home-icon">mdi-home</v-icon>
+                  <span class="home-heading">Home</span>
                 </v-list-item>
 
-                <v-list-item
-                  prepend-icon="mdi-forum"
-                  title="About"
-                ></v-list-item>
+                <v-list-item class="mb-5"
+                  ><v-icon class="about-icon">mdi-forum</v-icon>
+                  <span class="about-heading">About</span>
+                </v-list-item>
+
+                <v-list-item>
+                  <v-expansion-panels>
+                    <v-expansion-panel>
+                      <v-expansion-panel-title>
+                        <v-icon class="category-icon">mdi-list-status</v-icon>
+                        <span class="category-heading"
+                          >Categories</span
+                        ></v-expansion-panel-title
+                      >
+                      <v-expansion-panel-text>
+                        <v-list>
+                          <v-list-item title="Category 1"></v-list-item>
+                          <v-list-item title="Category 2"></v-list-item>
+                        </v-list>
+                      </v-expansion-panel-text>
+                    </v-expansion-panel>
+                  </v-expansion-panels>
+                </v-list-item>
               </v-list>
             </v-navigation-drawer>
           </v-col>
         </v-row>
 
         <!-- Search Drawer -->
-        <v-row>
+        <v-row justify="center">
           <v-col cols="12" sm="8" xs="12">
             <v-navigation-drawer
               class="drawer mt-11"
@@ -162,7 +182,24 @@
                 >mdi-window-close</v-icon
               >
 
-              <div>this is search drawer</div>
+              <v-row justify="center" class="mt-15" no-gutters>
+                <v-col cols="8">
+                  <input
+                    class="search-field"
+                    type="text"
+                    placeholder="Search Books"
+                  />
+                </v-col>
+
+                <v-col cols="2">
+                  <div class="search-icon-container">
+                    <v-icon>mdi-magnify</v-icon>
+                  </div>
+                </v-col>
+              </v-row>
+
+              <!--  Suggested Searches -->
+              <h2>Suggested searches</h2>
             </v-navigation-drawer>
           </v-col>
         </v-row>
@@ -179,7 +216,7 @@ export default defineComponent({
   data() {
     return {
       drawer: false as boolean,
-      searchDrawer: false as boolean,
+      searchDrawer: true as boolean,
     };
   },
 
@@ -305,5 +342,48 @@ export default defineComponent({
   cursor: pointer;
   background-color: #fefae0;
   color: #283618;
+}
+
+.home-icon,
+.about-icon,
+.category-icon {
+  font-size: 30px;
+  margin-right: 20px;
+  color: #283618;
+}
+
+.home-heading,
+.about-heading,
+.category-heading {
+  font-size: 20px;
+}
+
+.search-field-container {
+  width: 100%;
+}
+
+.search-icon-container {
+  width: 100%;
+  height: 50px;
+  background-color: #283618;
+  color: white;
+  border: 3px solid #283618;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-field {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #283618;
+  padding-left: 10px;
+  font-size: 20px;
+  font-weight: 100;
+}
+
+.search-field:focus {
+  outline: none;
 }
 </style>

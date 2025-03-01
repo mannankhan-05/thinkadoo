@@ -128,9 +128,16 @@ export default defineComponent({
   width: 55%;
   height: 60px;
   font-size: 23px;
-  font-weight: 100;
+  font-weight: bold;
   background-color: #283618;
   color: white;
+  transition: 0.3s ease-in-out;
+}
+
+.CTA-button:hover {
+  background-color: #e7e2bf;
+  color: #283618;
+  border: 1px solid #283618;
 }
 
 .hero-section-image {
