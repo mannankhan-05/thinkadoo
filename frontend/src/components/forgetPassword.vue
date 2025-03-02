@@ -100,7 +100,9 @@ export default defineComponent({
           params: { email: this.email },
         });
       } else {
-        console.log("OTP is incorrect");
+        this.OTPcode = false;
+        alert("Invalid OTP. Try Again.");
+        this.OTP = "";
       }
     },
   },

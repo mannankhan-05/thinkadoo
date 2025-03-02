@@ -4,31 +4,36 @@ import axios from "axios";
 export default createStore({
   state: {
     isUserLoggedIn: localStorage.getItem("isUserLoggedIn") == "true",
-    userId: localStorage.getItem("userId"),
-    userName: localStorage.getItem("userName"),
-    userEmail: localStorage.getItem("userEmail"),
+    userId: localStorage.getItem("userId") || null,
+    userName: localStorage.getItem("userName") || null,
+    userEmail: localStorage.getItem("userEmail") || null,
     isAdmin: localStorage.getItem("isAdmin"),
+    nickname: localStorage.getItem("nickname") || null,
   },
   mutations: {
     setIsUserLoggedIn(state, isUserLoggedIn) {
       state.isUserLoggedIn = isUserLoggedIn;
-      localStorage.setItem("isUserLoggedIn", isUserLoggedIn);
+      // localStorage.setItem("isUserLoggedIn", isUserLoggedIn);
     },
     setUserId(state, userId) {
       state.userId = userId;
-      localStorage.setItem("userId", userId);
+      // localStorage.setItem("userId", userId);
     },
     setUserName(state, userName) {
       state.userName = userName;
-      localStorage.setItem("userName", userName);
+      // localStorage.setItem("userName", userName);
     },
     setUserEmail(state, userEmail) {
       state.userEmail = userEmail;
-      localStorage.setItem("userEmail", userEmail);
+      // localStorage.setItem("userEmail", userEmail);
     },
     setIsAdmin(state, isAdmin) {
       state.isAdmin = isAdmin;
-      localStorage.setItem("isAdmin", isAdmin);
+      // localStorage.setItem("isAdmin", isAdmin);
+    },
+    setNickname(state, nickname) {
+      state.nickname = nickname;
+      // localStorage.setItem("nickname", nickname);
     },
   },
   actions: {
@@ -60,35 +65,59 @@ export default createStore({
       const isAdmin: boolean = response.data.isAdmin;
       commit("setIsAdmin", isAdmin);
     },
-    async loginUser({ state, commit }, { email, password }) {
+    async loginUser({ state, commit }, { email, password, rememberMe }) {
       const response = await axios.post("http://localhost:5000/loginUser", {
         email,
         password,
       });
 
       state.isUserLoggedIn = true;
-      commit("setIsUserLoggedIn", true);
-
       const userId: number = response.data.id;
-      commit("setUserId", userId);
-
       const userName: string = response.data.name;
-      commit("setUserName", userName);
-
       const userEmail: string = response.data.email;
-      commit("setUserEmail", userEmail);
-
       const isAdmin: boolean = response.data.isAdmin;
+      const nickname = userName.charAt(0) + userName.charAt(1);
+
+      commit("setIsUserLoggedIn", true);
+      commit("setUserId", userId);
+      commit("setUserName", userName);
+      commit("setUserEmail", userEmail);
       commit("setIsAdmin", isAdmin);
+      commit("setNickname", nickname);
+
+      // Store in localStorage if "Remember Me" is checked
+      if (rememberMe) {
+        localStorage.setItem("isUserLoggedIn", "true");
+        localStorage.setItem("userId", userId.toString());
+        localStorage.setItem("userName", userName);
+        localStorage.setItem("userEmail", userEmail);
+        localStorage.setItem("isAdmin", isAdmin.toString());
+        localStorage.setItem("nickname", nickname);
+      } else {
+        localStorage.removeItem("isUserLoggedIn");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("isAdmin");
+        localStorage.removeItem("nickname");
+      }
     },
     async logoutUser({ state, commit }) {
-      state.isUserLoggedIn = false;
+      // Clear Vuex state
       commit("setIsUserLoggedIn", false);
-
       commit("setUserId", null);
       commit("setUserName", null);
       commit("setUserEmail", null);
       commit("setIsAdmin", null);
+      commit("setNickname", null);
+
+      // Clear localStorage
+      localStorage.removeItem("isUserLoggedIn");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("userName");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("isAdmin");
+      localStorage.removeItem("nickname");
     },
   },
   modules: {},

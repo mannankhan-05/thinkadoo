@@ -32,6 +32,7 @@
           <v-checkbox
             label="Remember me"
             class="remember-me-checkbox"
+            @click="rememberMe = !rememberMe"
           ></v-checkbox>
 
           <div
@@ -70,6 +71,7 @@ export default defineComponent({
     return {
       email: "" as string,
       password: "" as string,
+      rememberMe: false as boolean,
       loginButtonLoading: false as boolean,
     };
   },
@@ -92,11 +94,12 @@ export default defineComponent({
     },
     async loginExistingUser() {
       this.loginButtonLoading = true;
-      const { email, password } = this;
+      const { email, password, rememberMe } = this;
 
       await this.$store.dispatch("loginUser", {
         email,
         password,
+        rememberMe,
       });
 
       this.email = "";

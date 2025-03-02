@@ -67,8 +67,9 @@
                     v-bind="props"
                     class="loggedIn-user-name-characters d-flex justify-center align-center"
                   >
-                    {{ this.$store.state.userName.charAt(0) }}
-                    {{ this.$store.state.userName.charAt(1) }}
+                    <!-- {{ this.$store.state.userName.charAt(0) }}
+                    {{ this.$store.state.userName.charAt(1) }} -->
+                    {{ this.$store.state.nickname }}
                   </div>
                 </template>
 
