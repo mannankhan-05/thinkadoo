@@ -1,4 +1,5 @@
-import { Request, Response, RequestHandler } from "express";
+import { Request, Response } from "express";
+import { sendForgetPasswordCode } from "../mails/resetPasswordCode";
 import user from "../models/user";
 import bcrypt from "bcrypt";
 const saltRounds = 5;
@@ -113,5 +114,5 @@ export const sendCodeToEmail = async (req: Request, res: Response) => {
 
   // Sending code to email
   let code = Math.floor(100000 + Math.random() * 900000);
-  console.log(code);
+  sendForgetPasswordCode(email, code.toString());
 };
