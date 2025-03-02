@@ -99,3 +99,19 @@ export const loginUser = async (req: Request, res: Response) => {
     res.status(500);
   }
 };
+
+// Sending Code to reset password to user's email
+export const sendCodeToEmail = async (req: Request, res: Response) => {
+  const { email }: { email: string } = req.body;
+
+  const userFound = await user.findOne({ where: { email } });
+  if (!userFound) {
+    logger.error(`User with email : ${email} not found`);
+    res.status(500);
+    return;
+  }
+
+  // Sending code to email
+  let code = Math.floor(100000 + Math.random() * 900000);
+  console.log(code);
+};

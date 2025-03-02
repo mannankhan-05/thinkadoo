@@ -25,7 +25,9 @@
             />
           </div>
 
-          <h1 class="forget-password-label">Forget Password?</h1>
+          <h1 class="forget-password-label" @click="gotoForgetPasswordPage">
+            Forget Password?
+          </h1>
 
           <v-checkbox
             label="Remember me"
@@ -85,9 +87,9 @@ export default defineComponent({
     gotoSignUpPage() {
       this.$router.push({ name: "signUpPage" });
     },
-    // gotoForgetPasswordPage(){
-    //   this.$router.push({name: 'forgetPasswordPage'})
-    // },
+    gotoForgetPasswordPage() {
+      this.$router.push({ name: "forgetPasswordPage" });
+    },
     async loginExistingUser() {
       this.loginButtonLoading = true;
       const { email, password } = this;
@@ -156,7 +158,6 @@ export default defineComponent({
   border-radius: 10px;
   width: 92%;
   height: 70px;
-  /* margin-left: 30px; */
   padding-left: 20px;
   font-size: 30px;
   font-weight: 100;
@@ -206,5 +207,30 @@ export default defineComponent({
 
 .signUpButton:hover {
   transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+  .login-heading {
+    font-size: 48px;
+  }
+
+  .login-button {
+    font-size: 28px;
+    width: 80%;
+    height: 50px;
+  }
+
+  .email-label,
+  .password-label {
+    font-size: 28px;
+  }
+
+  .forget-password-label {
+    font-size: 28px;
+  }
+
+  .email-input {
+    font-size: 23px;
+  }
 }
 </style>

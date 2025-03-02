@@ -265,4 +265,25 @@ export default defineComponent({
 .signUpButton:hover {
   transform: scale(1.05);
 }
+
+@media (max-width: 600px) {
+  .signUp-heading {
+    font-size: 48px;
+  }
+
+  .signUp-button {
+    font-size: 28px;
+    width: 80%;
+    height: 50px;
+  }
+
+  .email-label,
+  .password-label {
+    font-size: 28px;
+  }
+
+  .email-input {
+    font-size: 23px;
+  }
+}
 </style>

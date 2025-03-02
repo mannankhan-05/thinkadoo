@@ -1,6 +1,11 @@
 import express from "express";
 const router = express.Router();
-import { getUsers, createUser, loginUser } from "../controllers/user";
+import {
+  getUsers,
+  createUser,
+  loginUser,
+  sendCodeToEmail,
+} from "../controllers/user";
 import {
   getBooks,
   getBookById,
@@ -20,6 +25,8 @@ router.get("/users", getUsers);
 router.post("/createUser", createUser);
 
 router.post("/loginUser", loginUser);
+
+router.post("/sendCodeToEmail", sendCodeToEmail);
 
 // book routes :
 router.get("/books", getBooks);

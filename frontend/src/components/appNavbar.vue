@@ -97,12 +97,12 @@
                     </v-list-item-title>
                   </v-list-item>
 
-                  <v-list-item class="d-flex d-md-none" @click="gotoCartPage">
+                  <!-- <v-list-item class="d-flex d-md-none" @click="gotoCartPage">
                     <v-list-item-title>
                       <v-icon class="text-h5 mr-3">mdi-cart</v-icon>
                       <span class="text-h5">Cart</span>
                     </v-list-item-title>
-                  </v-list-item>
+                  </v-list-item> -->
 
                   <v-list-item @click="logout">
                     <v-list-item-title>
@@ -142,6 +142,11 @@
                 <v-list-item class="mb-5"
                   ><v-icon class="about-icon">mdi-forum</v-icon>
                   <span class="about-heading">About</span>
+                </v-list-item>
+
+                <v-list-item @click="gotoCartPage">
+                  <v-icon class="home-icon">mdi-cart</v-icon>
+                  <span class="home-heading">Cart</span>
                 </v-list-item>
 
                 <v-list-item>

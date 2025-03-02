@@ -8,6 +8,7 @@ import userCart from "@/components/userCart.vue";
 import adminPanel from "@/components/adminPanel.vue";
 import addBook from "@/components/addBook.vue";
 import editOrDeleteBooks from "@/components/editOrDeleteBooks.vue";
+import forgetPassword from "@/components/forgetPassword.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -39,6 +40,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/cart",
     name: "cartPage",
     component: userCart,
+  },
+  {
+    path: "/forget-password",
+    name: "forgetPasswordPage",
+    component: forgetPassword,
   },
   {
     path: "/admin",

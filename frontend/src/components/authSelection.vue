@@ -1,13 +1,11 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="pa-0">
     <v-row justify="center">
       <v-col cols="12" lg="6" md="6" sm="12" xs="12" class="m-0 p-0">
         <div class="user-auth-image-container">
-          <img
-            class="user-auth-image"
-            :src="require('../assets/userAuthImage.png')"
-            alt=""
-          />
+          <div class="overlay"></div>
+          <h1 class="welcome-text">Welcome To Thinkadoo</h1>
+          <p class="tagline">Big Dreams Start Small – Let's Build Together!</p>
         </div>
       </v-col>
 
@@ -53,31 +51,96 @@ export default defineComponent({
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lilita+One&family=Playwrite+GB+J:ital,wght@0,100..400;1,100..400&family=Sigmar&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Varela+Round&display=swap");
+
 .user-auth-image-container {
   width: 100%;
-  height: auto;
+  height: 87vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0; /* Ensure no extra padding */
-  margin: 0; /* Ensure no extra margin */
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #fefae0, #283618);
+  animation: animatedBackground 10s ease infinite alternate;
 }
 
-.user-auth-image {
-  width: 100%;
-  max-width: 800px;
+/* Subtle animated background gradient */
+@keyframes animatedBackground {
+  0% {
+    background: linear-gradient(135deg, #fefae0, #606c38);
+  }
+  100% {
+    background: linear-gradient(135deg, #283618, #fefae0);
+  }
+}
 
-  height: auto !important;
+/* Overlay for better contrast */
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Welcome text styling */
+.welcome-text {
+  font-family: "Bitter", serif;
+  font-size: 50px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+/* Tagline styling */
+.tagline {
+  font-size: 20px;
+  color: white;
+  font-weight: 500;
+  margin-top: 10px;
+  z-index: 2;
+  opacity: 0.8;
+}
+
+/* Floating animated shapes */
+.user-auth-image-container::before,
+.user-auth-image-container::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: floatingShapes 6s infinite alternate ease-in-out;
+}
+
+.user-auth-image-container::before {
+  top: 10%;
+  left: 10%;
+}
+
+.user-auth-image-container::after {
+  bottom: 15%;
+  right: 15%;
+}
+
+/* Floating animation for shapes */
+@keyframes floatingShapes {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
 }
 
 .login-heading {
   font-size: 60px;
   font-weight: bold;
 }
-
-/* .login-container {
-  margin-top: 120px;
-} */
 
 .login-email-btn {
   width: 620px;
@@ -118,6 +181,7 @@ export default defineComponent({
 
 @media (max-width: 600px) {
   .login-heading {
+    margin-top: 50px;
     font-size: 50px;
   }
 
@@ -128,11 +192,20 @@ export default defineComponent({
 
   .user-auth-image-container {
     width: 100% !important;
+    height: 60vh !important;
   }
 
   .user-auth-image {
     width: 100% !important;
     height: auto !important;
+  }
+
+  .welcome-text {
+    font-size: 38px;
+  }
+
+  .tagline {
+    font-size: 15px;
   }
 }
 </style>
