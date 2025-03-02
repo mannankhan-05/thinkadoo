@@ -33,6 +33,33 @@
         </v-sheet>
       </v-col>
     </v-row>
+
+    <!-- OTP overlay-->
+    <v-overlay
+      class="d-flex align-center justify-center"
+      v-model="OTPcode"
+      absolute
+      :value="true"
+      persistent
+      style="z-index: 9999; background-color: rgba(0, 0, 0, 0.6)"
+    >
+      <v-container class="d-flex align-center justify-center" fill-height>
+        <v-col cols="12" sm="12" md="12" lg="12">
+          <v-card class="otp-card pa-4 text-center" outlined>
+            <h2 class="text-center">Enter OTP</h2>
+            <v-otp-input
+              v-model="OTP"
+              length="6"
+              class="my-4"
+              input-class="otp-input"
+            ></v-otp-input>
+            <v-btn block class="submitCodeButton mt-4" @click="submitOTP" large>
+              Submit
+            </v-btn>
+          </v-card>
+        </v-col>
+      </v-container>
+    </v-overlay>
   </v-container>
 </template>
 
@@ -45,6 +72,9 @@ export default defineComponent({
     return {
       email: "" as string,
       loading: false as boolean,
+      OTPcode: false as boolean,
+      OTP: "" as string,
+      OneTimePassword: "" as string,
     };
   },
 
@@ -52,12 +82,26 @@ export default defineComponent({
     async sendCode() {
       this.loading = true;
 
-      await axios.post("http://localhost:5000/sendCodeToEmail", {
+      let response = await axios.post("http://localhost:5000/sendCodeToEmail", {
         email: this.email,
       });
 
-      this.email = "";
+      this.OneTimePassword = response.data;
+
       this.loading = false;
+
+      this.OTPcode = true;
+    },
+
+    async submitOTP() {
+      if (parseInt(this.OTP) === parseInt(this.OneTimePassword)) {
+        this.$router.push({
+          name: "resetPasswordPage",
+          params: { email: this.email },
+        });
+      } else {
+        console.log("OTP is incorrect");
+      }
     },
   },
 
@@ -72,7 +116,7 @@ export default defineComponent({
 <style scoped>
 .forgetPassword-container {
   width: 100%;
-  height: 800px;
+  height: 850px;
   background-color: #fefae0;
 }
 
@@ -85,6 +129,7 @@ export default defineComponent({
 }
 
 .forgetPassword-heading {
+  font-family: "Bitter", serif;
   display: flex;
   justify-content: center;
   font-size: 48px;
@@ -127,5 +172,42 @@ export default defineComponent({
 .send-code-button:hover {
   background-color: #fefae0;
   color: #405f1c;
+}
+
+.otp-card {
+  max-width: 500px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.otp-input {
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+}
+
+.submitCodeButton {
+  border-radius: 30px;
+  background-color: #283618;
+  color: #fefae0;
+  transition: 0.3s ease-in-out;
+  font-size: 20px;
+}
+
+.submitCodeButton:hover {
+  color: #283618;
+  background-color: #fefae0;
+}
+
+@media (max-width: 600px) {
+  .forgetPassword-heading {
+    font-size: 40px;
+  }
+
+  .email-input {
+    font-size: 23px;
+  }
 }
 </style>

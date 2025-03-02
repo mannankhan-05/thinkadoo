@@ -9,6 +9,7 @@ import adminPanel from "@/components/adminPanel.vue";
 import addBook from "@/components/addBook.vue";
 import editOrDeleteBooks from "@/components/editOrDeleteBooks.vue";
 import forgetPassword from "@/components/forgetPassword.vue";
+import resetPassword from "@/components/resetPassword.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -45,6 +46,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/forget-password",
     name: "forgetPasswordPage",
     component: forgetPassword,
+  },
+  {
+    path: "/reset-password/:email",
+    name: "resetPasswordPage",
+    component: resetPassword,
   },
   {
     path: "/admin",

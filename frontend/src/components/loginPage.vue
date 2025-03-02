@@ -122,6 +122,7 @@ export default defineComponent({
 }
 
 .login-heading {
+  font-family: "Bitter", serif;
   display: flex;
   justify-content: center;
   font-size: 55px;

@@ -5,6 +5,7 @@ import {
   createUser,
   loginUser,
   sendCodeToEmail,
+  resetPassword,
 } from "../controllers/user";
 import {
   getBooks,
@@ -27,6 +28,8 @@ router.post("/createUser", createUser);
 router.post("/loginUser", loginUser);
 
 router.post("/sendCodeToEmail", sendCodeToEmail);
+
+router.put("/resetPassword/:email", resetPassword);
 
 // book routes :
 router.get("/books", getBooks);

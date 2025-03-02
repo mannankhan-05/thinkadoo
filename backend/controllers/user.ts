@@ -115,4 +115,33 @@ export const sendCodeToEmail = async (req: Request, res: Response) => {
   // Sending code to email
   let code = Math.floor(100000 + Math.random() * 900000);
   sendForgetPasswordCode(email, code.toString());
+  res.json(code);
+};
+
+// To reset password
+export const resetPassword = async (req: Request, res: Response) => {
+  const { password }: { password: string } = req.body;
+  const email = req.params.email;
+
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+  await user
+    .update(
+      {
+        password: hashedPassword,
+      },
+      {
+        where: { email },
+      }
+    )
+    .then(() => {
+      logger.info(`Password reset for user with email : ${email}`);
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      logger.error(
+        `Error resetting password for user with email : ${email}. Error : ${err}`
+      );
+      res.sendStatus(500);
+    });
 };

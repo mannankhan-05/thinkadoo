@@ -163,6 +163,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
+/* @import url("https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lilita+One&family=Playwrite+GB+J:ital,wght@0,100..400;1,100..400&family=Sigmar&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Varela+Round&display=swap"); */
+
 .signUp-container {
   width: 100%;
   height: 1400px;
@@ -177,6 +179,7 @@ export default defineComponent({
 }
 
 .signUp-heading {
+  font-family: "Bitter", serif;
   display: flex;
   justify-content: center;
   font-size: 55px;
