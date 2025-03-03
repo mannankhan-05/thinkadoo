@@ -2,6 +2,11 @@
   <v-container fluid class="forgetPassword-container">
     <v-row justify="center">
       <v-col cols="12" lg="6" md="6" sm="10" xs="12">
+        <!-- Back Button -->
+        <v-icon class="back-button" @click="() => this.$router.go(-1)"
+          >mdi-keyboard-backspace</v-icon
+        >
+
         <v-sheet class="forgetPassword-sheet" :elevation="1">
           <h1 class="forgetPassword-heading">Enter Your Email</h1>
 

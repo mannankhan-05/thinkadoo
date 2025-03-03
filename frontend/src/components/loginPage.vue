@@ -2,6 +2,11 @@
   <v-container fluid class="login-container">
     <v-row justify="center">
       <v-col cols="12" lg="6" md="6" sm="10" xs="12">
+        <!-- Back Button -->
+        <v-icon class="back-button" @click="() => this.$router.go(-1)"
+          >mdi-keyboard-backspace</v-icon
+        >
+
         <v-sheet class="login-sheet" :elevation="1">
           <h1 class="login-heading">Login</h1>
 
@@ -29,11 +34,13 @@
             Forget Password?
           </h1>
 
-          <v-checkbox
-            label="Remember me"
-            class="remember-me-checkbox"
-            @click="rememberMe = !rememberMe"
-          ></v-checkbox>
+          <div class="remember-me-container">
+            <v-checkbox
+              class="remember-me-checkbox"
+              @click="rememberMe = !rememberMe"
+            ></v-checkbox>
+            <span class="remember-me-text">Remember me</span>
+          </div>
 
           <div
             class="login-button-container d-flex flex-column justify-center align-center"
@@ -53,7 +60,7 @@
             <div class="have-an-account mt-10">
               Don't Have An Account?
               <v-btn variant="text" class="signUpButton" @click="gotoSignUpPage"
-                >Sign Up</v-btn
+                >Create account</v-btn
               >
             </div>
           </div>
@@ -171,12 +178,23 @@ export default defineComponent({
   color: grey;
 }
 
+.remember-me-container {
+  display: flex;
+  align-items: center;
+}
+
 .remember-me-checkbox {
   margin-left: 30px;
   margin-top: 50px;
   font-size: 30px;
   font-weight: 100;
   color: black;
+}
+
+.remember-me-text {
+  font-size: 23px;
+  margin-left: 8px;
+  margin-top: 30px;
 }
 
 .login-button-container {

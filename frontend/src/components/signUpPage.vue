@@ -2,6 +2,11 @@
   <v-container fluid class="signUp-container">
     <v-row justify="center">
       <v-col cols="12" lg="6" md="6" sm="10" xs="12">
+        <!-- Back Button -->
+        <v-icon class="back-button" @click="() => this.$router.go(-1)"
+          >mdi-keyboard-backspace</v-icon
+        >
+
         <v-sheet class="signUp-sheet" :elevation="1">
           <h1 class="signUp-heading">Sign Up</h1>
 
@@ -44,12 +49,15 @@
             />
           </div>
 
-          <v-checkbox
-            label="Yes, I’d love to hear
-from Thinkadoo!"
-            class="hear-from-thinkadoo-checkbox mt-10 mb-5"
-            @click="promotions = !promotions"
-          ></v-checkbox>
+          <div class="love-to-hear-container">
+            <v-checkbox
+              class="love-to-hear-checkbox mt-10 mb-5"
+              @click="promotions = !promotions"
+            ></v-checkbox>
+            <span class="love-to-hear-text"
+              >Yes, I’d love to hear from Thinkadoo!</span
+            >
+          </div>
 
           <div
             class="signUp-button-container d-flex flex-column justify-center align-center"
@@ -214,19 +222,21 @@ export default defineComponent({
   margin-top: 30px;
 }
 
-.remember-me-checkbox {
-  margin-left: 30px;
-  margin-top: 50px;
-  font-size: 30px;
-  font-weight: 100;
-  color: black;
+.love-to-hear-container {
+  display: flex;
+  align-items: center;
 }
 
-.hear-from-thinkadoo-checkbox {
+.love-to-hear-checkbox {
   margin-left: 30px;
   font-size: 30px;
   font-weight: bolder;
   color: black;
+}
+
+.love-to-hear-text {
+  font-size: 23px;
+  margin-left: 8px;
 }
 
 .signUp-button-container {
