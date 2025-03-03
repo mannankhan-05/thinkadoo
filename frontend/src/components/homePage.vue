@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid justify="center">
+  <v-container fluid justify="center" class="pa-0 ma-0">
     <!-- Hero Section -->
     <v-row no-gutters>
       <v-col
@@ -197,9 +197,9 @@ export default defineComponent({
   align-items: center;
   background-color: #283618;
   color: white;
-  font-size: 30px;
+  font-size: 23px;
   font-weight: 400;
-  padding: 40px 50px;
+  padding: 30px 80px;
   border-radius: 50px;
 }
 </style>

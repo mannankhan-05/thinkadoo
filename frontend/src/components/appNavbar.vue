@@ -19,11 +19,16 @@
 
             <!-- Drawer Icon (Visible in xs and sm screens) -->
             <v-icon
-              class="drawer-icon d-flex d-md-none"
+              class="drawer-icon-xs-sm d-flex d-md-none"
               @click="drawer = !drawer"
             >
               mdi-format-list-bulleted
             </v-icon>
+            <v-icon
+              class="magnify-icon-xs-sm d-flex d-md-none"
+              @click="searchDrawer = !searchDrawer"
+              >mdi-magnify</v-icon
+            >
 
             <!-- List in md and lg screens (Home , About, Category) -->
             <h2
@@ -47,7 +52,7 @@
 
           <!-- search, cart, account icons -->
           <template v-slot:append>
-            <div class="navbar-icons">
+            <div class="navbar-icons d-none d-md-flex">
               <v-icon @click="searchDrawer = !searchDrawer">mdi-magnify</v-icon>
             </div>
 
@@ -67,8 +72,6 @@
                     v-bind="props"
                     class="loggedIn-user-name-characters d-flex justify-center align-center"
                   >
-                    <!-- {{ this.$store.state.userName.charAt(0) }}
-                    {{ this.$store.state.userName.charAt(1) }} -->
                     {{ this.$store.state.nickname }}
                   </div>
                 </template>
@@ -97,13 +100,6 @@
                       </v-btn>
                     </v-list-item-title>
                   </v-list-item>
-
-                  <!-- <v-list-item class="d-flex d-md-none" @click="gotoCartPage">
-                    <v-list-item-title>
-                      <v-icon class="text-h5 mr-3">mdi-cart</v-icon>
-                      <span class="text-h5">Cart</span>
-                    </v-list-item-title>
-                  </v-list-item> -->
 
                   <v-list-item @click="logout">
                     <v-list-item-title>
@@ -317,7 +313,7 @@ export default defineComponent({
   margin-left: 40px;
   margin-right: 40px;
   margin-top: 8px;
-  font-size: 30px;
+  font-size: 24px;
   color: black;
 }
 
@@ -350,9 +346,14 @@ export default defineComponent({
   width: 400px;
 }
 
-.drawer-icon {
-  font-size: 40px;
-  margin-left: 25px;
+.drawer-icon-xs-sm {
+  font-size: 30px;
+  margin-left: 20px;
+}
+
+.magnify-icon-xs-sm {
+  font-size: 30px;
+  margin-left: 15px;
 }
 
 .drawer-close-icon {
@@ -370,7 +371,7 @@ export default defineComponent({
   height: auto;
   background-color: #213012;
   color: white;
-  font-size: 25px;
+  font-size: 15px;
   font-weight: bold;
 }
 .admin-button:hover {

@@ -18,7 +18,9 @@
             >
             <div class="book-title-container">
               <h1 class="ml-3 mt-3">{{ book.title }}</h1>
-              <h3 class="book-description ml-3">{{ book.description }}</h3>
+              <h3 class="book-description ml-3">
+                {{ descriptionEllipsis(book.description) }}
+              </h3>
             </div>
           </div>
         </v-card>
@@ -45,6 +47,12 @@ export default defineComponent({
   methods: {
     pushToSingleBookPage(bookId: number) {
       this.$router.push({ name: "singleBookPreview", params: { id: bookId } });
+    },
+    descriptionEllipsis(description: string) {
+      if (description.length > 70) {
+        return description.slice(0, 70) + "...";
+      }
+      return description;
     },
   },
 });

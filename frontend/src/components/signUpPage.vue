@@ -45,14 +45,9 @@
           </div>
 
           <v-checkbox
-            label="Remember me"
-            class="remember-me-checkbox"
-          ></v-checkbox>
-
-          <v-checkbox
             label="Yes, I’d love to hear
 from Thinkadoo!"
-            class="hear-from-thinkadoo-checkbox"
+            class="hear-from-thinkadoo-checkbox mt-10 mb-5"
             @click="promotions = !promotions"
           ></v-checkbox>
 
@@ -184,14 +179,16 @@ export default defineComponent({
   justify-content: center;
   font-size: 55px;
   margin-top: 20px;
+  font-weight: normal;
 }
 
 .email-label,
 .password-label,
 .name-label {
   margin-top: 40px;
-  margin-left: 30px;
+  margin-left: 40px;
   font-weight: 400;
+  font-size: 26px;
 }
 
 .password-label {
@@ -240,18 +237,18 @@ export default defineComponent({
 
 .signUp-button {
   width: 92%;
-  height: 70px;
+  height: 50px;
   display: flex;
   justify-content: center;
   background-color: #283618;
-  font-size: 35px;
+  font-size: 25px;
   color: white;
   border-radius: 150px;
   transition: 0.3s ease-in-out;
 }
 .signUp-button:hover {
-  background-color: #fefae0;
-  color: #405f1c;
+  background-color: #2d3f19;
+  color: white;
 }
 
 .have-an-account {
@@ -275,14 +272,8 @@ export default defineComponent({
   }
 
   .signUp-button {
-    font-size: 28px;
+    font-size: 25px;
     width: 80%;
-    height: 50px;
-  }
-
-  .email-label,
-  .password-label {
-    font-size: 28px;
   }
 
   .email-input {

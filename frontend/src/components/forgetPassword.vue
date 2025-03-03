@@ -136,6 +136,7 @@ export default defineComponent({
   justify-content: center;
   font-size: 48px;
   margin-top: 20px;
+  font-weight: normal;
 }
 
 .email-input {
@@ -172,8 +173,8 @@ export default defineComponent({
   transition: 0.3s ease-in-out;
 }
 .send-code-button:hover {
-  background-color: #fefae0;
-  color: #405f1c;
+  background-color: #2d3f19;
+  color: white;
 }
 
 .otp-card {

@@ -130,13 +130,15 @@ export default defineComponent({
   justify-content: center;
   font-size: 55px;
   margin-top: 20px;
+  font-weight: normal;
 }
 
 .email-label,
 .password-label {
   margin-top: 40px;
-  margin-left: 30px;
+  margin-left: 40px;
   font-weight: 400;
+  font-size: 26px;
 }
 
 .password-label {
@@ -145,8 +147,9 @@ export default defineComponent({
 
 .forget-password-label {
   margin-top: 20px;
-  margin-left: 30px;
+  margin-left: 40px;
   font-weight: 400;
+  font-size: 26px;
   color: #3e5e1a;
 }
 .forget-password-label:hover {
@@ -184,18 +187,18 @@ export default defineComponent({
 
 .login-button {
   width: 92%;
-  height: 70px;
+  height: 50px;
   display: flex;
   justify-content: center;
   background-color: #283618;
-  font-size: 35px;
+  font-size: 25px;
   color: white;
   border-radius: 150px;
   transition: 0.3s ease-in-out;
 }
 .login-button:hover {
-  background-color: #fefae0;
-  color: #405f1c;
+  background-color: #2d3f19;
+  color: white;
 }
 
 .have-an-account {
@@ -219,18 +222,8 @@ export default defineComponent({
   }
 
   .login-button {
-    font-size: 28px;
+    font-size: 25px;
     width: 80%;
-    height: 50px;
-  }
-
-  .email-label,
-  .password-label {
-    font-size: 28px;
-  }
-
-  .forget-password-label {
-    font-size: 28px;
   }
 
   .email-input {
