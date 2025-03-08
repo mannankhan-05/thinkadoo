@@ -29,6 +29,9 @@
               v-model="email"
             />
           </div>
+          <span class="email-validation-text" v-if="!validEmail"
+            >email must contain @ and .com</span
+          >
 
           <h1 class="password-label">Password</h1>
           <div class="d-flex justify-center">
@@ -48,6 +51,9 @@
               v-model="confirmPassword"
             />
           </div>
+          <span class="password-validation-text" v-if="!validPassword"
+            >password must be atleast of 8 characters</span
+          >
 
           <div class="love-to-hear-container">
             <v-checkbox
@@ -62,19 +68,7 @@
           <div
             class="signUp-button-container d-flex flex-column justify-center align-center"
           >
-            <v-btn
-              class="signUp-button"
-              @click="RegisterNewUser"
-              :disabled="
-                !name ||
-                !email ||
-                !password ||
-                !password ||
-                !confirmPassword ||
-                !validEmail ||
-                !validPassword
-              "
-            >
+            <v-btn class="signUp-button" @click="RegisterNewUser">
               <span v-if="!signUpButtonLoading">Sign Up</span>
               <v-progress-circular
                 v-if="signUpButtonLoading"
@@ -90,14 +84,11 @@
             </div>
           </div>
 
-          <v-snackbar
-            v-model="passwordDontMatch"
-            top
-            color="error"
-            timeout="3000"
-            multi-line
-          >
-            Passwords Do Not Match. Please Try Again.
+          <!-- Snackbar if fields are empty -->
+          <v-snackbar v-model="emptyFields" :timeout="2000" rounded="pill">
+            <h4 class="empty-field-snackbar d-flex align-center">
+              Please fill all the text fields.
+            </h4>
           </v-snackbar>
         </v-sheet>
       </v-col>
@@ -119,6 +110,7 @@ export default defineComponent({
       passwordDontMatch: false as boolean,
       promotions: false as boolean,
       signUpButtonLoading: false as boolean,
+      emptyFields: false as boolean,
     };
   },
 
@@ -140,23 +132,35 @@ export default defineComponent({
       const { name, email, password, promotions } = this;
 
       try {
-        if (this.password !== this.confirmPassword) {
-          this.passwordDontMatch = true;
-        } else {
-          await this.$store.dispatch("registerUser", {
-            name,
-            email,
-            password,
-            promotions,
-            // router: this.$router,
-          });
-        }
+        if (
+          this.name !== "" &&
+          this.email !== "" &&
+          this.password !== "" &&
+          this.confirmPassword !== "" &&
+          this.validEmail &&
+          this.validPassword
+        ) {
+          if (this.password !== this.confirmPassword) {
+            this.passwordDontMatch = true;
+          } else {
+            await this.$store.dispatch("registerUser", {
+              name,
+              email,
+              password,
+              promotions,
+              // router: this.$router,
+            });
+          }
 
-        this.name = "";
-        this.email = "";
-        this.password = "";
-        this.confirmPassword = "";
-        this.signUpButtonLoading = false;
+          this.name = "";
+          this.email = "";
+          this.password = "";
+          this.confirmPassword = "";
+          this.signUpButtonLoading = false;
+        } else {
+          this.signUpButtonLoading = false;
+          this.emptyFields = true;
+        }
       } catch (err) {
         throw new Error("Error Registering A New User : " + err);
       }
@@ -166,8 +170,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* @import url("https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lilita+One&family=Playwrite+GB+J:ital,wght@0,100..400;1,100..400&family=Sigmar&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Varela+Round&display=swap"); */
-
 .signUp-container {
   width: 100%;
   height: 1400px;
@@ -253,7 +255,7 @@ export default defineComponent({
   background-color: #283618;
   font-size: 25px;
   color: white;
-  border-radius: 150px;
+  border-radius: 0px;
   transition: 0.3s ease-in-out;
 }
 .signUp-button:hover {
@@ -274,6 +276,19 @@ export default defineComponent({
 
 .signUpButton:hover {
   transform: scale(1.05);
+}
+
+.email-validation-text,
+.password-validation-text {
+  color: rgb(3, 83, 3);
+  font-size: 15px;
+  margin-left: 40px;
+}
+
+.empty-field-snackbar {
+  color: white;
+  font-size: 20px;
+  font-weight: 100;
 }
 
 @media (max-width: 600px) {
