@@ -40,6 +40,10 @@
           </div>
 
           <div class="mt-8">
+            <v-btn class="add-to-card-btn" @click="buyNow(book)">Buy Now</v-btn>
+          </div>
+
+          <div class="mt-4">
             <v-btn class="add-to-card-btn" @click="addToLocalStorage(book)"
               >Add To Cart</v-btn
             >
@@ -113,6 +117,15 @@ export default defineComponent({
         localStorage.setItem("cart", JSON.stringify([book]));
       }
     },
+    buyNow(book: object) {
+      let bookToBuy = localStorage.getItem("bookToBuy");
+      if (bookToBuy) {
+        localStorage.removeItem("bookToBuy");
+      }
+      localStorage.setItem("bookToBuy", JSON.stringify(book));
+
+      this.$router.push({ name: "personalizeCharacter" });
+    },
   },
 });
 </script>
@@ -173,6 +186,7 @@ export default defineComponent({
 .add-to-card-btn {
   display: flex;
   justify-content: center;
+  width: 400px;
   height: 60px;
   background-color: #283618;
   color: white;

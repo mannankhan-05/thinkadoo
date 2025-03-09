@@ -8,13 +8,6 @@
           Back
         </div>
 
-        <!-- <v-progress-linear
-          color="progress-bar blue-darken-3"
-          :model-value="progress"
-        ></v-progress-linear> -->
-        <!-- </v-col>
-    </v-row> -->
-
         <v-row justify="center">
           <v-col cols="12" lg="6" md="6" sm="10" xs="12">
             <!-- step 1 -->
@@ -44,7 +37,7 @@
                 </v-row>
 
                 <!-- images -->
-                <v-row>
+                <v-row class="ma-5">
                   <v-col cols="12" lg="6" md="6" sm="6" xs="6">
                     <div class="avatar-image">laksjdfl</div>
                   </v-col>
@@ -76,11 +69,92 @@
                   should feel guilty for sharing ours.
                 </h1>
 
-                <!-- selected skin tone -->
+                <!-- selected skin tone (image) -->
                 <div class="d-flex justify-center">
                   <div class="selected-skin-tone">selected skin tone</div>
                 </div>
+
+                <h1 class="choose-one">Choose Skin Tone</h1>
+
+                <!-- images to choose from -->
+                <v-row justify="center" class="ma-5">
+                  <v-col cols="12" lg="3" md="3" sm="6" xs="6">
+                    <div class="skin-tone-images"></div>
+                  </v-col>
+
+                  <v-col cols="12" lg="3" md="3" sm="6" xs="6">
+                    <div class="skin-tone-images"></div>
+                  </v-col>
+
+                  <v-col cols="12" lg="3" md="3" sm="6" xs="6">
+                    <div class="skin-tone-images"></div>
+                  </v-col>
+
+                  <v-col cols="12" lg="3" md="3" sm="6" xs="6">
+                    <div class="skin-tone-images"></div>
+                  </v-col>
+                </v-row>
+
+                <div class="d-flex justify-center">
+                  <v-btn class="continue-button" @click="step++"
+                    >Continue</v-btn
+                  >
+                </div>
               </div>
+            </v-sheet>
+          </v-col>
+        </v-row>
+
+        <!-- step 2 -->
+        <v-row justify="center">
+          <v-col cols="12" lg="12" md="12" sm="12" xs="12">
+            <v-sheet class="sheet" v-if="step === 3">
+              <div>
+                <h1 class="sheet-heading step2-heading">
+                  Which hair colour would you like?
+                </h1>
+
+                <!-- selected skin tone (image) -->
+                <div class="d-flex justify-center">
+                  <div class="selected-skin-tone">selected hair colour</div>
+                </div>
+
+                <h1 class="choose-one">Choose Hair Colour</h1>
+
+                <!-- images to choose from -->
+                <v-row justify="center" class="ma-5">
+                  <v-col cols="12" lg="3" md="3" sm="6" xs="6">
+                    <div class="skin-tone-images"></div>
+                  </v-col>
+
+                  <v-col cols="12" lg="3" md="3" sm="6" xs="6">
+                    <div class="skin-tone-images"></div>
+                  </v-col>
+
+                  <v-col cols="12" lg="3" md="3" sm="6" xs="6">
+                    <div class="skin-tone-images"></div>
+                  </v-col>
+
+                  <v-col cols="12" lg="3" md="3" sm="6" xs="6">
+                    <div class="skin-tone-images"></div>
+                  </v-col>
+                </v-row>
+
+                <v-row justify="center">
+                  <v-col>
+                    <div class="d-flex justify-center">
+                      <v-btn class="continue-button">Continue Shopping</v-btn>
+                    </div>
+                  </v-col>
+
+                  <v-col>
+                    <div class="d-flex justify-center">
+                      <v-btn class="continue-button">Checkout</v-btn>
+                    </div>
+                  </v-col>
+                </v-row>
+              </div>
+              <!-- </div> -->
             </v-sheet>
           </v-col>
         </v-row>
@@ -98,7 +172,7 @@ export default defineComponent({
   data() {
     return {
       progress: 0,
-      step: 2,
+      step: 1,
     };
   },
 });
@@ -121,11 +195,11 @@ export default defineComponent({
 
 .container {
   width: 100%;
-  height: 1600px;
+  height: 1800px;
   background-color: #fefae0;
 }
 
-/* STEP 2 */
+/* ---------- STEP 1 ---------- */
 
 .sheet {
   /* background-color: #fefae0; */
@@ -216,7 +290,7 @@ export default defineComponent({
   border: 1px solid grey;
   background-color: #283618;
   border-radius: 0px;
-  width: 60%;
+  width: 500px;
   height: 70px;
   padding-left: 20px;
   font-size: 30px;
@@ -225,16 +299,63 @@ export default defineComponent({
   margin-bottom: 50px;
 }
 
-/* STEP 2 */
+@media (max-width: 960px) {
+  .sheet-heading {
+    font-size: 34px;
+    font-weight: bold;
+  }
+
+  .boy {
+    margin-left: 0px;
+  }
+
+  .gender-button {
+    width: 100%;
+  }
+
+  .avatar-image {
+    height: 400px;
+  }
+
+  .name-label {
+    margin-left: 60px;
+  }
+}
+
+@media (max-width: 600px) {
+  .sheet-heading {
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .gender-button {
+    width: 80%;
+    margin-left: 50px;
+  }
+
+  .continue-button {
+    width: 350px;
+    height: 55px;
+    font-size: 23px;
+  }
+
+  .name-label {
+    margin-left: 50px;
+  }
+}
+
+/* ---------- STEP 2 ---------- */
 
 .step2-heading {
+  display: flex;
+  justify-content: center;
   font-size: 35px;
 }
 
 .selected-skin-tone {
-  width: 40%;
+  width: 400px;
   height: 500px;
-  margin-top: 70px;
+  margin-top: 50px;
   border: 1px solid grey;
   border-radius: 0px;
   padding-left: 20px;
@@ -242,5 +363,38 @@ export default defineComponent({
   font-weight: 100;
   color: grey;
   margin-bottom: 50px;
+}
+
+.skin-tone-images {
+  width: 100%;
+  height: 400px;
+  margin-top: 50px;
+  border: 1px solid grey;
+  border-radius: 0px;
+  padding-left: 20px;
+  font-size: 30px;
+  font-weight: 100;
+  color: grey;
+  margin-bottom: 50px;
+}
+
+@media (max-width: 960px) {
+  .container {
+    height: 2500px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    height: 3500px;
+  }
+
+  .step2-heading {
+    font-size: 25px;
+  }
+
+  .selected-skin-tone {
+    height: 400px;
+  }
 }
 </style>
