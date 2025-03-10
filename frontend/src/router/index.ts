@@ -11,6 +11,7 @@ import editOrDeleteBooks from "@/components/editOrDeleteBooks.vue";
 import forgetPassword from "@/components/forgetPassword.vue";
 import resetPassword from "@/components/resetPassword.vue";
 import personalizeCharacter from "@/components/personalizeCharacter.vue";
+import orderCheckout from "@/components/orderCheckout.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -57,6 +58,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/personalize-character",
     name: "personalizeCharacter",
     component: personalizeCharacter,
+  },
+  {
+    path: "/order-checkout",
+    name: "orderCheckout",
+    component: orderCheckout,
   },
   {
     path: "/admin",

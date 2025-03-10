@@ -105,7 +105,7 @@
           </v-col>
         </v-row>
 
-        <!-- step 2 -->
+        <!-- step 3 -->
         <v-row justify="center">
           <v-col cols="12" lg="12" md="12" sm="12" xs="12">
             <v-sheet class="sheet" v-if="step === 3">
@@ -149,7 +149,9 @@
 
                   <v-col>
                     <div class="d-flex justify-center">
-                      <v-btn class="continue-button">Checkout</v-btn>
+                      <v-btn class="continue-button" @click="goToCheckoutPage"
+                        >Checkout</v-btn
+                      >
                     </div>
                   </v-col>
                 </v-row>
@@ -174,6 +176,12 @@ export default defineComponent({
       progress: 0,
       step: 3,
     };
+  },
+
+  methods: {
+    goToCheckoutPage() {
+      this.$router.push({ name: "orderCheckout" });
+    },
   },
 });
 </script>
