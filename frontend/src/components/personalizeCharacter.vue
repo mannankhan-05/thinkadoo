@@ -172,7 +172,7 @@ export default defineComponent({
   data() {
     return {
       progress: 0,
-      step: 1,
+      step: 3,
     };
   },
 });

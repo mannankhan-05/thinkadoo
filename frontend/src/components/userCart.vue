@@ -20,16 +20,47 @@
         <v-col cols="12" lg="10" md="10" sm="6" xs="12">
           <div class="book-details">
             <h1>{{ book.title }}</h1>
+            <h2 class="customize-char-btn">Customize Character</h2>
             <h2 class="book-price">{{ book.price }}$</h2>
+            <v-btn
+              class="remove-from-cart-btn"
+              @click="removeBookFromCart(book.id)"
+              >Remove From Cart</v-btn
+            >
           </div>
         </v-col>
       </v-row>
+      <v-divider
+        :thickness="5"
+        color="grey-darken-4"
+        class="mt-6 pb-8"
+      ></v-divider>
     </v-sheet>
+
+    <div class="sub-total-price">
+      <h2 class="sub-total-label">
+        Sub Total : <span class="sub-total-amount">{{ subTotalPrice }}$</span>
+      </h2>
+
+      <div class="buttons-container d-flex flex-column align-end">
+        <v-btn class="continue-btn">Continue Shopping</v-btn>
+        <v-btn class="checkout-btn">Checkout</v-btn>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
+interface Book {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+  description: string;
+}
+
 export default defineComponent({
   name: "userCart",
 
@@ -37,6 +68,22 @@ export default defineComponent({
     return {
       cart: JSON.parse(localStorage.getItem("cart") || "[]"),
     };
+  },
+
+  computed: {
+    subTotalPrice() {
+      return this.cart.reduce((acc: number, book: Book) => {
+        return acc + book.price;
+      }, 0);
+    },
+  },
+
+  methods: {
+    removeBookFromCart(bookId: number) {
+      const updatedCart = this.cart.filter((book: Book) => book.id !== bookId);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      this.cart = updatedCart;
+    },
   },
 });
 </script>
@@ -48,8 +95,7 @@ export default defineComponent({
 
 .book-sheet {
   width: 100%;
-  height: 300px;
-  background-color: #fefae0;
+  min-height: 300px;
   font-family: "Bitter";
 }
 
@@ -67,5 +113,91 @@ export default defineComponent({
 
 .book-price {
   font-weight: 400;
+}
+
+.customize-char-btn {
+  font-weight: 400;
+  color: #f8b400;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 22px;
+  transition: 0.3s ease-in-out;
+}
+.customize-char-btn:hover {
+  color: #2b2b2b;
+}
+
+.sub-total-price {
+  text-align: right;
+  margin-right: 20px;
+}
+
+.sub-total-label {
+  font-size: 40px;
+  font-weight: 400;
+}
+
+.sub-total-amount {
+  font-size: 25px;
+  font-weight: 400;
+  color: #8a6604;
+}
+
+.continue-btn,
+.checkout-btn {
+  width: 400px;
+  height: 60px;
+  background-color: #283618;
+  color: white;
+  font-size: 25px;
+  font-weight: 400;
+  margin-top: 20px;
+  border-radius: 0;
+  transition: 0.3 ease-in-out;
+}
+
+.continue-btn:hover,
+.checkout-btn:hover {
+  background-color: #fefae0;
+  color: #283618;
+}
+
+.remove-from-cart-btn {
+  width: 300px;
+  height: 50px;
+  background-color: #f8b400;
+  color: #2b2b2b;
+
+  font-size: 22px;
+  font-weight: 400;
+  margin-top: 20px;
+  border-radius: 0;
+  transition: 0.3s ease-in-out;
+}
+.remove-from-cart-btn:hover {
+  background-color: #6a7261;
+  color: white;
+}
+
+@media (max-width: 600px) {
+  .sub-total-price {
+    text-align: center;
+  }
+
+  .buttons-container {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sub-total-price {
+    margin-right: 0;
+  }
+
+  .continue-btn,
+  .checkout-btn {
+    width: 100%;
+    display: block;
+  }
 }
 </style>
