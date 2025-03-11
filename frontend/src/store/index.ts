@@ -13,27 +13,21 @@ export default createStore({
   mutations: {
     setIsUserLoggedIn(state, isUserLoggedIn) {
       state.isUserLoggedIn = isUserLoggedIn;
-      // localStorage.setItem("isUserLoggedIn", isUserLoggedIn);
     },
     setUserId(state, userId) {
       state.userId = userId;
-      // localStorage.setItem("userId", userId);
     },
     setUserName(state, userName) {
       state.userName = userName;
-      // localStorage.setItem("userName", userName);
     },
     setUserEmail(state, userEmail) {
       state.userEmail = userEmail;
-      // localStorage.setItem("userEmail", userEmail);
     },
     setIsAdmin(state, isAdmin) {
       state.isAdmin = isAdmin;
-      // localStorage.setItem("isAdmin", isAdmin);
     },
     setNickname(state, nickname) {
       state.nickname = nickname;
-      // localStorage.setItem("nickname", nickname);
     },
   },
   actions: {
@@ -48,22 +42,25 @@ export default createStore({
         promotions,
       });
 
-      console.log("response", response.data);
-
       state.isUserLoggedIn = true;
       commit("setIsUserLoggedIn", true);
 
       const userId: number = response.data.id;
-      commit("setUserId", userId);
-
       const userName: string = response.data.name;
-      commit("setUserName", userName);
-
       const userEmail: string = response.data.email;
-      commit("setUserEmail", userEmail);
-
       const isAdmin: boolean = response.data.isAdmin;
+      const nickname = userName.charAt(0) + userName.charAt(1);
+
+      commit("setUserId", userId);
+      commit("setUserName", userName);
+      commit("setUserEmail", userEmail);
       commit("setIsAdmin", isAdmin);
+      commit("setNickname", nickname);
+
+      // generating a user coupon
+      await axios.post("http://localhost:5000/generateCoupon", {
+        userId: state.userId,
+      });
     },
     async loginUser({ state, commit }, { email, password, rememberMe }) {
       const response = await axios.post("http://localhost:5000/loginUser", {
