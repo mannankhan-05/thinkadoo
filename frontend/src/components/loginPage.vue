@@ -10,22 +10,18 @@
         <v-sheet class="login-sheet" :elevation="1">
           <h1 class="login-heading">Login</h1>
 
+          <!-- Email -->
           <h1 class="email-label">Email</h1>
           <div class="d-flex justify-center">
-            <input
-              class="email-input"
-              placeholder="Enter Your Email"
-              type="email"
-              v-model="email"
-            />
+            <input class="email-input" type="email" v-model="email" />
           </div>
 
+          <!-- Password -->
           <h1 class="password-label">Password</h1>
           <div class="d-flex justify-center">
             <input
               class="email-input"
-              placeholder="Enter Your Password"
-              type="password"
+              :type="passwordVisibility ? 'text' : 'password'"
               v-model="password"
             />
           </div>
@@ -34,7 +30,8 @@
             Forget Password?
           </h1>
 
-          <div class="remember-me-container">
+          <!-- Remember Me Checkbox -->
+          <div class="remember-me-container mt-8">
             <v-checkbox
               class="remember-me-checkbox"
               @click="rememberMe = !rememberMe"
@@ -42,6 +39,16 @@
             <span class="remember-me-text">Remember me</span>
           </div>
 
+          <!-- Toggle Password Visibility -->
+          <div class="remember-me-container mb-8">
+            <v-checkbox
+              class="remember-me-checkbox"
+              @click="passwordVisibility = !passwordVisibility"
+            ></v-checkbox>
+            <span class="remember-me-text">Show Password</span>
+          </div>
+
+          <!-- Login Button -->
           <div
             class="login-button-container d-flex flex-column justify-center align-center"
           >
@@ -80,6 +87,7 @@ export default defineComponent({
       password: "" as string,
       rememberMe: false as boolean,
       loginButtonLoading: false as boolean,
+      passwordVisibility: false as boolean,
     };
   },
 
@@ -169,7 +177,7 @@ export default defineComponent({
 
 .email-input {
   border: 3px solid grey;
-  border-radius: 10px;
+  border-radius: 0px;
   width: 92%;
   height: 70px;
   padding-left: 20px;
@@ -185,7 +193,6 @@ export default defineComponent({
 
 .remember-me-checkbox {
   margin-left: 30px;
-  margin-top: 50px;
   font-size: 30px;
   font-weight: 100;
   color: black;
@@ -194,7 +201,7 @@ export default defineComponent({
 .remember-me-text {
   font-size: 23px;
   margin-left: 8px;
-  margin-top: 30px;
+  margin-bottom: 20px;
 }
 
 .login-button-container {

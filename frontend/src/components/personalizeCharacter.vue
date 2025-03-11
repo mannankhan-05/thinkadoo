@@ -143,7 +143,9 @@
                 <v-row justify="center">
                   <v-col>
                     <div class="d-flex justify-center">
-                      <v-btn class="continue-button">Continue Shopping</v-btn>
+                      <v-btn class="continue-button" @click="goToBooksPage"
+                        >Continue Shopping</v-btn
+                      >
                     </div>
                   </v-col>
 
@@ -181,6 +183,19 @@ export default defineComponent({
   methods: {
     goToCheckoutPage() {
       this.$router.push({ name: "orderCheckout" });
+    },
+    goToBooksPage() {
+      const bookToBuy = localStorage.getItem("bookToBuy");
+      if (!bookToBuy) return;
+      const bookObject = JSON.parse(bookToBuy);
+      const cart = localStorage.getItem("cart");
+      if (cart) {
+        const cartArray = JSON.parse(cart);
+        cartArray.push(bookObject);
+        localStorage.setItem("cart", JSON.stringify(cartArray));
+      } else {
+        localStorage.setItem("cart", JSON.stringify([bookObject]));
+      }
     },
   },
 });

@@ -10,54 +10,51 @@
         <v-sheet class="signUp-sheet" :elevation="1">
           <h1 class="signUp-heading">Sign Up</h1>
 
+          <!-- Name -->
           <h1 class="email-label">Name</h1>
           <div class="d-flex justify-center">
-            <input
-              class="email-input"
-              placeholder="Enter Your Name"
-              type="text"
-              v-model="name"
-            />
+            <input class="email-input" type="text" v-model="name" />
           </div>
 
+          <!-- Email -->
           <h1 class="email-label">Email</h1>
           <div class="d-flex justify-center">
-            <input
-              class="email-input"
-              placeholder="Enter Your Email"
-              type="email"
-              v-model="email"
-            />
+            <input class="email-input" type="email" v-model="email" />
           </div>
           <span class="email-validation-text" v-if="!validEmail"
-            >email must contain @ and .com</span
+            >email must contain @</span
           >
 
+          <!-- Password -->
           <h1 class="password-label">Password</h1>
           <div class="d-flex justify-center">
             <input
               class="email-input"
-              placeholder="Enter Your Password"
-              type="password"
+              :type="passwordVisibility ? 'text' : 'password'"
               v-model="password"
-            />
-          </div>
-
-          <div class="d-flex justify-center">
-            <input
-              class="confirm-password email-input"
-              placeholder="Confirm Password"
-              type="password"
-              v-model="confirmPassword"
             />
           </div>
           <span class="password-validation-text" v-if="!validPassword"
             >password must be atleast of 8 characters</span
           >
 
+          <!-- Confirm Password -->
+          <div class="d-flex justify-center">
+            <input
+              class="confirm-password email-input"
+              placeholder="Confirm Password"
+              :type="passwordVisibility ? 'text' : 'password'"
+              v-model="confirmPassword"
+            />
+          </div>
+          <span class="password-dont-match-text" v-if="passwordDontMatch"
+            >Passwords Don't Match. Try Again!</span
+          >
+
+          <!-- Checkbox -->
           <div class="love-to-hear-container">
             <v-checkbox
-              class="love-to-hear-checkbox mt-10 mb-5"
+              class="love-to-hear-checkbox mt-10"
               @click="promotions = !promotions"
             ></v-checkbox>
             <span class="love-to-hear-text"
@@ -65,6 +62,16 @@
             >
           </div>
 
+          <!-- Toggle Password Visibility -->
+          <div class="love-to-hear-container">
+            <v-checkbox
+              class="love-to-hear-checkbox mb-5"
+              @click="passwordVisibility = !passwordVisibility"
+            ></v-checkbox>
+            <span class="show-password-text">Show Password</span>
+          </div>
+
+          <!-- SignUp Button -->
           <div
             class="signUp-button-container d-flex flex-column justify-center align-center"
           >
@@ -111,12 +118,13 @@ export default defineComponent({
       promotions: false as boolean,
       signUpButtonLoading: false as boolean,
       emptyFields: false as boolean,
+      passwordVisibility: false as boolean,
     };
   },
 
   computed: {
     validEmail() {
-      return this.email.includes("@") && this.email.includes(".com");
+      return this.email.includes("@");
     },
     validPassword() {
       return this.password.length >= 8;
@@ -142,6 +150,9 @@ export default defineComponent({
         ) {
           if (this.password !== this.confirmPassword) {
             this.passwordDontMatch = true;
+            setTimeout(() => {
+              this.passwordDontMatch = false;
+            }, 3000);
           } else {
             await this.$store.dispatch("registerUser", {
               name,
@@ -211,7 +222,7 @@ export default defineComponent({
 
 .email-input {
   border: 3px solid grey;
-  border-radius: 10px;
+  border-radius: 0px;
   width: 92%;
   height: 70px;
   padding-left: 20px;
@@ -239,6 +250,13 @@ export default defineComponent({
 .love-to-hear-text {
   font-size: 23px;
   margin-left: 8px;
+  margin-top: 20px;
+}
+
+.show-password-text {
+  font-size: 23px;
+  margin-left: 8px;
+  margin-bottom: 40px;
 }
 
 .signUp-button-container {
@@ -281,6 +299,12 @@ export default defineComponent({
 .email-validation-text,
 .password-validation-text {
   color: rgb(3, 83, 3);
+  font-size: 15px;
+  margin-left: 40px;
+}
+
+.password-dont-match-text {
+  color: red;
   font-size: 15px;
   margin-left: 40px;
 }

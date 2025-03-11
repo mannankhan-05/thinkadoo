@@ -11,7 +11,16 @@
       class="mt-6 mb-8"
     ></v-divider>
 
-    <v-sheet class="book-sheet" v-for="book in cart" :key="book.id">
+    <!-- If cart is empty -->
+    <v-empty-state
+      v-if="cart.length === 0"
+      icon="mdi-cart"
+      text="It looks like your cart is empty. Start shopping now!"
+      title="Cart is Empty"
+    ></v-empty-state>
+
+    <!-- else -->
+    <v-sheet v-else class="book-sheet" v-for="book in cart" :key="book.id">
       <v-row>
         <v-col cols="12" lg="2" md="2" sm="6" xs="12">
           <img class="book-image" :src="book.image" alt="" />
@@ -38,13 +47,13 @@
     </v-sheet>
 
     <div class="sub-total-price">
-      <h2 class="sub-total-label">
+      <h2 v-if="cart.length != 0" class="sub-total-label">
         Sub Total : <span class="sub-total-amount">{{ subTotalPrice }}$</span>
       </h2>
 
       <div class="buttons-container d-flex flex-column align-end">
         <v-btn class="continue-btn">Continue Shopping</v-btn>
-        <v-btn class="checkout-btn">Checkout</v-btn>
+        <v-btn v-if="cart.length != 0" class="checkout-btn">Checkout</v-btn>
       </div>
     </div>
   </div>
