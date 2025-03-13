@@ -72,6 +72,12 @@ export default defineComponent({
   margin-bottom: 20px;
   font-size: 40px;
 }
+@media (max-width: 600px) {
+  .best-selling-book-heading {
+    display: flex;
+    justify-content: center;
+  }
+}
 
 .best-selling-book-card {
   width: 100%;

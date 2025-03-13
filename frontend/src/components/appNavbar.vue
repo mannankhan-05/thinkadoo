@@ -38,7 +38,43 @@
               Home
             </h2>
             <h2 class="about d-none d-md-flex">About</h2>
-            <h2 class="category d-none d-md-flex">Category</h2>
+            <!-- Category with hover dropdown -->
+            <v-menu open-on-hover offset-y>
+              <template v-slot:activator="{ props }">
+                <h2 class="category d-none d-md-flex" v-bind="props">
+                  Category
+                </h2>
+              </template>
+
+              <!--  -->
+              <div class="category-list">
+                <v-row justify="center">
+                  <v-col cols="12" sm="6">
+                    <v-list-item>
+                      <h2 class="all-books" @click="gotoBooks">All Books</h2>
+                    </v-list-item>
+                  </v-col>
+
+                  <!-- Ages -->
+                  <v-col cols="12" sm="6">
+                    <v-list-item>
+                      <h2 class="age ml-4">Age</h2>
+                      <v-list class="books-age-list">
+                        <v-list-item class="books-by-years">
+                          0-3 years
+                        </v-list-item>
+                        <v-list-item class="books-by-years">
+                          3-6 years
+                        </v-list-item>
+                        <v-list-item class="books-by-years">
+                          6-9 years
+                        </v-list-item>
+                      </v-list>
+                    </v-list-item>
+                  </v-col>
+                </v-row>
+              </div>
+            </v-menu>
           </template>
 
           <!-- thinkadoo logo in sm and xs screens -->
@@ -101,7 +137,7 @@
                     </v-list-item-title>
                   </v-list-item>
 
-                  <v-list-item @click="logout">
+                  <v-list-item @click="logoutDialog = true">
                     <v-list-item-title>
                       <v-icon class="text-h5 mr-3">mdi-logout</v-icon>
                       <span class="text-h5">Logout</span>
@@ -146,6 +182,7 @@
                   <span class="home-heading">Cart</span>
                 </v-list-item>
 
+                <!-- Category expansion panel -->
                 <v-list-item>
                   <v-expansion-panels>
                     <v-expansion-panel>
@@ -157,8 +194,15 @@
                       >
                       <v-expansion-panel-text>
                         <v-list>
-                          <v-list-item title="Category 1"></v-list-item>
-                          <v-list-item title="Category 2"></v-list-item>
+                          <v-list-item class="books-by-years"
+                            >0-3 years</v-list-item
+                          >
+                          <v-list-item class="books-by-years"
+                            >3-6 years</v-list-item
+                          >
+                          <v-list-item class="books-by-years"
+                            >6-9 years</v-list-item
+                          >
                         </v-list>
                       </v-expansion-panel-text>
                     </v-expansion-panel>
@@ -219,6 +263,29 @@
             </v-navigation-drawer>
           </v-col>
         </v-row>
+
+        <!-- Logout Dialog -->
+        <v-dialog v-model="logoutDialog" max-width="400">
+          <v-card>
+            <v-card-title class="headline"
+              ><v-icon class="mr-4">mdi-logout-variant</v-icon
+              >Logout</v-card-title
+            >
+            <v-card-text>are you sure you want to logout?</v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                class="logout-no-btn"
+                variant="text"
+                @click="logoutDialog = false"
+                >No</v-btn
+              >
+              <v-btn class="logout-yes-btn" variant="tonal" @click="logout"
+                >Yes</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-col>
     </v-row>
   </v-container>
@@ -236,6 +303,7 @@ export default defineComponent({
       searchDrawer: false as boolean,
       searchQuery: "" as string,
       titles: [] as object[],
+      logoutDialog: false as boolean,
     };
   },
 
@@ -245,6 +313,8 @@ export default defineComponent({
     },
     logout() {
       this.$store.dispatch("logoutUser");
+      this.logoutDialog = false;
+      this.$router.push({ name: "home" });
     },
     gotoCartPage() {
       this.$router.push({ name: "cartPage" });
@@ -258,6 +328,9 @@ export default defineComponent({
         `http://localhost:5000/searchBooks?q=${this.searchQuery}`
       );
       this.titles = response.data;
+    },
+    gotoBooks() {
+      this.$router.push({ name: "books" });
     },
   },
 
@@ -315,12 +388,14 @@ export default defineComponent({
   margin-top: 8px;
   font-size: 24px;
   color: black;
+  transition: 0.2s ease-in-out;
 }
 
-.home,
-.about,
+.home:hover,
+.about:hover,
 .category:hover {
   cursor: pointer;
+  color: #395f11;
 }
 
 .loggedIn-user-name-characters {
@@ -353,7 +428,7 @@ export default defineComponent({
 
 .magnify-icon-xs-sm {
   font-size: 30px;
-  margin-left: 15px;
+  margin-left: 5px;
 }
 
 .drawer-close-icon {
@@ -385,7 +460,7 @@ export default defineComponent({
 .category-icon {
   font-size: 30px;
   margin-right: 20px;
-  color: #283618;
+  color: #395f11;
 }
 
 .home-heading,
@@ -442,5 +517,49 @@ export default defineComponent({
 .relevant-searches-list:hover {
   cursor: pointer;
   color: #293f12;
+}
+
+.category-list {
+  font-family: "Bitter", serif;
+  margin-top: 25px;
+  background: white;
+  width: 700px;
+  padding: 20px;
+}
+
+.age {
+  color: #395f11;
+}
+
+.all-books:hover,
+.books-by-years:hover {
+  color: #395f11;
+  cursor: pointer;
+}
+
+.books-age-list {
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.logout-no-btn {
+  color: #395f11;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.logout-yes-btn {
+  background-color: #395f11;
+  color: white;
+  border-radius: 50px;
+  padding: 5px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  transition: 0.3s ease-in-out;
+}
+.logout-yes-btn:hover {
+  color: #395f11;
+  background-color: white;
+  cursor: pointer;
 }
 </style>

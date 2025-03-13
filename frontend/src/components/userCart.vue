@@ -52,7 +52,9 @@
       </h2>
 
       <div class="buttons-container d-flex flex-column align-end">
-        <v-btn class="continue-btn">Continue Shopping</v-btn>
+        <v-btn class="continue-btn" @click="gotoBooksPage"
+          >Continue Shopping</v-btn
+        >
         <v-btn v-if="cart.length != 0" class="checkout-btn">Checkout</v-btn>
       </div>
     </div>
@@ -92,6 +94,9 @@ export default defineComponent({
       const updatedCart = this.cart.filter((book: Book) => book.id !== bookId);
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       this.cart = updatedCart;
+    },
+    gotoBooksPage() {
+      this.$router.push({ name: "books" });
     },
   },
 });

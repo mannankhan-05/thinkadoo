@@ -57,6 +57,12 @@ export default defineComponent({
   font-family: "Bitter", serif;
   font-size: 40px;
 }
+@media (max-width: 600px) {
+  .reviews-heading {
+    display: flex;
+    justify-content: center;
+  }
+}
 
 .reviews-container {
   position: relative;

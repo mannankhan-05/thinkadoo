@@ -142,6 +142,12 @@ export default defineComponent({
   margin-bottom: 20px;
   font-size: 40px;
 }
+@media (max-width: 600px) {
+  .lovedbyyou-book-heading {
+    display: flex;
+    justify-content: center;
+  }
+}
 
 .lovedbyyou-book-card {
   width: 100%;

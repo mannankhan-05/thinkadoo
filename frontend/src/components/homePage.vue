@@ -1,7 +1,7 @@
 <template>
   <v-container fluid justify="center" class="pa-0 ma-0">
-    <!-- Hero Section -->
-    <v-row no-gutters>
+    <!-- Hero Section (sm, md and lg screens) -->
+    <v-row no-gutters class="d-none d-sm-flex">
       <v-col
         cols="12"
         lg="4"
@@ -15,7 +15,7 @@
           <h2 class="hero-section-description">
             Stories that celebrate love, family and everyday heroes.
           </h2>
-          <v-btn class="CTA-button">Explore Stories</v-btn>
+          <v-btn class="CTA-button" @click="gotoBooks">Explore Stories</v-btn>
         </div>
       </v-col>
 
@@ -32,6 +32,29 @@
           :src="require('../assets/hero-section-image.jpg')"
           alt=""
         />
+      </v-col>
+    </v-row>
+
+    <!-- Hero Section (xs screen) -->
+    <v-row no-gutters class="d-flex d-sm-none">
+      <v-col cols="12" lg="8" md="6" sm="12" xs="12" class="pa-0 ma-0">
+        <img
+          class="hero-section-xs-image"
+          :src="require('../assets/hero-section-image.jpg')"
+          alt=""
+        />
+      </v-col>
+
+      <v-col cols="12" lg="4" md="6" sm="12" xs="12" class="pa-0 ma-0">
+        <div class="hero-section-xs-text flex-column">
+          <h1 class="hero-section-xs-heading">TURN PAGES, BUILD BONDS.</h1>
+          <h2 class="hero-section-xs-description">
+            Stories that celebrate love, family and everyday heroes.
+          </h2>
+          <v-btn class="CTA-xs-button" @click="gotoBooks"
+            >Explore Stories</v-btn
+          >
+        </div>
       </v-col>
     </v-row>
 
@@ -52,7 +75,7 @@
     <homePageReviews />
 
     <!-- Sign In Banner -->
-    <v-container fluid class="get-off-banner">
+    <v-container fluid class="get-off-banner" v-if="!isLoggedIn">
       <v-row justify="center">
         <v-col cols="12" md="8" lg="6" class="text-center">
           <h1 class="get-10-off-heading">
@@ -88,6 +111,15 @@ export default defineComponent({
     gotoSignUpPage() {
       this.$router.push({ name: "signUpPage" });
     },
+    gotoBooks() {
+      this.$router.push({ name: "books" });
+    },
+  },
+
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.isUserLoggedIn;
+    },
   },
 });
 </script>
@@ -100,9 +132,14 @@ export default defineComponent({
 .hero-section-text {
   text-align: left;
   width: 100%;
-  /* min-height: 800px; */
-  /* max-height: 800px; */
   height: 800px;
+  background-color: #e7e2bf;
+  padding-left: 30px;
+}
+.hero-section-xs-text {
+  text-align: left;
+  width: 100%;
+  height: 400px;
   background-color: #e7e2bf;
   padding-left: 30px;
 }
@@ -114,10 +151,23 @@ export default defineComponent({
   color: #283618;
   padding-top: 100px;
 }
+.hero-section-xs-heading {
+  font-family: "Lilita One", serif;
+  font-size: 40px;
+  font-weight: bolder;
+  color: #283618;
+  padding-top: 20px;
+}
 
 .hero-section-description {
   margin-top: 80px;
   font-size: 30px;
+  font-weight: 400;
+  color: #283618;
+}
+.hero-section-xs-description {
+  margin-top: 30px;
+  font-size: 23px;
   font-weight: 400;
   color: #283618;
 }
@@ -133,8 +183,20 @@ export default defineComponent({
   color: white;
   transition: 0.3s ease-in-out;
 }
+.CTA-xs-button {
+  margin-top: 60px;
+  font-family: "Playwrite GB J", serif;
+  width: 55%;
+  height: 60px;
+  font-size: 17px;
+  font-weight: bold;
+  background-color: #283618;
+  color: white;
+  transition: 0.3s ease-in-out;
+}
 
-.CTA-button:hover {
+.CTA-button:hover,
+.CTA-xs-button:hover {
   background-color: #e7e2bf;
   color: #283618;
   border: 1px solid #283618;
@@ -144,24 +206,9 @@ export default defineComponent({
   width: 100%;
   height: 800px;
 }
-
-/* @media (max-width: 600px) {
-  .hero-section-text {
-    height: auto;
-  }
-} */
-
-.slider {
-  width: 100vw;
-}
-
-.v-carousel {
+.hero-section-xs-image {
   width: 100%;
-}
-
-.v-carousel-item {
-  width: 100%;
-  height: 100vh;
+  height: 400px;
 }
 
 .whychoose-ebook-image {
@@ -182,6 +229,11 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   padding-top: 30px;
+}
+@media (max-width: 600px) {
+  .get-10-off-heading {
+    font-size: 30px;
+  }
 }
 
 .button-container {
