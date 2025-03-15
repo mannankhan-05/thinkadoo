@@ -88,7 +88,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 export default defineComponent({
   name: "singleBookPreview",
@@ -100,9 +100,7 @@ export default defineComponent({
   },
 
   async mounted() {
-    let response = await axios.get(
-      `http://localhost:5000/book/${this.$route.params.id}`
-    );
+    let response = await axiosInstance.get(`/book/${this.$route.params.id}`);
     this.book = response.data;
   },
 

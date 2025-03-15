@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 export default defineComponent({
   name: "bestSellingBooks",
@@ -41,7 +41,7 @@ export default defineComponent({
     };
   },
   async mounted() {
-    let response = await axios.get("http://localhost:5000/bestSellingBooks");
+    let response = await axiosInstance.get("/bestSellingBooks");
     this.bestSellingBooks = response.data;
   },
   methods: {

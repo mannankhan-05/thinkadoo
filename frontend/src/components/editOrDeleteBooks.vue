@@ -97,7 +97,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 interface book {
   id: number;
@@ -118,7 +118,7 @@ export default defineComponent({
   },
 
   async mounted() {
-    const response = await axios.get("http://localhost:5000/books");
+    const response = await axiosInstance.get("/books");
     this.books = response.data.books;
   },
 
@@ -127,7 +127,7 @@ export default defineComponent({
       this.editDialog = true;
 
       // Fetch book details
-      const response = await axios.get(`http://localhost:5000/book/${bookId}`);
+      const response = await axiosInstance.get(`/book/${bookId}`);
       //   this.bookToEdit = response.data;
 
       this.bookToEdit = {
@@ -139,11 +139,11 @@ export default defineComponent({
       };
     },
     async deleteBook(bookId: number) {
-      await axios.delete(`http://localhost:5000/deleteBook/${bookId}`);
+      await axiosInstance.delete(`/deleteBook/${bookId}`);
 
       // update books array
       this.books = [];
-      const response = await axios.get("http://localhost:5000/books");
+      const response = await axiosInstance.get("/books");
       this.books = response.data.books;
     },
     async updateBook(bookId: number) {
@@ -157,7 +157,7 @@ export default defineComponent({
       //     formData.append("bookImage", this.bookToEdit.image);
       //   }
 
-      await axios.put(`http://localhost:5000/updateBook/${bookId}`, formData, {
+      await axiosInstance.put(`/updateBook/${bookId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

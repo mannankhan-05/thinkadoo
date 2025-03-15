@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 export default createStore({
   state: {
@@ -35,7 +35,7 @@ export default createStore({
       { state, commit },
       { name, email, password, promotions }
     ) {
-      const response = await axios.post("http://localhost:5000/createUser", {
+      const response = await axiosInstance.post("/createUser", {
         name,
         email,
         password,
@@ -58,12 +58,12 @@ export default createStore({
       commit("setNickname", nickname);
 
       // generating a user coupon
-      await axios.post("http://localhost:5000/generateCoupon", {
+      await axiosInstance.post("/generateCoupon", {
         userId: state.userId,
       });
     },
     async loginUser({ state, commit }, { email, password, rememberMe }) {
-      const response = await axios.post("http://localhost:5000/loginUser", {
+      const response = await axiosInstance.post("/loginUser", {
         email,
         password,
       });

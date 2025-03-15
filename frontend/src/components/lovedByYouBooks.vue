@@ -90,7 +90,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 export default defineComponent({
   name: "lovedByYouBooks",
@@ -103,7 +103,7 @@ export default defineComponent({
     };
   },
   async mounted() {
-    let response = await axios.get("http://localhost:5000/lovedByYouBooks");
+    let response = await axiosInstance.get("/lovedByYouBooks");
     this.lovedByYouBooks = response.data;
     await this.groupBooks();
     this.currentSlide = 0;

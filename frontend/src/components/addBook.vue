@@ -69,7 +69,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 export default defineComponent({
   name: "addBook",
@@ -91,7 +91,7 @@ export default defineComponent({
       formData.append("description", this.description);
       formData.append("price", this.price != null ? this.price.toString() : "");
 
-      await axios.post("http://localhost:5000/addBook", formData, {
+      await axiosInstance.post("/addBook", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

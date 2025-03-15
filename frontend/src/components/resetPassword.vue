@@ -59,7 +59,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 export default defineComponent({
   data() {
@@ -79,12 +79,9 @@ export default defineComponent({
         this.password2 = "";
         this.passwordNotMatch = true;
       } else {
-        await axios.put(
-          `http://localhost:5000/resetPassword/${this.$route.params.email}`,
-          {
-            password: this.password1,
-          }
-        );
+        await axiosInstance.put(`/resetPassword/${this.$route.params.email}`, {
+          password: this.password1,
+        });
 
         this.password1 = "";
         this.password2 = "";

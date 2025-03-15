@@ -293,7 +293,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 export default defineComponent({
   name: "appNavbar",
@@ -324,8 +324,8 @@ export default defineComponent({
       this.$router.push({ name: "singleBookPreview", params: { id: bookId } });
     },
     async getRelevantBooks() {
-      let response = await axios.get(
-        `http://localhost:5000/searchBooks?q=${this.searchQuery}`
+      let response = await axiosInstance.get(
+        `/searchBooks?q=${this.searchQuery}`
       );
       this.titles = response.data;
     },

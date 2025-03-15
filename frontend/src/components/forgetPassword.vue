@@ -70,7 +70,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 export default defineComponent({
   data() {
@@ -87,7 +87,7 @@ export default defineComponent({
     async sendCode() {
       this.loading = true;
 
-      let response = await axios.post("http://localhost:5000/sendCodeToEmail", {
+      let response = await axiosInstance.post("/sendCodeToEmail", {
         email: this.email,
       });
 

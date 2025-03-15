@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 export default defineComponent({
   name: "homePageReviews",
@@ -44,7 +44,7 @@ export default defineComponent({
     };
   },
   async mounted() {
-    const response = await axios.get("http://localhost:5000/getBookReviews");
+    const response = await axiosInstance.get("/getBookReviews");
     this.productReviews = response.data;
   },
 });
