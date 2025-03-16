@@ -48,46 +48,54 @@
 
                 <!-- Shipping Input Fields -->
                 <div>
-                  <h1 class="input-label">First Name</h1>
+                  <h1 class="input-label">Name</h1>
                   <div class="d-flex justify-center">
-                    <input class="input-field" type="text" />
+                    <input class="input-field" type="text" v-model="name" />
                   </div>
 
-                  <h1 class="input-label">Last Name</h1>
+                  <h1 class="input-label">Email</h1>
                   <div class="d-flex justify-center">
-                    <input class="input-field" type="text" />
+                    <input class="input-field" type="text" v-model="email" />
                   </div>
 
                   <h1 class="input-label">Street address (or P.O. Box)</h1>
                   <div class="d-flex justify-center">
-                    <input class="input-field" type="text" />
+                    <input
+                      class="input-field"
+                      type="text"
+                      v-model="streetAddress"
+                    />
                   </div>
 
                   <h1 class="input-label">
                     Apt #, Building, etc. (leave blank if none)
                   </h1>
                   <div class="d-flex justify-center">
-                    <input class="input-field" type="text" />
+                    <input class="input-field" type="text" v-model="apt" />
                   </div>
 
                   <h1 class="input-label">Town/City</h1>
                   <div class="d-flex justify-center">
-                    <input class="input-field" type="text" />
+                    <input class="input-field" type="text" v-model="city" />
                   </div>
 
                   <h1 class="input-label">ZIP / Postcode</h1>
                   <div class="d-flex justify-center">
-                    <input class="input-field" type="text" />
+                    <input class="input-field" type="text" v-model="zip" />
                   </div>
 
                   <h1 class="input-label">Country</h1>
                   <div class="d-flex justify-center">
-                    <input class="input-field" type="text" />
+                    <input class="input-field" type="text" v-model="country" />
                   </div>
 
                   <h1 class="input-label">Phone Number (optional)</h1>
                   <div class="d-flex justify-center">
-                    <input class="input-field" type="text" />
+                    <input
+                      class="input-field"
+                      type="text"
+                      v-model="phoneNumber"
+                    />
                   </div>
 
                   <div
@@ -228,6 +236,18 @@ export default defineComponent({
     return {
       cart: JSON.parse(localStorage.getItem("cart") || "[]"),
       step: 1,
+
+      // STEP : 1
+      name: "" as string,
+      email: "" as string,
+      streetAddress: "" as string,
+      apt: "" as string,
+      city: "" as string,
+      zip: "" as string,
+      country: "" as string,
+      phoneNumber: "" as string,
+
+      // STEP : 2
       orderDelivery: "",
     };
   },
@@ -291,7 +311,7 @@ export default defineComponent({
 
 .checkout-container {
   width: 100%;
-  height: 1900px;
+  height: 2000px;
   background-color: #fefae0;
 }
 

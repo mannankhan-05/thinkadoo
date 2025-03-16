@@ -28,11 +28,41 @@
                 <label class="name-label">Gender</label>
                 <v-row justify="center">
                   <v-col cols="12" lg="6" md="6" sm="10" xs="12">
-                    <v-btn class="gender-button boy">Boy</v-btn>
+                    <v-btn class="gender-button boy" @click="gender = 'boy'"
+                      >Boy
+
+                      <template v-slot:append>
+                        <v-badge
+                          class="gender-selected-icon"
+                          color="success"
+                          inline
+                          v-if="gender == 'boy'"
+                        >
+                          <template v-slot:badge>
+                            <v-icon color="white">mdi-check</v-icon>
+                          </template>
+                        </v-badge>
+                      </template>
+                    </v-btn>
                   </v-col>
 
                   <v-col cols="12" lg="6" md="6" sm="10" xs="12">
-                    <v-btn class="gender-button girl">Girl</v-btn>
+                    <v-btn class="gender-button girl" @click="gender = 'girl'"
+                      >Girl
+
+                      <template v-slot:append>
+                        <v-badge
+                          class="gender-selected-icon"
+                          color="success"
+                          inline
+                          v-if="gender == 'girl'"
+                        >
+                          <template v-slot:badge>
+                            <v-icon color="white">mdi-check</v-icon>
+                          </template>
+                        </v-badge>
+                      </template>
+                    </v-btn>
                   </v-col>
                 </v-row>
 
@@ -176,7 +206,11 @@ export default defineComponent({
   data() {
     return {
       progress: 0,
-      step: 3,
+      step: 1,
+
+      // STEP : 1
+      name: "" as string,
+      gender: "" as string,
     };
   },
 
@@ -277,6 +311,12 @@ export default defineComponent({
   font-weight: 100;
   color: grey;
   margin-bottom: 50px;
+}
+
+.gender-selected-icon {
+  position: absolute;
+  right: 10px;
+  top: 0;
 }
 
 .boy {

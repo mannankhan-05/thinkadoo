@@ -55,7 +55,12 @@
         <v-btn class="continue-btn" @click="gotoBooksPage"
           >Continue Shopping</v-btn
         >
-        <v-btn v-if="cart.length != 0" class="checkout-btn">Checkout</v-btn>
+        <v-btn
+          v-if="cart.length != 0"
+          class="checkout-btn"
+          @click="gotoCheckoutPage"
+          >Checkout</v-btn
+        >
       </div>
     </div>
   </div>
@@ -97,6 +102,9 @@ export default defineComponent({
     },
     gotoBooksPage() {
       this.$router.push({ name: "books" });
+    },
+    gotoCheckoutPage() {
+      this.$router.push({ name: "orderCheckout" });
     },
   },
 });

@@ -15,8 +15,8 @@ order.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    book_id: {
-      type: DataTypes.INTEGER,
+    user_name: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     user_email: {
@@ -27,11 +27,35 @@ order.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    user_phone: {
+    user_apt: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    city: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    status: {
+    zip_code: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    country: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    user_phone: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    order_price: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    delivery_type: {
+      type: DataTypes.ENUM("standard", "fast"),
+      allowNull: false,
+    },
+    order_status: {
       type: DataTypes.STRING,
       allowNull: false,
     },
