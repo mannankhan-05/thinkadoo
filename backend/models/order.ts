@@ -7,13 +7,8 @@ class order extends Model {}
 order.init(
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    order_id: {
       type: DataTypes.STRING,
-      allowNull: false,
+      primaryKey: true,
     },
     user_name: {
       type: DataTypes.STRING,
@@ -66,7 +61,5 @@ order.init(
     timestamps: true,
   }
 );
-
-order.belongsTo(book, { foreignKey: "book_id" });
 
 export default order;

@@ -19,6 +19,7 @@ import {
 } from "../controllers/book";
 import { getBookReviews, createBookReview } from "../controllers/book_review";
 import { getOrders, createOrder } from "../controllers/order";
+import { getOrderItems, addItemToOrder } from "../controllers/order_item";
 import { createCoupon, getCoupon } from "../controllers/coupon";
 
 // user routes :
@@ -58,6 +59,11 @@ router.post("/createBookReview", createBookReview);
 router.get("/orders", getOrders);
 
 router.post("/createOrder", createOrder);
+
+// order_item routes :
+router.get("/orderItems/:orderId", getOrderItems);
+
+router.post("/addItemToOrder", addItemToOrder);
 
 // coupon routes :
 router.post("/generateCoupon", createCoupon);

@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
 import coupon from "../models/coupon";
-import user from "../models/user";
+import { sendCouponCodeToMail } from "../mails/sendCouponCode";
 import logger from "../logger";
 import crypto from "crypto";
 
 // Create a new coupon
 export const createCoupon = async (req: Request, res: Response) => {
   const { userId }: { userId: number } = req.body;
+  const { email }: { email: string } = req.body;
+
   const couponCode =
     "Thinkadoo-" + crypto.randomBytes(4).toString("hex").toUpperCase();
 
@@ -15,8 +17,9 @@ export const createCoupon = async (req: Request, res: Response) => {
       userId,
       code: couponCode,
     })
-    .then((coupons) => {
+    .then(() => {
       logger.info(`A new coupon for user ${userId} has been created`);
+      sendCouponCodeToMail(email, couponCode);
       res.sendStatus(200);
     })
     .catch((err) => {

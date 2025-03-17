@@ -22,19 +22,6 @@
 
         <!-- ---------- STEP 1 ---------- -->
         <div v-if="step === 1">
-          <!-- Coupon Banner -->
-          <div
-            class="coupon-banner"
-            v-if="!isUserLoggedIn"
-            @click="this.$router.push({ name: 'loginPage' })"
-          >
-            <v-icon class="mr-4">mdi-login-variant</v-icon>
-            <span>Log in to use your one-time coupon</span>
-          </div>
-          <div class="coupon-banner active" v-else>
-            <span>Use your one-time coupon</span>
-          </div>
-
           <v-row justify="center">
             <v-col cols="12" lg="6" md="6" sm="6" xs="12">
               <!-- Shipping Details sheet -->
@@ -138,7 +125,25 @@
                 <!-- coupon code -->
                 <h1 class="coupon-label d-flex justify-center">Coupon Code</h1>
                 <div class="d-flex justify-center">
-                  <input class="coupon-field" type="text" />
+                  <v-row justify="center" no-gutters>
+                    <v-col cols="8">
+                      <input class="coupon-field" type="text" />
+                    </v-col>
+
+                    <v-col cols="2">
+                      <div
+                        class="validate-coupon-container d-flex justify-center align-center"
+                      >
+                        <v-tooltip text="validate coupon">
+                          <template v-slot:activator="{ props }">
+                            <v-icon v-bind="props" class="validate-coupon-icon"
+                              >mdi-check-decagram</v-icon
+                            >
+                          </template>
+                        </v-tooltip>
+                      </div>
+                    </v-col>
+                  </v-row>
                 </div>
 
                 <v-divider :thickness="5" class="mb-5"></v-divider>
@@ -281,49 +286,23 @@ export default defineComponent({
   cursor: pointer;
 }
 
-.coupon-banner {
-  background-color: #fefae0;
-  color: #283618;
-  font-weight: bold;
-  text-align: center;
-  /* padding: 20px 60px; */
-  border-radius: 0px;
-  border: 2px solid #283618;
-  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
-  width: 40%;
-  height: 40px;
-  margin: 100px auto;
-  font-size: 25px;
-  transition: all 0.3s ease-in-out;
-}
-
-.coupon-banner.active {
-  background-color: #283618;
-  color: #fefae0;
-  border: none;
-}
-
-.coupon-banner:hover {
-  transform: scale(1.05);
-  box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-}
-
 .checkout-container {
   width: 100%;
-  height: 2000px;
+  height: auto;
   background-color: #fefae0;
 }
 
 .shipping-details-sheet {
   width: 100%;
   display: flex;
+  margin-top: 130px;
   flex-direction: column;
 }
 
 .order-summary-sheet {
   width: 100%;
   height: auto;
+  margin-top: 130px;
   display: flex;
   flex-direction: column;
 }
@@ -409,13 +388,34 @@ export default defineComponent({
 .coupon-field {
   border: 3px solid rgb(185, 181, 181);
   border-radius: 50px;
-  width: 60%;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  width: 100%;
   height: 70px;
   padding-left: 40px;
   font-size: 30px;
+  font-size: 23px;
   font-weight: 100;
   color: grey;
   margin-bottom: 50px;
+}
+
+.validate-coupon-container {
+  border: 3px solid rgb(185, 181, 181);
+  height: 70px;
+  width: 100%;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  color: #283618;
+  font-size: 30px;
+}
+
+.validate-coupon-icon {
+  transition: 0.2s ease-in-out;
+}
+.validate-coupon-icon:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 .order-amount {

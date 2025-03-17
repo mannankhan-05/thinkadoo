@@ -60,6 +60,7 @@ export default createStore({
       // generating a user coupon
       await axiosInstance.post("/generateCoupon", {
         userId: state.userId,
+        email: state.userEmail,
       });
     },
     async loginUser({ state, commit }, { email, password, rememberMe }) {

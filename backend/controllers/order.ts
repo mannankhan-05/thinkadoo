@@ -7,13 +7,7 @@ import logger from "../logger";
 // Get All Orders (Admin only)
 export const getOrders = async (req: Request, res: Response) => {
   order
-    .findAll({
-      include: [
-        {
-          model: book,
-        },
-      ],
-    })
+    .findAll()
     .then((orders) => {
       logger.info("All Orders retrieved");
       res.json(orders);
@@ -28,27 +22,45 @@ export const getOrders = async (req: Request, res: Response) => {
 export const createOrder = async (req: Request, res: Response) => {
   const orderId = nanoid(20);
   const {
-    bookId,
+    userName,
     userEmail,
     userAddress,
+    userApt,
+    city,
+    zip,
+    country,
     userPhone,
+    orderPrice,
+    deliveryType,
     status,
   }: {
-    bookId: number;
+    userName: string;
     userEmail: string;
     userAddress: string;
+    userApt: string;
+    city: string;
+    zip: string;
+    country: string;
     userPhone: string;
+    orderPrice: number;
+    deliveryType: string;
     status: string;
   } = req.body;
 
   order
     .create({
-      order_id: orderId,
-      book_id: bookId,
+      id: orderId,
+      user_name: userName,
       user_email: userEmail,
       user_address: userAddress,
+      user_apt: userApt,
+      city: city,
+      zip_code: zip,
+      country: country,
       user_phone: userPhone,
-      status: status,
+      order_price: orderPrice,
+      delivery_type: deliveryType,
+      order_status: status,
     })
     .then((order) => {
       logger.info(`Order with id ${orderId} confirmed`);

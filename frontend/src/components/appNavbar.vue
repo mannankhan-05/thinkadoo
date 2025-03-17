@@ -22,7 +22,7 @@
               class="drawer-icon-xs-sm d-flex d-md-none"
               @click="drawer = !drawer"
             >
-              mdi-format-list-bulleted
+              mdi-menu
             </v-icon>
             <v-icon
               class="magnify-icon-xs-sm d-flex d-md-none"
