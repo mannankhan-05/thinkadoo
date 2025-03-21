@@ -31,20 +31,22 @@ export const createCoupon = async (req: Request, res: Response) => {
 };
 
 // Get a user's coupon
-export const getCoupon = async (req: Request, res: Response) => {
-  const { userId }: { userId: number } = req.body;
+export const validateCoupon = async (req: Request, res: Response) => {
+  const { couponCode }: { couponCode: string } = req.body;
+  let isValid = false;
 
   const userCoupon = await coupon.findOne({
     where: {
-      userId,
+      code: couponCode,
     },
   });
 
   if (!userCoupon) {
-    logger.error(`Coupon for user ${userId} not found`);
-    res.sendStatus(404);
+    logger.error(`Coupon : ${coupon} is not valid`);
+    res.json({ isValid });
   } else {
-    logger.info(`Coupon for user ${userId} found`);
-    res.status(200).json(userCoupon);
+    isValid = true;
+    logger.info(`Coupon : ${coupon} is valid`);
+    res.json({ isValid });
   }
 };

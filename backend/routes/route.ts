@@ -20,7 +20,7 @@ import {
 import { getBookReviews, createBookReview } from "../controllers/book_review";
 import { getOrders, createOrder } from "../controllers/order";
 import { getOrderItems, addItemToOrder } from "../controllers/order_item";
-import { createCoupon, getCoupon } from "../controllers/coupon";
+import { createCoupon, validateCoupon } from "../controllers/coupon";
 
 // user routes :
 router.get("/users", getUsers);
@@ -68,6 +68,6 @@ router.post("/addItemToOrder", addItemToOrder);
 // coupon routes :
 router.post("/generateCoupon", createCoupon);
 
-router.post("/getCoupon", getCoupon);
+router.post("/validateCoupon", validateCoupon);
 
 export default router;

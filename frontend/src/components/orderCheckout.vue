@@ -114,7 +114,7 @@
                   </v-col>
 
                   <v-col cols="12" lg="6" md="6" sm="6" xs="6">
-                    <div>
+                    <div class="book-details">
                       <h2 class="book-title">{{ book.title }}</h2>
                       <h2 class="customize-char-text">customize character</h2>
                       <h2 class="book-price">{{ book.price }} USD</h2>
@@ -127,12 +127,17 @@
                 <div class="d-flex justify-center">
                   <v-row justify="center" no-gutters>
                     <v-col cols="8">
-                      <input class="coupon-field" type="text" />
+                      <input
+                        v-model="coupon"
+                        class="coupon-field"
+                        type="text"
+                      />
                     </v-col>
 
                     <v-col cols="2">
                       <div
                         class="validate-coupon-container d-flex justify-center align-center"
+                        @click="validateCoupon"
                       >
                         <v-tooltip text="validate coupon">
                           <template v-slot:activator="{ props }">
@@ -152,7 +157,21 @@
                 <div>
                   <h1 class="ml-6 mb-5">
                     Order Total
-                    <span class="order-amount">{{ totalOrderAmount }} USD</span>
+                    <span class="order-amount amount"
+                      >{{ totalOrderAmount }} USD</span
+                    >
+                  </h1>
+                </div>
+
+                <!-- If coupon is valid -->
+                <div v-if="isCouponValid">
+                  <v-divider :thickness="5" class="mb-5"></v-divider>
+
+                  <h1 class="ml-6 mb-5">
+                    After Discount
+                    <span class="order-amount discount"
+                      >{{ totalOrderAmount * 0.9 }} USD</span
+                    >
                   </h1>
                 </div>
               </v-sheet>
@@ -225,6 +244,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import axiosInstance from "../api/axiosInstance";
 
 interface Book {
   id: number;
@@ -252,6 +272,9 @@ export default defineComponent({
       country: "" as string,
       phoneNumber: "" as string,
 
+      coupon: "" as string,
+      isCouponValid: false,
+
       // STEP : 2
       orderDelivery: "",
     };
@@ -265,6 +288,17 @@ export default defineComponent({
     },
     isUserLoggedIn() {
       return this.$store.state.isUserLoggedIn;
+    },
+  },
+
+  methods: {
+    async validateCoupon() {
+      let response = await axiosInstance.post("validateCoupon", {
+        couponCode: this.coupon,
+      });
+
+      this.isCouponValid = response.data.isValid;
+      console.log(this.isCouponValid);
     },
   },
 });
@@ -419,10 +453,18 @@ export default defineComponent({
 }
 
 .order-amount {
-  margin-left: 200px;
   font-size: 30px;
   font-weight: bold;
   color: rgb(16, 16, 143);
+}
+
+.amount {
+  margin-left: 200px;
+}
+
+.discount {
+  color: #476d1b;
+  margin-left: 140px;
 }
 
 .order-delivery-sheet {
@@ -449,6 +491,18 @@ export default defineComponent({
   .price {
     position: relative;
     right: 0;
+  }
+
+  .book-details {
+    margin-left: 50px;
+  }
+
+  .amount {
+    margin-left: 240px;
+  }
+
+  .discount {
+    margin-left: 220px;
   }
 }
 </style>
