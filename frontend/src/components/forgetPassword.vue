@@ -174,7 +174,7 @@ export default defineComponent({
   background-color: #283618;
   font-size: 25px;
   color: white;
-  border-radius: 150px;
+  border-radius: 0px;
   transition: 0.3s ease-in-out;
 }
 .send-code-button:hover {

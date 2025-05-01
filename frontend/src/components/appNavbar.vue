@@ -137,6 +137,15 @@
                     </v-list-item-title>
                   </v-list-item>
 
+                  <v-list-item
+                    @click="this.$router.push({ name: 'accountEdit' })"
+                  >
+                    <v-list-item-title>
+                      <v-icon class="text-h5 mr-3">mdi-account-edit</v-icon>
+                      <span class="text-h5">Edit Account</span>
+                    </v-list-item-title>
+                  </v-list-item>
+
                   <v-list-item @click="logoutDialog = true">
                     <v-list-item-title>
                       <v-icon class="text-h5 mr-3">mdi-logout</v-icon>

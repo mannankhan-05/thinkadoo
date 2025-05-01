@@ -13,6 +13,7 @@ import resetPassword from "@/components/resetPassword.vue";
 import personalizeCharacter from "@/components/personalizeCharacter.vue";
 import orderCheckout from "@/components/orderCheckout.vue";
 import eBooks from "@/components/eBooks.vue";
+import accountEdit from "@/components/accountEdit.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -69,6 +70,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/books",
     name: "books",
     component: eBooks,
+  },
+  {
+    path: "/account-edit",
+    name: "accountEdit",
+    component: accountEdit,
   },
   {
     path: "/admin",
