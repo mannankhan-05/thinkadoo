@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="login-container">
+  <v-container fluid class="container">
     <v-row justify="center">
       <v-col cols="12" lg="6" md="6" sm="10" xs="12">
         <!-- Back Button -->
@@ -7,7 +7,7 @@
           >mdi-keyboard-backspace</v-icon
         >
 
-        <v-sheet class="login-sheet" :elevation="1">
+        <v-sheet class="sheet" :elevation="1">
           <h1 class="login-heading">Login</h1>
 
           <!-- Email -->
@@ -50,10 +50,10 @@
 
           <!-- Login Button -->
           <div
-            class="login-button-container d-flex flex-column justify-center align-center"
+            class="button-container d-flex flex-column justify-center align-center"
           >
             <v-btn
-              class="login-button"
+              class="button"
               :disabled="!email || !password || !validEmail || !validPassword"
               @click="loginExistingUser"
             >
@@ -126,19 +126,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.login-container {
-  width: 100%;
-  height: 1100px;
-  background-color: #fefae0;
-}
-
-.login-sheet {
-  width: 100%;
-  margin-top: 130px;
-  display: flex;
-  flex-direction: column;
-}
-
 .login-heading {
   font-family: "Bitter", serif;
   display: flex;
@@ -171,21 +158,6 @@ export default defineComponent({
   cursor: pointer;
 }
 
-.email-input {
-  height: 100px;
-}
-
-.email-input {
-  border: 3px solid grey;
-  border-radius: 0px;
-  width: 92%;
-  height: 70px;
-  padding-left: 20px;
-  font-size: 30px;
-  font-weight: 100;
-  color: grey;
-}
-
 .remember-me-container {
   display: flex;
   align-items: center;
@@ -202,28 +174,6 @@ export default defineComponent({
   font-size: 23px;
   margin-left: 8px;
   margin-bottom: 20px;
-}
-
-.login-button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-button {
-  width: 92%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  background-color: #283618;
-  font-size: 25px;
-  color: white;
-  border-radius: 0px;
-  transition: 0.3s ease-in-out;
-}
-.login-button:hover {
-  background-color: #2d3f19;
-  color: white;
 }
 
 .have-an-account {

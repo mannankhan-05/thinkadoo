@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="signUp-container">
+  <v-container fluid class="container">
     <v-row justify="center">
       <v-col cols="12" lg="6" md="6" sm="10" xs="12">
         <!-- Back Button -->
@@ -7,7 +7,7 @@
           >mdi-keyboard-backspace</v-icon
         >
 
-        <v-sheet class="signUp-sheet" :elevation="1">
+        <v-sheet class="sheet" :elevation="1">
           <h1 class="signUp-heading">Sign Up</h1>
 
           <!-- Name -->
@@ -73,9 +73,9 @@
 
           <!-- SignUp Button -->
           <div
-            class="signUp-button-container d-flex flex-column justify-center align-center"
+            class="button-container d-flex flex-column justify-center align-center"
           >
-            <v-btn class="signUp-button" @click="RegisterNewUser">
+            <v-btn class="button" @click="RegisterNewUser">
               <span v-if="!signUpButtonLoading">Sign Up</span>
               <v-progress-circular
                 v-if="signUpButtonLoading"
@@ -181,19 +181,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.signUp-container {
-  width: 100%;
-  height: 1400px;
-  background-color: #fefae0;
-}
-
-.signUp-sheet {
-  width: 100%;
-  margin-top: 130px;
-  display: flex;
-  flex-direction: column;
-}
-
 .signUp-heading {
   font-family: "Bitter", serif;
   display: flex;
@@ -214,21 +201,6 @@ export default defineComponent({
 
 .password-label {
   margin-top: 50px;
-}
-
-.email-input {
-  height: 100px;
-}
-
-.email-input {
-  border: 3px solid grey;
-  border-radius: 0px;
-  width: 92%;
-  height: 70px;
-  padding-left: 20px;
-  font-size: 30px;
-  font-weight: 100;
-  color: grey;
 }
 
 .confirm-password {
@@ -259,7 +231,7 @@ export default defineComponent({
   margin-bottom: 40px;
 }
 
-.signUp-button-container {
+/* .signUp-button-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -279,7 +251,7 @@ export default defineComponent({
 .signUp-button:hover {
   background-color: #2d3f19;
   color: white;
-}
+} */
 
 .have-an-account {
   font-size: 20px;

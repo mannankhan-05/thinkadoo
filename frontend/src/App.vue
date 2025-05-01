@@ -57,4 +57,54 @@ body {
   width: 100%;
   background-color: #bc6c25;
 }
+
+.container {
+  width: 100%;
+  height: auto;
+  background-color: #fefae0;
+}
+
+.sheet {
+  width: 100%;
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.email-input {
+  height: 100px;
+}
+
+.email-input {
+  border: 3px solid grey;
+  border-radius: 0px;
+  width: 92%;
+  height: 70px;
+  padding-left: 20px;
+  font-size: 30px;
+  font-weight: 100;
+  color: grey;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  width: 92%;
+  height: 50px !important;
+  display: flex;
+  justify-content: center;
+  background-color: #283618;
+  font-size: 25px;
+  color: white !important;
+  border-radius: 0px;
+  transition: 0.3s ease-in-out;
+}
+.button:hover {
+  background-color: #2d3f19;
+  color: white;
+}
 </style>
