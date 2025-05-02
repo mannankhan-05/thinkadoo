@@ -8,7 +8,7 @@
         >
 
         <v-sheet class="sheet" :elevation="1">
-          <h1 class="login-heading">Login</h1>
+          <h1 class="heading">Login</h1>
 
           <!-- Email -->
           <h1 class="email-label">Email</h1>
@@ -52,11 +52,7 @@
           <div
             class="button-container d-flex flex-column justify-center align-center"
           >
-            <v-btn
-              class="button"
-              :disabled="!email || !password || !validEmail || !validPassword"
-              @click="loginExistingUser"
-            >
+            <v-btn class="button" @click="loginExistingUser">
               <span v-if="!loginButtonLoading">Login</span>
               <v-progress-circular
                 v-if="loginButtonLoading"
@@ -71,6 +67,13 @@
               >
             </div>
           </div>
+
+          <!-- Snackbar if fields are empty -->
+          <v-snackbar v-model="emptyFields" :timeout="2000" rounded="pill">
+            <h4 class="empty-field-snackbar d-flex align-center">
+              Please fill all the text fields.
+            </h4>
+          </v-snackbar>
         </v-sheet>
       </v-col>
     </v-row>
@@ -88,6 +91,7 @@ export default defineComponent({
       rememberMe: false as boolean,
       loginButtonLoading: false as boolean,
       passwordVisibility: false as boolean,
+      emptyFields: false as boolean,
     };
   },
 
@@ -111,42 +115,26 @@ export default defineComponent({
       this.loginButtonLoading = true;
       const { email, password, rememberMe } = this;
 
-      await this.$store.dispatch("loginUser", {
-        email,
-        password,
-        rememberMe,
-      });
+      if (email != "" && password != "") {
+        await this.$store.dispatch("loginUser", {
+          email,
+          password,
+          rememberMe,
+        });
 
-      this.email = "";
-      this.password = "";
-      this.loginButtonLoading = false;
+        this.email = "";
+        this.password = "";
+        this.loginButtonLoading = false;
+      } else {
+        this.emptyFields = true;
+        this.loginButtonLoading = false;
+      }
     },
   },
 });
 </script>
 
 <style scoped>
-.login-heading {
-  font-family: "Bitter", serif;
-  display: flex;
-  justify-content: center;
-  font-size: 55px;
-  margin-top: 20px;
-  font-weight: normal;
-}
-
-.email-label,
-.password-label {
-  margin-top: 40px;
-  margin-left: 40px;
-  font-weight: 400;
-  font-size: 26px;
-}
-
-.password-label {
-  margin-top: 50px;
-}
-
 .forget-password-label {
   margin-top: 20px;
   margin-left: 40px;
@@ -189,20 +177,5 @@ export default defineComponent({
 
 .signUpButton:hover {
   transform: scale(1.05);
-}
-
-@media (max-width: 600px) {
-  .login-heading {
-    font-size: 48px;
-  }
-
-  .login-button {
-    font-size: 25px;
-    width: 80%;
-  }
-
-  .email-input {
-    font-size: 23px;
-  }
 }
 </style>

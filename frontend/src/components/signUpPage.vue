@@ -8,7 +8,7 @@
         >
 
         <v-sheet class="sheet" :elevation="1">
-          <h1 class="signUp-heading">Sign Up</h1>
+          <h1 class="heading">Sign Up</h1>
 
           <!-- Name -->
           <h1 class="email-label">Name</h1>
@@ -181,28 +181,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.signUp-heading {
-  font-family: "Bitter", serif;
-  display: flex;
-  justify-content: center;
-  font-size: 55px;
-  margin-top: 20px;
-  font-weight: normal;
-}
-
-.email-label,
-.password-label,
-.name-label {
-  margin-top: 40px;
-  margin-left: 40px;
-  font-weight: 400;
-  font-size: 26px;
-}
-
-.password-label {
-  margin-top: 50px;
-}
-
 .confirm-password {
   margin-top: 30px;
 }
@@ -230,28 +208,6 @@ export default defineComponent({
   margin-left: 8px;
   margin-bottom: 40px;
 }
-
-/* .signUp-button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.signUp-button {
-  width: 92%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  background-color: #283618;
-  font-size: 25px;
-  color: white;
-  border-radius: 0px;
-  transition: 0.3s ease-in-out;
-}
-.signUp-button:hover {
-  background-color: #2d3f19;
-  color: white;
-} */
 
 .have-an-account {
   font-size: 20px;
@@ -285,20 +241,5 @@ export default defineComponent({
   color: white;
   font-size: 20px;
   font-weight: 100;
-}
-
-@media (max-width: 600px) {
-  .signUp-heading {
-    font-size: 48px;
-  }
-
-  .signUp-button {
-    font-size: 25px;
-    width: 80%;
-  }
-
-  .email-input {
-    font-size: 23px;
-  }
 }
 </style>

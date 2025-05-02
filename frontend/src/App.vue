@@ -71,6 +71,28 @@ body {
   flex-direction: column;
 }
 
+.heading {
+  font-family: "Bitter", serif;
+  display: flex;
+  justify-content: center;
+  font-size: 55px;
+  margin-top: 20px;
+  font-weight: normal;
+}
+
+.email-label,
+.password-label,
+.name-label {
+  margin-top: 40px;
+  margin-left: 40px;
+  font-weight: 400;
+  font-size: 26px;
+}
+
+.password-label {
+  margin-top: 50px;
+}
+
 .email-input {
   height: 100px;
 }
@@ -106,5 +128,20 @@ body {
 .button:hover {
   background-color: #2d3f19;
   color: white;
+}
+
+@media (max-width: 600px) {
+  .heading {
+    font-size: 48px;
+  }
+
+  .button {
+    font-size: 25px;
+    width: 80%;
+  }
+
+  .email-input {
+    font-size: 23px;
+  }
 }
 </style>

@@ -9,7 +9,7 @@
 
         <!-- Edit Heading Sheet -->
         <v-sheet class="sheet mb-15" :elevation="1">
-          <h1 class="edit-heading">Edit Account</h1>
+          <h1 class="heading">Edit Account</h1>
         </v-sheet>
 
         <!-- Edit Account Form -->
@@ -81,45 +81,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-.edit-heading {
-  font-family: "Bitter", serif;
-  display: flex;
-  justify-content: center;
-  font-size: 55px;
-  margin-top: 20px;
-  font-weight: normal;
-}
-
-.email-label,
-.password-label {
-  margin-top: 40px;
-  margin-left: 40px;
-  font-weight: 400;
-  font-size: 26px;
-}
-
-/* .login-button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
-/* .button {
-  margin-top: 50px;
-  margin-bottom: 50px; */
-/* width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  background-color: #283618;
-  font-size: 25px;
-  color: white;
-  border-radius: 0px;
-  transition: 0.3s ease-in-out; */
-/* } */
-/* .login-button:hover {
-  background-color: #2d3f19;
-  color: white;
-} */
-</style>
+<style scoped></style>
