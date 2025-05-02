@@ -26,6 +26,27 @@ export const getUsers = (req: Request, res: Response) => {
     });
 };
 
+// To get a user by id
+export const getUserById = async (req: Request, res: Response) => {
+  const id = req.params.userId;
+
+  await user
+    .findByPk(id)
+    .then((userFound) => {
+      if (!userFound) {
+        logger.error(`User with id : ${id} not found`);
+        res.status(500);
+        return;
+      }
+
+      res.json(userFound);
+    })
+    .catch((err) => {
+      logger.error(`Error getting user with id : ${id}. Error : ${err}`);
+      res.sendStatus(500);
+    });
+};
+
 // To create a user (sign up)
 export const createUser = async (req: Request, res: Response) => {
   const {
@@ -99,6 +120,38 @@ export const loginUser = async (req: Request, res: Response) => {
     logger.error(`Error logging in user with email : ${email}. Error : ${err}`);
     res.status(500);
   }
+};
+
+// To edit a user's information
+export const editUser = async (req: Request, res: Response) => {
+  const {
+    name,
+    email,
+    promotions,
+  }: { name: string; email: string; promotions: boolean } = req.body;
+  const id = req.params.userId;
+
+  await user
+    .update(
+      {
+        name,
+        email,
+        promotions,
+      },
+      {
+        where: { id },
+      }
+    )
+    .then(() => {
+      logger.info(
+        `Successfully updated the information of user having id : ${id}`
+      );
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      logger.info(`Eroor updating the information of user having id : ${id}`);
+      res.sendStatus(500);
+    });
 };
 
 // Sending Code to reset password to user's email

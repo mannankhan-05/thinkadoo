@@ -130,6 +130,24 @@ body {
   color: white;
 }
 
+.love-to-hear-container {
+  display: flex;
+  align-items: center;
+}
+
+.love-to-hear-checkbox {
+  margin-left: 30px;
+  font-size: 30px;
+  font-weight: bolder;
+  color: black;
+}
+
+.love-to-hear-text {
+  font-size: 23px;
+  margin-left: 8px;
+  margin-top: 20px;
+}
+
 @media (max-width: 600px) {
   .heading {
     font-size: 48px;

@@ -17,7 +17,7 @@
         <v-sheet class="pa-5 mb-5" :elevation="1">
           <h1 class="email-label">Name</h1>
           <div class="d-flex justify-center">
-            <input class="email-input" type="text" v-model="userName" />
+            <input class="email-input" type="text" v-model="userInfo.name" />
           </div>
         </v-sheet>
 
@@ -25,12 +25,24 @@
         <v-sheet class="pa-5 mb-5" :elevation="1">
           <h1 class="email-label">Email</h1>
           <div class="d-flex justify-center">
-            <input class="email-input" type="email" v-model="userEmail" />
+            <input class="email-input" type="email" v-model="userInfo.email" />
+          </div>
+        </v-sheet>
+
+        <v-sheet class="pa-5 mb-5" :elevation="1">
+          <!-- Checkbox -->
+          <div class="love-to-hear-container">
+            <v-checkbox
+              class="love-to-hear-checkbox mt-10"
+              @click="promotions = !promotions"
+              v-model="userInfo.promotions"
+            ></v-checkbox>
+            <span class="love-to-hear-text">Promotions</span>
           </div>
         </v-sheet>
 
         <!-- Password -->
-        <v-sheet class="pa-5 mb-5" :elevation="1">
+        <!-- <v-sheet class="pa-5 mb-5" :elevation="1">
           <h1 class="email-label">New Password</h1>
           <div class="d-flex justify-center">
             <input class="email-input" type="password" />
@@ -40,7 +52,7 @@
           <div class="d-flex justify-center">
             <input class="email-input" type="password" />
           </div>
-        </v-sheet>
+        </v-sheet> -->
 
         <!-- Save Changes Button -->
         <div
@@ -62,12 +74,19 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import axiosInstance from "../api/axiosInstance";
 
 export default defineComponent({
   data() {
     return {
+      userInfo: {} as object,
       saveButtonLoading: false as boolean,
     };
+  },
+
+  async mounted() {
+    let response = await axiosInstance.get(`/user/${this.$store.state.userId}`);
+    this.userInfo = response.data;
   },
 
   computed: {

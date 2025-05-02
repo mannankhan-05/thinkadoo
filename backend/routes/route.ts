@@ -2,8 +2,10 @@ import express from "express";
 const router = express.Router();
 import {
   getUsers,
+  getUserById,
   createUser,
   loginUser,
+  editUser,
   sendCodeToEmail,
   resetPassword,
 } from "../controllers/user";
@@ -25,9 +27,13 @@ import { createCoupon, validateCoupon } from "../controllers/coupon";
 // user routes :
 router.get("/users", getUsers);
 
+router.get("/user/:userId", getUserById);
+
 router.post("/createUser", createUser);
 
 router.post("/loginUser", loginUser);
+
+router.put("/editUser/:userId");
 
 router.post("/sendCodeToEmail", sendCodeToEmail);
 
