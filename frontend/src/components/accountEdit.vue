@@ -17,7 +17,7 @@
         <v-sheet class="pa-5 mb-5" :elevation="1">
           <h1 class="email-label">Name</h1>
           <div class="d-flex justify-center">
-            <input class="email-input" type="text" v-model="userInfo.name" />
+            <input class="email-input" type="text" v-model="userName" />
           </div>
         </v-sheet>
 
@@ -25,7 +25,7 @@
         <v-sheet class="pa-5 mb-5" :elevation="1">
           <h1 class="email-label">Email</h1>
           <div class="d-flex justify-center">
-            <input class="email-input" type="email" v-model="userInfo.email" />
+            <input class="email-input" type="email" v-model="userEmail" />
           </div>
         </v-sheet>
 
@@ -34,8 +34,8 @@
           <div class="love-to-hear-container">
             <v-checkbox
               class="love-to-hear-checkbox mt-10"
-              @click="promotions = !promotions"
-              v-model="userInfo.promotions"
+              @click="checkbox = !checkbox"
+              v-model="promotions"
             ></v-checkbox>
             <span class="love-to-hear-text">Promotions</span>
           </div>
@@ -79,22 +79,33 @@ import axiosInstance from "../api/axiosInstance";
 export default defineComponent({
   data() {
     return {
-      userInfo: {} as object,
+      userName: "" as string,
+      userEmail: "" as string,
+      promotions: false as boolean,
+      checkbox: false as boolean,
       saveButtonLoading: false as boolean,
     };
   },
 
   async mounted() {
     let response = await axiosInstance.get(`/user/${this.$store.state.userId}`);
-    this.userInfo = response.data;
+    this.userName = response.data.name;
+    this.userEmail = response.data.email;
+    this.promotions = response.data.promotions;
   },
 
-  computed: {
-    userName() {
-      return this.$store.state.userName;
-    },
-    userEmail() {
-      return this.$store.state.userEmail;
+  methods: {
+    async saveChanges() {
+      this.saveButtonLoading = true;
+      const { userName, userEmail, promotions } = this;
+
+      await this.$store.dispatch("editUser", {
+        userName,
+        userEmail,
+        promotions,
+      });
+
+      this.saveButtonLoading = false;
     },
   },
 });

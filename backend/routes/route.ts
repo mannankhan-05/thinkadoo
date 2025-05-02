@@ -33,7 +33,7 @@ router.post("/createUser", createUser);
 
 router.post("/loginUser", loginUser);
 
-router.put("/editUser/:userId");
+router.put("/editUser/:userId", editUser);
 
 router.post("/sendCodeToEmail", sendCodeToEmail);
 

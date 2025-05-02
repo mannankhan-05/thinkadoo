@@ -100,6 +100,16 @@ export default createStore({
         localStorage.removeItem("nickname");
       }
     },
+    async editUser({ state, commit }, { userName, userEmail, promotions }) {
+      await axiosInstance.put(`/editUser/${state.userId}`, {
+        name: userName,
+        email: userEmail,
+        promotions: promotions,
+      });
+
+      commit("setUserName", userName);
+      commit("setUserEmail", userEmail);
+    },
     async logoutUser({ state, commit }) {
       // Clear Vuex state
       commit("setIsUserLoggedIn", false);
