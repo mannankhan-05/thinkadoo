@@ -116,18 +116,14 @@
             lg="3"
             class="mb-6"
           >
-            <v-card
-              class="book-card h-100"
-              elevation="2"
-              hover
-              @click="viewBook(book.id)"
-            >
+            <v-card class="book-card h-100" elevation="2" hover>
               <div class="book-image-container">
                 <v-img
                   :src="book.image"
                   height="350"
                   cover
                   class="book-image"
+                  @click="viewBook(book.id)"
                 ></v-img>
 
                 <!-- <v-chip
@@ -181,10 +177,17 @@
                   <v-btn
                     color="#283618"
                     class="add-to-cart-btn"
-                    @click="addToCart(book.id)"
+                    @click="addToCart(book)"
                   >
-                    <v-icon left class="mr-2">mdi-cart</v-icon>
-                    Add to Cart
+                    <span v-if="!cartButtonLoading">
+                      <v-icon left class="mr-2">mdi-cart</v-icon>
+                      Add to Cart
+                    </span>
+                    <v-progress-circular
+                      v-if="cartButtonLoading"
+                      indeterminate
+                      :size="40"
+                    ></v-progress-circular>
                   </v-btn>
                 </div>
               </v-card-text>
@@ -257,6 +260,8 @@ export default defineComponent({
       activeSlide: 0,
       favorites: [] as number[],
       email: "",
+
+      cartButtonLoading: false as boolean,
     };
   },
 
@@ -294,9 +299,18 @@ export default defineComponent({
       }
     },
 
-    addToCart(id: number) {
-      // Implement cart functionality
-      console.log(`Added book ${id} to cart`);
+    async addToCart(book: object) {
+      this.cartButtonLoading = true;
+
+      let cart = localStorage.getItem("cart");
+      if (cart) {
+        let cartArray = JSON.parse(cart);
+        cartArray.push(book);
+        localStorage.setItem("cart", JSON.stringify(cartArray));
+      } else {
+        localStorage.setItem("cart", JSON.stringify([book]));
+      }
+      this.cartButtonLoading = false;
     },
 
     viewBook(id: number) {
