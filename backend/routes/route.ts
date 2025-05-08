@@ -19,7 +19,11 @@ import {
   deleteBook,
   searchBooks,
 } from "../controllers/book";
-import { getBookReviews, createBookReview } from "../controllers/book_review";
+import {
+  getBookReviews,
+  createBookReview,
+  getReviewsByBookId,
+} from "../controllers/book_review";
 import { getOrders, createOrder } from "../controllers/order";
 import { getOrderItems, addItemToOrder } from "../controllers/order_item";
 import { createCoupon, validateCoupon } from "../controllers/coupon";
@@ -58,6 +62,8 @@ router.get("/searchBooks", searchBooks);
 
 // book review routes :
 router.get("/getBookReviews", getBookReviews);
+
+router.get("/bookReviews/:bookId", getReviewsByBookId);
 
 router.post("/createBookReview", createBookReview);
 

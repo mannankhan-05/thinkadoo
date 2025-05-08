@@ -12,11 +12,15 @@ book_review.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    book_id: {
-      type: DataTypes.INTEGER,
+    name: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    user_id: {
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    rating: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -24,9 +28,14 @@ book_review.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    rating: {
+    book_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
   },
   {
@@ -36,7 +45,6 @@ book_review.init(
   }
 );
 
-book_review.belongsTo(user, { foreignKey: "user_id" });
 book_review.belongsTo(book, { foreignKey: "book_id" });
 
 export default book_review;
