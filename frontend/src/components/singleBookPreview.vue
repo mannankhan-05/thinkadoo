@@ -144,7 +144,7 @@
               </div>
             </v-card-title>
             <v-card-text>
-              <p>{{ review.comment }}</p>
+              <p>{{ review.review }}</p>
             </v-card-text>
           </v-card>
         </div>
@@ -158,7 +158,7 @@
         <div class="text-center mb-6">
           <v-btn
             color="#283618"
-            class="text-white px-8 py-2"
+            class="submit-review-button text-white px-8 py-2"
             size="large"
             @click="showReviewForm = !showReviewForm"
           >
@@ -237,17 +237,23 @@
                     ></v-textarea>
                   </v-col>
                 </v-row>
-                <v-card-actions class="justify-end">
-                  <v-btn
-                    color="#283618"
-                    class="submit-review-button text-white px-8"
-                    size="large"
-                    type="submit"
-                    :disabled="!isFormValid"
+                <v-btn
+                  color="#283618"
+                  class="submit-review-button text-white px-8"
+                  size="large"
+                  type="submit"
+                  :disabled="!isFormValid || submittingReview"
+                >
+                  <span>
+                    <v-progress-circular
+                      v-if="submittingReview"
+                      indeterminate
+                      :size="25"
+                      class="mr-2"
+                    ></v-progress-circular>
+                    Submit Review</span
                   >
-                    Submit Review
-                  </v-btn>
-                </v-card-actions>
+                </v-btn>
               </v-form>
             </v-card-text>
           </v-card>
@@ -280,9 +286,10 @@ export default defineComponent({
         rating: 5,
         comment: "",
       },
-      showReviewForm: false,
+      showReviewForm: true,
       isFormValid: false,
       averageRating: 0,
+      submittingReview: false,
     };
   },
 
@@ -290,8 +297,6 @@ export default defineComponent({
     let response = await axiosInstance.get(`/book/${this.$route.params.id}`);
     this.book = response.data;
 
-    // Fetch reviews or initialize with sample data for demonstration
-    // In a real app, you would fetch reviews from your API
     this.fetchReviews();
   },
 
@@ -310,53 +315,34 @@ export default defineComponent({
     buyNow(book: object) {
       let bookToBuy = localStorage.getItem("bookToBuy");
       if (bookToBuy) {
-        localStorage.removeItem("bookToBuy");
+        localStorage.removeItem("bookTo");
       }
       localStorage.setItem("bookToBuy", JSON.stringify(book));
 
       this.$router.push({ name: "personalizeCharacter" });
     },
 
-    fetchReviews() {
-      // In a real app, you would fetch reviews from your API
-      // For demonstration, we'll use sample data
-      this.reviews = [
-        {
-          name: "Sarah Johnson",
-          email: "sarah@example.com",
-          rating: 5,
-          comment:
-            "My daughter absolutely loves this book! The personalized characters make her so excited every time we read it.",
-          date: new Date(2023, 3, 15),
-        },
-        {
-          name: "Michael Chen",
-          email: "michael@example.com",
-          rating: 4,
-          comment:
-            "Great quality and beautiful illustrations. My son enjoys seeing himself in the story.",
-          date: new Date(2023, 4, 2),
-        },
-      ];
+    async fetchReviews() {
+      let response = await axiosInstance(
+        `/bookReviews/${this.$route.params.id}`
+      );
+      this.reviews = response.data;
 
-      // Calculate average rating
       this.calculateAverageRating();
     },
 
-    submitReview() {
-      // Validate form
+    async submitReview() {
       if (!this.isFormValid) return;
 
-      // Add the new review
-      const reviewToAdd = {
-        ...this.newReview,
-        date: new Date(),
-      };
+      this.submittingReview = true;
 
-      this.reviews.unshift(reviewToAdd);
-
-      // In a real app, you would send this to your API
-      // await axiosInstance.post(`/book/${this.$route.params.id}/reviews`, reviewToAdd);
+      await axiosInstance.post("/createBookReview", {
+        name: this.newReview.name,
+        email: this.newReview.email,
+        rating: this.newReview.rating,
+        review: this.newReview.comment,
+        bookId: this.$route.params.id,
+      });
 
       // Reset form
       this.newReview = {
@@ -366,14 +352,11 @@ export default defineComponent({
         comment: "",
       };
 
-      // Hide form
       this.showReviewForm = false;
 
       // Recalculate average
       this.calculateAverageRating();
 
-      // Show success message
-      // You could use a snackbar or alert here
       alert("Thank you for your review!");
     },
 

@@ -86,7 +86,7 @@ export default defineComponent({
   font-family: "Varela Round", serif;
   display: flex;
   justify-content: center;
-  border-radius: 0;
+  border-radius: 8px;
 }
 
 .book-image-container {

@@ -181,6 +181,7 @@ export default defineComponent({
   font-weight: bold;
   background-color: #283618;
   color: white;
+  border-radius: 8px;
   transition: 0.3s ease-in-out;
 }
 .CTA-xs-button {

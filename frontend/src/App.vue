@@ -122,7 +122,7 @@ body {
   background-color: #283618;
   font-size: 25px;
   color: white !important;
-  border-radius: 0px;
+  border-radius: 8px;
   transition: 0.3s ease-in-out;
 }
 .button:hover {

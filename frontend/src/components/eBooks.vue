@@ -414,6 +414,7 @@ export default defineComponent({
   font-family: "Playwrite GB J", serif;
   font-size: 18px;
   padding: 0px 30px !important;
+  border-radius: 8px !important;
   transition: 0.3s ease-in-out;
 }
 
@@ -562,6 +563,7 @@ export default defineComponent({
 }
 
 .add-to-cart-btn {
+  border-radius: 8px !important;
   color: white !important;
 }
 

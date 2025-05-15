@@ -457,6 +457,7 @@ export default defineComponent({
   color: white;
   font-size: 15px;
   font-weight: bold;
+  border-radius: 8px;
 }
 .admin-button:hover {
   cursor: pointer;
