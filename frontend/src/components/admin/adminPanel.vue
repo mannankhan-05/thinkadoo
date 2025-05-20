@@ -36,7 +36,9 @@
             Orders
           </h2>
           <v-divider class="mt-5 mb-5"></v-divider>
-          <v-btn class="goto-button">See All Orders</v-btn>
+          <v-btn class="goto-button" @click="gotoOrderManagement"
+            >See All Orders</v-btn
+          >
         </v-card>
       </v-col>
     </v-row>
@@ -53,6 +55,9 @@ export default defineComponent({
     },
     gotoAllBooks() {
       this.$router.push({ name: "adminBooks" });
+    },
+    gotoOrderManagement() {
+      this.$router.push({ name: "orderManagement" });
     },
   },
 });

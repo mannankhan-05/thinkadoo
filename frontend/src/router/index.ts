@@ -16,6 +16,7 @@ import accountEdit from "@/components/accountEdit.vue";
 import adminPanel from "@/components/admin/adminPanel.vue";
 import addBook from "@/components/admin/addBook.vue";
 import editOrDeleteBooks from "@/components/admin/editOrDeleteBooks.vue";
+import orderManagement from "@/components/admin/orderManagement.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -92,6 +93,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/admin/books",
     name: "adminBooks",
     component: editOrDeleteBooks,
+  },
+  {
+    path: "/admin/orders",
+    name: "orderManagement",
+    component: orderManagement,
   },
 ];
 
