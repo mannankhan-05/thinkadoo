@@ -64,9 +64,9 @@
                 :model-value="5"
                 color="orange"
                 active-color="orange"
-                empty-icon="mdi-heart-outline"
-                half-icon="mdi-heart-half-full"
-                full-icon="mdi-heart"
+                empty-icon="mdi-star-outline"
+                half-icon="mdi-star-half-full"
+                full-icon="mdi-star"
               />
               <div class="book-title-container">
                 <h1 class="ml-3 mt-3">{{ book.title }}</h1>
@@ -271,7 +271,6 @@ export default defineComponent({
   width: 100%;
   max-height: 380px;
   object-fit: contain;
-  border-radius: 8px !important;
   transition: transform 0.3s ease;
 }
 

@@ -97,7 +97,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axiosInstance from "../api/axiosInstance";
+import axiosInstance from "../../api/axiosInstance";
 
 interface book {
   id: number;

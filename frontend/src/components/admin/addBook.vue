@@ -1,18 +1,18 @@
 <template>
-  <v-container fluid class="addBook-container">
+  <v-container fluid class="container">
     <v-row justify="center">
       <v-col cols="12" lg="6" md="6" sm="10" xs="12">
-        <v-sheet class="addBook-sheet" :elevation="1">
-          <h1 class="addBook-heading">Add New Book</h1>
+        <!-- Back Button -->
+        <v-icon class="back-button" @click="() => this.$router.go(-1)"
+          >mdi-keyboard-backspace</v-icon
+        >
+
+        <v-sheet class="sheet" :elevation="1">
+          <h1 class="heading">Add New Book</h1>
           <div class="form">
             <h1 class="email-label">Title</h1>
             <div class="d-flex justify-center">
-              <v-text-field
-                class="email-input"
-                clearable
-                variant="outlined"
-                v-model="title"
-              ></v-text-field>
+              <input class="email-input" clearable v-model="title" />
             </div>
             <h1 class="email-label">Picture</h1>
             <div class="d-flex justify-center">
@@ -34,29 +34,24 @@
             </div>
             <h1 class="email-label">Description</h1>
             <div class="d-flex justify-center">
-              <v-text-field
+              <input
                 class="email-input"
                 clearable
                 variant="outlined"
                 v-model="description"
-              ></v-text-field>
+              />
             </div>
             <h1 class="email-label">Price</h1>
             <div class="d-flex justify-center">
-              <v-text-field
+              <input
                 class="email-input"
                 clearable
                 variant="outlined"
                 v-model="price"
-              ></v-text-field>
+              />
             </div>
-            <div
-              class="mt-10 mb-10 addBook-button-container d-flex flex-column justify-center align-center"
-            >
-              <v-btn
-                class="addBook-button"
-                @click="addNewBook"
-                :disabled="!title || !picture || !description || !price"
+            <div class="mt-10 mb-15 button-container">
+              <v-btn class="button mt-10 mb-10" @click="addNewBook"
                 >Add New Book</v-btn
               >
             </div>
@@ -69,7 +64,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axiosInstance from "../api/axiosInstance";
+import axiosInstance from "../../api/axiosInstance";
 
 export default defineComponent({
   name: "addBook",
@@ -85,6 +80,9 @@ export default defineComponent({
   },
   methods: {
     async addNewBook() {
+      if (!this.title || !this.picture || !this.description || !this.price) {
+        return;
+      }
       const formData = new FormData();
       formData.append("title", this.title);
       formData.append("bookImage", this.picture);
@@ -116,57 +114,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.addBook-container {
-  width: 100%;
-  height: 1300px;
-  background-color: #fefae0;
-}
-
-.addBook-sheet {
-  width: 100%;
-  margin-top: 130px;
-  display: flex;
-  flex-direction: column;
-}
-
-.addBook-heading {
-  display: flex;
-  justify-content: center;
-  font-size: 55px;
-  margin-top: 20px;
-}
-
 .email-input {
   width: 92%;
   margin-left: 30px;
   margin-right: 30px;
-}
-
-.email-label {
-  margin-top: 40px;
-  margin-left: 30px;
-  font-weight: 400;
-}
-
-.addBook-button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.addBook-button {
-  width: 92%;
-  height: 70px;
-  display: flex;
-  justify-content: center;
-  background-color: #283618;
-  font-size: 35px;
-  color: white;
-  border-radius: 150px;
-  transition: 0.3s ease-in-out;
-}
-.addBook-button:hover {
-  background-color: #fefae0;
-  color: #405f1c;
 }
 </style>

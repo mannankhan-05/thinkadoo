@@ -5,15 +5,17 @@ import authSelection from "@/components/authSelection.vue";
 import loginPage from "@/components/loginPage.vue";
 import signUpPage from "@/components/signUpPage.vue";
 import userCart from "@/components/userCart.vue";
-import adminPanel from "@/components/adminPanel.vue";
-import addBook from "@/components/addBook.vue";
-import editOrDeleteBooks from "@/components/editOrDeleteBooks.vue";
 import forgetPassword from "@/components/forgetPassword.vue";
 import resetPassword from "@/components/resetPassword.vue";
 import personalizeCharacter from "@/components/personalizeCharacter.vue";
 import orderCheckout from "@/components/orderCheckout.vue";
 import eBooks from "@/components/eBooks.vue";
 import accountEdit from "@/components/accountEdit.vue";
+
+// Import the components for the admin panel
+import adminPanel from "@/components/admin/adminPanel.vue";
+import addBook from "@/components/admin/addBook.vue";
+import editOrDeleteBooks from "@/components/admin/editOrDeleteBooks.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {

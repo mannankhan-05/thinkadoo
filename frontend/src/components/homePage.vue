@@ -61,12 +61,53 @@
     <!-- Best Selling Books -->
     <bestSellingBooks />
 
-    <!-- why choose printed books image -->
-    <img
-      class="whychoose-ebook-image"
-      :src="require('../assets/whychoose-ebook.png')"
-      alt=""
-    />
+    <!-- Why Choose Printed Books Section -->
+    <v-container fluid class="whychoose-section">
+      <v-row justify="center">
+        <v-col cols="12" md="10" lg="8" class="text-center">
+          <h2 class="whychoose-heading">WHY CHOOSE PRINTED BOOKS</h2>
+          <div class="whychoose-points-container">
+            <div class="whychoose-point">
+              <h3 class="point-number">01</h3>
+              <div class="point-content">
+                <h4 class="point-title">Tactile Experience</h4>
+                <p class="point-description">
+                  Feel the texture of pages and enjoy a screen-free reading
+                  experience.
+                </p>
+              </div>
+            </div>
+            <div class="whychoose-point">
+              <h3 class="point-number">02</h3>
+              <div class="point-content">
+                <h4 class="point-title">Better Retention</h4>
+                <p class="point-description">
+                  Studies show printed books improve memory and comprehension.
+                </p>
+              </div>
+            </div>
+            <div class="whychoose-point">
+              <h3 class="point-number">03</h3>
+              <div class="point-content">
+                <h4 class="point-title">Family Bonding</h4>
+                <p class="point-description">
+                  Create lasting memories through shared reading experiences.
+                </p>
+              </div>
+            </div>
+            <div class="whychoose-point">
+              <h3 class="point-number">04</h3>
+              <div class="point-content">
+                <h4 class="point-title">No Battery Required</h4>
+                <p class="point-description">
+                  Enjoy your books anytime, anywhere without charging.
+                </p>
+              </div>
+            </div>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
 
     <!-- Books Loved By You -->
     <lovedByYouBooks />
@@ -212,9 +253,75 @@ export default defineComponent({
   height: 400px;
 }
 
-.whychoose-ebook-image {
-  width: 100%;
+.whychoose-section {
+  background-color: #fefae0;
+  padding: 60px 20px;
   margin-bottom: 40px;
+}
+
+.whychoose-heading {
+  font-family: "Lilita One", serif;
+  font-size: 50px;
+  color: #283618;
+  margin-bottom: 50px;
+}
+
+.whychoose-points-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.whychoose-point {
+  display: flex;
+  align-items: flex-start;
+  text-align: left;
+  padding: 0 20px;
+}
+
+.point-number {
+  font-family: "Lilita One", serif;
+  font-size: 36px;
+  color: #283618;
+  margin-right: 20px;
+  min-width: 60px;
+}
+
+.point-content {
+  flex: 1;
+}
+
+.point-title {
+  font-family: "Playwrite GB J", serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #283618;
+  margin-bottom: 8px;
+}
+
+.point-description {
+  font-size: 18px;
+  color: #283618;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .whychoose-heading {
+    font-size: 30px;
+  }
+
+  .point-number {
+    font-size: 28px;
+    min-width: 50px;
+  }
+
+  .point-title {
+    font-size: 20px;
+  }
+
+  .point-description {
+    font-size: 16px;
+  }
 }
 
 .get-off-banner {
