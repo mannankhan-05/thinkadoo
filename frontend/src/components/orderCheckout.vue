@@ -42,7 +42,7 @@
 
                   <h1 class="input-label">Email</h1>
                   <div class="d-flex justify-center">
-                    <input class="input-field" type="text" v-model="email" />
+                    <input class="input-field" type="email" v-model="email" />
                   </div>
 
                   <h1 class="input-label">Street address (or P.O. Box)</h1>
@@ -88,7 +88,7 @@
                   <div
                     class="continue-btn-container d-flex justify-center mt-5 mb-15"
                   >
-                    <v-btn class="continue-button" @click="step++"
+                    <v-btn class="continue-button" @click="saveShippingDetails"
                       >Continue to delievery</v-btn
                     >
                   </div>
@@ -232,7 +232,9 @@
               </v-sheet>
 
               <div class="d-flex justify-center mt-15">
-                <v-btn class="continue-button" @click="step++">Continue</v-btn>
+                <v-btn class="continue-button" @click="saveDeliveryType"
+                  >Continue</v-btn
+                >
               </div>
             </v-col>
           </v-row>
@@ -298,7 +300,31 @@ export default defineComponent({
       });
 
       this.isCouponValid = response.data.isValid;
-      console.log(this.isCouponValid);
+    },
+
+    async saveShippingDetails() {
+      if (
+        !this.name ||
+        !this.email ||
+        !this.streetAddress ||
+        !this.city ||
+        !this.zip ||
+        !this.country
+      ) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+
+      this.step++;
+    },
+
+    saveDeliveryType() {
+      if (!this.orderDelivery) {
+        alert("Please select a delivery type.");
+        return;
+      }
+
+      this.step++;
     },
   },
 });
@@ -382,7 +408,7 @@ export default defineComponent({
   font-size: 25px;
   width: 70%;
   height: 65px;
-  border-radius: 0px;
+  border-radius: 8px;
 }
 
 .summary-header {

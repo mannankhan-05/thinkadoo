@@ -175,7 +175,7 @@ export default defineComponent({
   font-size: 25px;
   font-weight: 400;
   margin-top: 20px;
-  border-radius: 0;
+  border-radius: 8px;
   transition: 0.3 ease-in-out;
 }
 
@@ -190,11 +190,10 @@ export default defineComponent({
   height: 50px;
   background-color: #f8b400;
   color: #2b2b2b;
-
   font-size: 22px;
   font-weight: 400;
   margin-top: 20px;
-  border-radius: 0;
+  border-radius: 8px;
   transition: 0.3s ease-in-out;
 }
 .remove-from-cart-btn:hover {
