@@ -444,7 +444,7 @@ export default defineComponent({
 }
 
 .book-price {
-  font-size: 45px;
+  font-size: 40px;
   font-weight: bolder;
   color: #283618;
 }
@@ -456,7 +456,7 @@ export default defineComponent({
   height: 60px;
   background-color: #283618;
   color: white;
-  font-size: 40px;
+  font-size: 35px;
   padding: 40px 40px;
   font-weight: 300;
   border-radius: 8px;
@@ -465,8 +465,7 @@ export default defineComponent({
 }
 
 .add-to-card-btn:hover {
-  background-color: #fefae0;
-  color: #283618;
+  background-color: #2b3b17;
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(40, 54, 24, 0.3);
 }

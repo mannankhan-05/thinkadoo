@@ -8,7 +8,7 @@ import userCart from "@/components/userCart.vue";
 import forgetPassword from "@/components/forgetPassword.vue";
 import resetPassword from "@/components/resetPassword.vue";
 import personalizeCharacter from "@/components/personalizeCharacter.vue";
-import orderCheckout from "@/components/orderCheckout.vue";
+import orderCheckout from "@/components/order/orderCheckout.vue";
 import eBooks from "@/components/eBooks.vue";
 import accountEdit from "@/components/accountEdit.vue";
 

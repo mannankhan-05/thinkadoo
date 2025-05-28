@@ -461,8 +461,7 @@ export default defineComponent({
 }
 .admin-button:hover {
   cursor: pointer;
-  background-color: #fefae0;
-  color: #283618;
+  background-color: #2b3b17;
 }
 
 .home-icon,

@@ -181,8 +181,7 @@ export default defineComponent({
 
 .continue-btn:hover,
 .checkout-btn:hover {
-  background-color: #fefae0;
-  color: #283618;
+  background-color: #2b3b17;
 }
 
 .remove-from-cart-btn {
