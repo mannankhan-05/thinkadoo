@@ -64,7 +64,7 @@ export const createOrder = async (req: Request, res: Response) => {
     })
     .then((order) => {
       logger.info(`Order with id ${orderId} confirmed`);
-      res.json(order);
+      res.json(orderId);
     })
     .catch((err) => {
       logger.error(`Error confirming Order: ${err}`);

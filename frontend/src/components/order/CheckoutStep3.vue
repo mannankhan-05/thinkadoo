@@ -406,11 +406,23 @@ export default defineComponent({
           discount: this.couponData.isValid ? this.totalOrderAmount * 0.1 : 0,
         };
 
-        // In a real app, this would be an API call to create the order
-        // const response = await axiosInstance.post("/orders", orderData);
+        // Creating order
+        let response = await axiosInstance.post("/createOrder", {
+          userName: orderData.userName,
+          userEmail: orderData.userEmail,
+          userAddress: orderData.userAddress,
+          userApt: orderData.userApt,
+          city: orderData.city,
+          zip: orderData.zip,
+          country: orderData.country,
+          userPhone: orderData.userPhone,
+          orderPrice: orderData.orderPrice,
+          deliveryType: orderData.deliveryType,
+          status: orderData.status,
+        });
 
-        // Generate order confirmation ID
-        this.orderConfirmationId = `ORD-${Date.now()}`;
+        // Get the created order ID
+        this.orderConfirmationId = response.data.orderId;
 
         // Show success dialog
         this.orderSuccessDialog = true;
