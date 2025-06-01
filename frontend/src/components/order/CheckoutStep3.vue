@@ -422,7 +422,15 @@ export default defineComponent({
         });
 
         // Get the created order ID
-        this.orderConfirmationId = response.data.orderId;
+        this.orderConfirmationId = response.data;
+
+        // Create order items
+        for (let i = 0; i < this.cart.length; i++) {
+          await axiosInstance.post("/addItemToOrder", {
+            orderId: this.orderConfirmationId,
+            bookId: this.cart[i].id,
+          });
+        }
 
         // Show success dialog
         this.orderSuccessDialog = true;
