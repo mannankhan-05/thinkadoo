@@ -50,7 +50,6 @@
           :coupon-data="couponData"
           @edit-shipping="step = 1"
           @edit-delivery="step = 2"
-          @order-placed="handleOrderPlaced"
         />
       </v-col>
     </v-row>
@@ -127,13 +126,6 @@ export default defineComponent({
 
     updateCouponData(data: any) {
       this.couponData = { ...this.couponData, ...data };
-    },
-
-    handleOrderPlaced() {
-      // Clear cart and reset state
-      localStorage.removeItem("cart");
-      this.cart = [];
-      this.step = 1;
     },
   },
 });

@@ -286,7 +286,7 @@ export default defineComponent({
         rating: 5,
         comment: "",
       },
-      showReviewForm: true,
+      showReviewForm: false,
       isFormValid: false,
       averageRating: 0,
       submittingReview: false,

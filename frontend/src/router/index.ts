@@ -8,9 +8,12 @@ import userCart from "@/components/userCart.vue";
 import forgetPassword from "@/components/forgetPassword.vue";
 import resetPassword from "@/components/resetPassword.vue";
 import personalizeCharacter from "@/components/personalizeCharacter.vue";
-import orderCheckout from "@/components/order/orderCheckout.vue";
 import eBooks from "@/components/eBooks.vue";
 import accountEdit from "@/components/accountEdit.vue";
+
+// Import the components for the order management
+import orderCheckout from "@/components/order/orderCheckout.vue";
+import trackOrder from "@/components/order/trackOrder.vue";
 
 // Import the components for the admin panel
 import adminPanel from "@/components/admin/adminPanel.vue";
@@ -68,6 +71,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/order-checkout",
     name: "orderCheckout",
     component: orderCheckout,
+  },
+  {
+    path: "/track-order/:orderId",
+    name: "trackOrder",
+    component: trackOrder,
   },
   {
     path: "/books",

@@ -146,6 +146,15 @@
                     </v-list-item-title>
                   </v-list-item>
 
+                  <v-list-item
+                    @click="this.$router.push({ name: 'trackOrder' })"
+                  >
+                    <v-list-item-title>
+                      <v-icon class="text-h5 mr-3">mdi-history</v-icon>
+                      <span class="text-h5">Order History</span>
+                    </v-list-item-title>
+                  </v-list-item>
+
                   <v-list-item @click="logoutDialog = true">
                     <v-list-item-title>
                       <v-icon class="text-h5 mr-3">mdi-logout</v-icon>

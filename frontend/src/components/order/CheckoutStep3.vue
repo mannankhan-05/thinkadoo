@@ -311,7 +311,7 @@ export default defineComponent({
     },
   },
 
-  emits: ["edit-shipping", "edit-delivery", "order-placed"],
+  emits: ["edit-shipping", "edit-delivery"],
 
   data() {
     return {
@@ -444,7 +444,11 @@ export default defineComponent({
 
     goToOrderTracking() {
       this.orderSuccessDialog = false;
-      this.$emit("order-placed");
+      localStorage.removeItem("cart");
+      this.$router.push({
+        name: "trackOrder",
+        params: { orderId: this.orderConfirmationId },
+      });
     },
   },
 });
