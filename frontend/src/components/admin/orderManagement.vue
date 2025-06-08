@@ -135,36 +135,36 @@
               <td>
                 <div class="d-flex align-center">
                   <v-avatar color="primary" size="36" class="mr-3">
-                    {{ getInitials(item.userName) }}
+                    {{ getInitials(item.user_name) }}
                   </v-avatar>
                   <div>
-                    <div class="font-weight-medium">{{ item.userName }}</div>
+                    <div class="font-weight-medium">{{ item.user_name }}</div>
                     <div class="text-caption text-medium-emphasis">
-                      {{ item.userEmail }}
+                      {{ item.user_email }}
                     </div>
                   </div>
                 </div>
               </td>
               <td>
                 <div>
-                  <div>{{ item.userAddress }}</div>
-                  <div v-if="item.userApt" class="text-caption">
-                    Apt: {{ item.userApt }}
+                  <div>{{ item.user_address }}</div>
+                  <div v-if="item.user_apt" class="text-caption">
+                    Apt: {{ item.user_apt }}
                   </div>
                   <div class="text-caption">
-                    {{ item.city }}, {{ item.zip }}, {{ item.country }}
+                    {{ item.city }}, {{ item.zip_code }}, {{ item.country }}
                   </div>
                 </div>
               </td>
               <td>{{ item.userPhone }}</td>
-              <td>{{ formatCurrency(item.orderPrice) }}</td>
-              <td>{{ item.deliveryType }}</td>
+              <td>{{ formatCurrency(item.order_price) }}</td>
+              <td>{{ item.delivery_type }}</td>
               <td>
-                <v-chip :color="getStatusColor(item.status)" size="small">
-                  {{ item.status }}
+                <v-chip :color="getStatusColor(item.order_status)" size="small">
+                  {{ item.order_status }}
                 </v-chip>
               </td>
-              <td>{{ formatDate(item.orderDate) }}</td>
+              <td>{{ formatDate(item.order_date) }}</td>
               <td>
                 <v-menu location="bottom end">
                   <template v-slot:activator="{ props }">
@@ -235,7 +235,7 @@
             size="small"
             v-if="selectedOrder"
           >
-            {{ selectedOrder?.status }}
+            {{ selectedOrder?.order_status }}
           </v-chip>
         </v-card-title>
         <v-card-text v-if="selectedOrder">
@@ -246,15 +246,15 @@
                 <v-card-text>
                   <div class="d-flex align-center mb-4">
                     <v-avatar color="primary" size="48" class="mr-4">
-                      {{ getInitials(selectedOrder.userName) }}
+                      {{ getInitials(selectedOrder.user_name) }}
                     </v-avatar>
                     <div>
-                      <div class="text-h6">{{ selectedOrder.userName }}</div>
+                      <div class="text-h6">{{ selectedOrder.user_name }}</div>
                       <div class="text-body-2">
-                        {{ selectedOrder.userEmail }}
+                        {{ selectedOrder.user_email }}
                       </div>
                       <div class="text-body-2">
-                        {{ selectedOrder.userPhone }}
+                        {{ selectedOrder.user_phone }}
                       </div>
                     </div>
                   </div>
@@ -264,12 +264,14 @@
                   <div class="text-subtitle-1 font-weight-bold mb-2">
                     Shipping Address
                   </div>
-                  <div class="text-body-2">{{ selectedOrder.userAddress }}</div>
-                  <div class="text-body-2" v-if="selectedOrder.userApt">
-                    Apt: {{ selectedOrder.userApt }}
+                  <div class="text-body-2">
+                    {{ selectedOrder.user_address }}
+                  </div>
+                  <div class="text-body-2" v-if="selectedOrder.user_apt">
+                    Apt: {{ selectedOrder.user_apt }}
                   </div>
                   <div class="text-body-2">
-                    {{ selectedOrder.city }}, {{ selectedOrder.zip }}
+                    {{ selectedOrder.city }}, {{ selectedOrder.zip_code }}
                   </div>
                   <div class="text-body-2">{{ selectedOrder.country }}</div>
                 </v-card-text>
@@ -289,19 +291,19 @@
                   <div class="d-flex justify-space-between mb-2">
                     <span class="text-body-1">Order Date:</span>
                     <span class="text-body-1">{{
-                      formatDate(selectedOrder.orderDate)
+                      formatDate(selectedOrder.order_date)
                     }}</span>
                   </div>
                   <div class="d-flex justify-space-between mb-2">
                     <span class="text-body-1">Delivery Type:</span>
                     <span class="text-body-1">{{
-                      selectedOrder.deliveryType
+                      selectedOrder.delivery_type
                     }}</span>
                   </div>
                   <div class="d-flex justify-space-between mb-2">
                     <span class="text-body-1">Order Price:</span>
                     <span class="text-body-1 font-weight-bold">{{
-                      formatCurrency(selectedOrder.orderPrice)
+                      formatCurrency(selectedOrder.order_price)
                     }}</span>
                   </div>
 
@@ -388,7 +390,7 @@
                       Total:
                     </td>
                     <td class="font-weight-bold">
-                      {{ formatCurrency(selectedOrder.orderPrice) }}
+                      {{ formatCurrency(selectedOrder.order_price) }}
                     </td>
                   </tr>
                 </tfoot>
@@ -461,21 +463,22 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import axiosInstance from "../../api/axiosInstance";
 
 interface Order {
   id: string;
-  userName: string;
-  userEmail: string;
-  userAddress: string;
-  userApt: string;
+  user_name: string;
+  user_email: string;
+  user_address: string;
+  user_apt: string;
   city: string;
-  zip: string;
+  zip_code: string;
   country: string;
-  userPhone: string;
-  orderPrice: number;
-  deliveryType: string;
-  status: string;
-  orderDate: string;
+  user_phone: string;
+  order_price: number;
+  delivery_type: string;
+  order_status: string;
+  order_date: string;
 }
 
 interface StatusHistory {
@@ -551,113 +554,7 @@ export default defineComponent({
         { title: "Last Month", value: "last_month" },
         { title: "Custom Range", value: "custom" },
       ],
-      orders: [
-        {
-          id: "ORD-2023-001",
-          userName: "John Smith",
-          userEmail: "john.smith@example.com",
-          userAddress: "123 Main Street",
-          userApt: "Apt 4B",
-          city: "New York",
-          zip: "10001",
-          country: "United States",
-          userPhone: "+1 (555) 123-4567",
-          orderPrice: 129.99,
-          deliveryType: "standard",
-          status: "delivered",
-          orderDate: "2023-05-15",
-        },
-        {
-          id: "ORD-2023-002",
-          userName: "Emily Johnson",
-          userEmail: "emily.johnson@example.com",
-          userAddress: "456 Park Avenue",
-          userApt: "",
-          city: "Boston",
-          zip: "02108",
-          country: "United States",
-          userPhone: "+1 (555) 987-6543",
-          orderPrice: 89.5,
-          deliveryType: "express",
-          status: "shipped",
-          orderDate: "2023-05-18",
-        },
-        {
-          id: "ORD-2023-003",
-          userName: "Michael Brown",
-          userEmail: "michael.brown@example.com",
-          userAddress: "789 Oak Street",
-          userApt: "Suite 12",
-          city: "Chicago",
-          zip: "60601",
-          country: "United States",
-          userPhone: "+1 (555) 456-7890",
-          orderPrice: 210.75,
-          deliveryType: "standard",
-          status: "processing",
-          orderDate: "2023-05-20",
-        },
-        {
-          id: "ORD-2023-004",
-          userName: "Sarah Davis",
-          userEmail: "sarah.davis@example.com",
-          userAddress: "321 Maple Road",
-          userApt: "",
-          city: "Los Angeles",
-          zip: "90001",
-          country: "United States",
-          userPhone: "+1 (555) 789-0123",
-          orderPrice: 45.25,
-          deliveryType: "same_day",
-          status: "delivered",
-          orderDate: "2023-05-22",
-        },
-        {
-          id: "ORD-2023-005",
-          userName: "David Wilson",
-          userEmail: "david.wilson@example.com",
-          userAddress: "654 Pine Street",
-          userApt: "Apt 7C",
-          city: "San Francisco",
-          zip: "94101",
-          country: "United States",
-          userPhone: "+1 (555) 234-5678",
-          orderPrice: 175.0,
-          deliveryType: "express",
-          status: "pending",
-          orderDate: "2023-05-25",
-        },
-        {
-          id: "ORD-2023-006",
-          userName: "Jennifer Martinez",
-          userEmail: "jennifer.martinez@example.com",
-          userAddress: "987 Cedar Lane",
-          userApt: "",
-          city: "Miami",
-          zip: "33101",
-          country: "United States",
-          userPhone: "+1 (555) 345-6789",
-          orderPrice: 62.5,
-          deliveryType: "standard",
-          status: "cancelled",
-          orderDate: "2023-05-27",
-        },
-        {
-          id: "ORD-2023-007",
-          userName: "Robert Taylor",
-          userEmail: "robert.taylor@example.com",
-          userAddress: "159 Birch Boulevard",
-          userApt: "Unit 3",
-          city: "Seattle",
-          zip: "98101",
-          country: "United States",
-          userPhone: "+1 (555) 567-8901",
-          orderPrice: 135.25,
-          deliveryType: "express",
-          status: "processing",
-          orderDate: "2023-05-30",
-        },
-      ] as Order[],
+      orders: [] as Order[],
       statusHistory: [
         { status: "pending", date: "2023-05-25T10:30:00" },
         { status: "processing", date: "2023-05-26T14:45:00" },
@@ -685,6 +582,11 @@ export default defineComponent({
       ] as OrderItem[],
     };
   },
+
+  async mounted() {
+    await this.fetchOrders();
+  },
+
   computed: {
     dateRangeText() {
       switch (this.dateRange) {
@@ -712,24 +614,24 @@ export default defineComponent({
         const searchLower = this.search.toLowerCase();
         filtered = filtered.filter(
           (order) =>
-            order.userName.toLowerCase().includes(searchLower) ||
-            order.userEmail.toLowerCase().includes(searchLower) ||
+            order.user_name.toLowerCase().includes(searchLower) ||
+            order.user_email.toLowerCase().includes(searchLower) ||
             order.id.toLowerCase().includes(searchLower) ||
-            order.userPhone.includes(searchLower)
+            order.user_phone.includes(searchLower)
         );
       }
 
       // Apply status filter
       if (this.statusFilter !== "all") {
         filtered = filtered.filter(
-          (order) => order.status === this.statusFilter
+          (order) => order.order_status === this.statusFilter
         );
       }
 
       // Apply delivery type filter
       if (this.deliveryTypeFilter !== "all") {
         filtered = filtered.filter(
-          (order) => order.deliveryType === this.deliveryTypeFilter
+          (order) => order.delivery_type === this.deliveryTypeFilter
         );
       }
 
@@ -754,7 +656,7 @@ export default defineComponent({
         switch (this.dateRange) {
           case "today":
             filtered = filtered.filter((order) => {
-              const orderDate = new Date(order.orderDate);
+              const orderDate = new Date(order.order_date);
               return (
                 orderDate.getDate() === today.getDate() &&
                 orderDate.getMonth() === today.getMonth() &&
@@ -764,13 +666,13 @@ export default defineComponent({
             break;
           case "this_week":
             filtered = filtered.filter((order) => {
-              const orderDate = new Date(order.orderDate);
+              const orderDate = new Date(order.order_date);
               return orderDate >= startOfWeek && orderDate <= today;
             });
             break;
           case "this_month":
             filtered = filtered.filter((order) => {
-              const orderDate = new Date(order.orderDate);
+              const orderDate = new Date(order.order_date);
               return (
                 orderDate.getMonth() === today.getMonth() &&
                 orderDate.getFullYear() === today.getFullYear()
@@ -779,7 +681,7 @@ export default defineComponent({
             break;
           case "last_month":
             filtered = filtered.filter((order) => {
-              const orderDate = new Date(order.orderDate);
+              const orderDate = new Date(order.order_date);
               return (
                 orderDate >= startOfLastMonth && orderDate <= endOfLastMonth
               );
@@ -790,7 +692,7 @@ export default defineComponent({
               const startDate = new Date(this.customDateRange.start);
               const endDate = new Date(this.customDateRange.end);
               filtered = filtered.filter((order) => {
-                const orderDate = new Date(order.orderDate);
+                const orderDate = new Date(order.order_date);
                 return orderDate >= startDate && orderDate <= endDate;
               });
             }
@@ -802,6 +704,12 @@ export default defineComponent({
     },
   },
   methods: {
+    async fetchOrders() {
+      let response = await axiosInstance.get("/orders");
+      this.orders = response.data;
+      console.log("Fetched orders:", this.orders);
+    },
+
     formatCurrency(amount: number) {
       return new Intl.NumberFormat("en-US", {
         style: "currency",
@@ -854,14 +762,10 @@ export default defineComponent({
         end: "",
       };
     },
-    refreshOrders() {
+    async refreshOrders() {
       this.loading = true;
-      // In a real app, this would fetch fresh data from the API
-      setTimeout(() => {
-        this.loading = false;
-        // Show a snackbar or notification
-        alert("Orders refreshed successfully");
-      }, 1000);
+      await this.fetchOrders();
+      this.loading = false;
     },
     exportOrders() {
       // In a real app, this would generate a CSV or Excel file
@@ -875,40 +779,17 @@ export default defineComponent({
       if (!order) return;
 
       this.selectedOrder = order;
-      this.newStatus = order.status;
+      this.newStatus = order.order_status;
       this.statusNote = "";
       this.notifyCustomer = true;
       this.updateStatusDialog = true;
     },
-    saveStatusUpdate() {
+    async saveStatusUpdate() {
       if (!this.selectedOrder) return;
 
-      // In a real app, this would update the order status in the database
-      const index = this.orders.findIndex(
-        (order) => order.id === this.selectedOrder?.id
-      );
-      if (index !== -1) {
-        this.orders[index].status = this.newStatus;
-
-        // Add to status history
-        this.statusHistory.push({
-          status: this.newStatus,
-          date: new Date().toISOString(),
-        });
-
-        // Sort status history by date
-        this.statusHistory.sort((a, b) => {
-          return new Date(a.date).getTime() - new Date(b.date).getTime();
-        });
-
-        // Show a snackbar or notification
-        alert(`Order status updated to ${this.newStatus}`);
-
-        if (this.notifyCustomer) {
-          // In a real app, this would send an email to the customer
-          alert(`Notification sent to ${this.selectedOrder.userEmail}`);
-        }
-      }
+      await axiosInstance.put(`/updateOrderStatus/${this.selectedOrder?.id}`, {
+        status: this.newStatus,
+      });
 
       this.updateStatusDialog = false;
     },
@@ -918,7 +799,7 @@ export default defineComponent({
     },
     sendOrderConfirmation(order: Order) {
       // In a real app, this would send an email to the customer
-      alert(`Confirmation sent to ${order.userEmail}`);
+      alert(`Confirmation sent to ${order.user_email}`);
     },
     calculateSubtotal() {
       return this.orderItems.reduce((total, item) => {

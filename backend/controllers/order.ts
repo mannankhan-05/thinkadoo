@@ -71,3 +71,27 @@ export const createOrder = async (req: Request, res: Response) => {
       res.sendStatus(500);
     });
 };
+
+// update Order Status (Admin only)
+export const updateOrderStatus = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const { status }: { status: string } = req.body;
+
+  await order
+    .update(
+      {
+        order_status: status,
+      },
+      {
+        where: { id: id },
+      }
+    )
+    .then(() => {
+      logger.info(`Order with id ${id} updated to status ${status}`);
+      res.json({ message: "Order status updated successfully" });
+    })
+    .catch((err) => {
+      logger.error(`Error updating Order status: ${err}`);
+      res.status(500).json({ message: "Internal server error" });
+    });
+};

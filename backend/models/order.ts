@@ -54,6 +54,11 @@ order.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    order_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
   },
   {
     sequelize: db,
