@@ -1,6 +1,5 @@
 import { DataTypes, Model } from "sequelize";
 import db from "../config/database";
-import user from "./user";
 import book from "./book";
 
 class book_review extends Model {}

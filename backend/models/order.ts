@@ -1,6 +1,5 @@
 import { DataTypes, Model } from "sequelize";
 import db from "../config/database";
-import book from "./book";
 
 class order extends Model {}
 
