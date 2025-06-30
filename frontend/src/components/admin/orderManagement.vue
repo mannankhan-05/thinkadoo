@@ -351,19 +351,29 @@
                     <td>
                       <div class="d-flex align-center">
                         <v-avatar class="mr-3" color="grey-lighten-3">
-                          <v-icon>mdi-package-variant</v-icon>
+                          <!-- <v-icon>mdi-package-variant</v-icon> -->
+                          <img
+                            :src="item.book.image"
+                            alt="Book Image"
+                            class="rounded"
+                            style="width: 40px; height: 40px; object-fit: cover"
+                          />
                         </v-avatar>
                         <div>
-                          <div class="font-weight-medium">{{ item.name }}</div>
+                          <div class="font-weight-medium">
+                            {{ item.book.title }}
+                          </div>
                           <div class="text-caption" v-if="item.variant">
-                            {{ item.variant }}
+                            <!-- {{ item.variant }} -->
                           </div>
                         </div>
                       </div>
                     </td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ formatCurrency(item.price) }}</td>
-                    <td>{{ formatCurrency(item.price * item.quantity) }}</td>
+                    <td>1</td>
+                    <td>{{ formatCurrency(item.book.price) }}</td>
+                    <td>
+                      {{ formatCurrency(item.book.price) }}
+                    </td>
                   </tr>
                 </tbody>
                 <tfoot>
@@ -378,12 +388,6 @@
                       Shipping:
                     </td>
                     <td>{{ formatCurrency(shippingCost) }}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="3" class="text-right font-weight-bold">
-                      Tax:
-                    </td>
-                    <td>{{ formatCurrency(calculateTax()) }}</td>
                   </tr>
                   <tr>
                     <td colspan="3" class="text-right font-weight-bold">
@@ -487,11 +491,17 @@ interface StatusHistory {
 }
 
 interface OrderItem {
-  name: string;
-  variant: string;
-  quantity: number;
-  price: number;
-  image?: string;
+  id: number;
+  order: {
+    delivery_type: string;
+  };
+  book: {
+    id: number;
+    title: string;
+    image: string;
+    description: string;
+    price: number;
+  };
 }
 
 export default defineComponent({
@@ -514,7 +524,6 @@ export default defineComponent({
       newStatus: "",
       statusNote: "",
       notifyCustomer: true,
-      shippingCost: 10.0,
       headers: [
         { title: "Customer", key: "userName" },
         { title: "Address", key: "userAddress" },
@@ -543,8 +552,7 @@ export default defineComponent({
       deliveryTypeOptions: [
         { title: "All Types", value: "all" },
         { title: "Standard", value: "standard" },
-        { title: "Express", value: "express" },
-        { title: "Same Day", value: "same_day" },
+        { title: "Fast", value: "fast" },
       ],
       dateRanges: [
         { title: "All Time", value: "all" },
@@ -560,26 +568,7 @@ export default defineComponent({
         { status: "processing", date: "2023-05-26T14:45:00" },
         { status: "shipped", date: "2023-05-27T09:15:00" },
       ] as StatusHistory[],
-      orderItems: [
-        {
-          name: "Premium Headphones",
-          variant: "Black",
-          quantity: 1,
-          price: 129.99,
-        },
-        {
-          name: "Wireless Charger",
-          variant: "White",
-          quantity: 2,
-          price: 24.99,
-        },
-        {
-          name: "Phone Case",
-          variant: "Clear",
-          quantity: 1,
-          price: 19.99,
-        },
-      ] as OrderItem[],
+      orderItems: [] as OrderItem[],
     };
   },
 
@@ -702,12 +691,22 @@ export default defineComponent({
 
       return filtered;
     },
+    shippingCost() {
+      const deliveryType = this.orderItems[0]?.order?.delivery_type;
+
+      if (deliveryType === "standard") {
+        return 9.99;
+      } else if (deliveryType === "fast") {
+        return 24.99;
+      } else {
+        return 0;
+      }
+    },
   },
   methods: {
     async fetchOrders() {
       let response = await axiosInstance.get("/orders");
       this.orders = response.data;
-      console.log("Fetched orders:", this.orders);
     },
 
     formatCurrency(amount: number) {
@@ -771,9 +770,17 @@ export default defineComponent({
       // In a real app, this would generate a CSV or Excel file
       alert("Orders exported successfully");
     },
-    viewOrderDetails(order: Order) {
+    async viewOrderDetails(order: Order) {
       this.selectedOrder = order;
       this.orderDetailsDialog = true;
+
+      // fetching the Order Items
+      let response = await axiosInstance
+        .get(`/orderItems/${order.id}`)
+        .then((response) => {
+          this.orderItems = response.data;
+        });
+      console.log("Fetched order items:", this.orderItems);
     },
     updateOrderStatus(order: Order | null) {
       if (!order) return;
@@ -803,12 +810,8 @@ export default defineComponent({
     },
     calculateSubtotal() {
       return this.orderItems.reduce((total, item) => {
-        return total + item.price * item.quantity;
+        return total + item.book.price;
       }, 0);
-    },
-    calculateTax() {
-      // Assuming tax is 8%
-      return this.calculateSubtotal() * 0.08;
     },
   },
 });

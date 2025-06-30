@@ -4,6 +4,14 @@ import order from "../models/order";
 import book from "../models/book";
 import logger from "../logger";
 
+interface Book {
+  id: number;
+  title: string;
+  image: string;
+  description: string;
+  price: number;
+}
+
 // Get all items in an order (by order_id)
 export const getOrderItems = async (req: Request, res: Response) => {
   const orderId = req.params.orderId;
@@ -22,7 +30,14 @@ export const getOrderItems = async (req: Request, res: Response) => {
     })
     .then((orderItems) => {
       logger.info(`Order Items for Order ID: ${orderId} retrieved`);
-      res.json(orderItems);
+      const result = orderItems.map((order: Book | any) => {
+        if (order.book.image) {
+          order.book.image = `http://localhost:5000/bookImages/${order.book.image}`;
+        }
+        return order;
+      });
+
+      res.json(result);
     })
     .catch((err) => {
       logger.error(`Error retrieving Order Items: ${err}`);
