@@ -351,7 +351,6 @@
                     <td>
                       <div class="d-flex align-center">
                         <v-avatar class="mr-3" color="grey-lighten-3">
-                          <!-- <v-icon>mdi-package-variant</v-icon> -->
                           <img
                             :src="item.book.image"
                             alt="Book Image"
@@ -363,9 +362,7 @@
                           <div class="font-weight-medium">
                             {{ item.book.title }}
                           </div>
-                          <div class="text-caption" v-if="item.variant">
-                            <!-- {{ item.variant }} -->
-                          </div>
+                          <div class="text-caption" v-if="item.variant"></div>
                         </div>
                       </div>
                     </td>
@@ -564,7 +561,7 @@ export default defineComponent({
       ],
       orders: [] as Order[],
       statusHistory: [
-        { status: "pending", date: "2023-05-25T10:30:00" },
+        { status: "pending", date: "2023-05-25T14:45:00" },
         { status: "processing", date: "2023-05-26T14:45:00" },
         { status: "shipped", date: "2023-05-27T09:15:00" },
       ] as StatusHistory[],
@@ -707,6 +704,7 @@ export default defineComponent({
     async fetchOrders() {
       let response = await axiosInstance.get("/orders");
       this.orders = response.data;
+      console.log("Fetched orders:", this.orders);
     },
 
     formatCurrency(amount: number) {

@@ -218,7 +218,7 @@ export default defineComponent({
   font-family: "Playwrite GB J", serif;
   width: 55%;
   height: 60px;
-  font-size: 23px;
+  font-size: 20px;
   font-weight: bold;
   background-color: #283618;
   color: white;
