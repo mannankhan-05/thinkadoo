@@ -20,6 +20,9 @@ import addBook from "@/components/admin/addBook.vue";
 import editOrDeleteBooks from "@/components/admin/editOrDeleteBooks.vue";
 import orderManagement from "@/components/admin/orderManagement.vue";
 
+// Import the components for the footer
+import helpAndFaqs from "@/components/footer/helpAndFaqs.vue";
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
@@ -80,6 +83,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/account-edit",
     name: "accountEdit",
     component: accountEdit,
+  },
+  {
+    path: "/support/helpAndFaqs",
+    name: "helpAndFaqs",
+    component: helpAndFaqs,
   },
   {
     path: "/admin",
