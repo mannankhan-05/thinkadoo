@@ -704,9 +704,7 @@ export default defineComponent({
     async fetchOrders() {
       let response = await axiosInstance.get("/orders");
       this.orders = response.data;
-      console.log("Fetched orders:", this.orders);
     },
-
     formatCurrency(amount: number) {
       return new Intl.NumberFormat("en-US", {
         style: "currency",
@@ -765,8 +763,43 @@ export default defineComponent({
       this.loading = false;
     },
     exportOrders() {
-      // In a real app, this would generate a CSV or Excel file
-      alert("Orders exported successfully");
+      if (!this.orders || this.orders.length === 0) {
+        alert("No orders to export.");
+        return;
+      }
+
+      // Step 1: Get headers from keys
+      const headers = Object.keys(this.orders[0]);
+
+      // Step 2: Map orders to CSV rows
+      const csvRows = [
+        headers.join(","), // Header row
+        ...this.orders.map((order) =>
+          headers
+            .map(
+              (h) =>
+                `"${(order[h as keyof typeof order] ?? "")
+                  .toString()
+                  .replace(/"/g, '""')}"`
+            )
+            .join(",")
+        ),
+      ];
+
+      // Step 3: Create a Blob
+      const blob = new Blob([csvRows.join("\n")], {
+        type: "text/csv;charset=utf-8;",
+      });
+
+      // Step 4: Trigger download
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.href = url;
+      link.setAttribute("download", "orders.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
     },
     async viewOrderDetails(order: Order) {
       this.selectedOrder = order;

@@ -13,7 +13,6 @@ import accountEdit from "@/components/accountEdit.vue";
 
 // Import the components for the order management
 import orderCheckout from "@/components/order/orderCheckout.vue";
-import trackOrder from "@/components/order/trackOrder.vue";
 
 // Import the components for the admin panel
 import adminPanel from "@/components/admin/adminPanel.vue";
@@ -71,11 +70,6 @@ const routes: Array<RouteRecordRaw> = [
     path: "/order-checkout",
     name: "orderCheckout",
     component: orderCheckout,
-  },
-  {
-    path: "/track-order/:orderId",
-    name: "trackOrder",
-    component: trackOrder,
   },
   {
     path: "/books",
