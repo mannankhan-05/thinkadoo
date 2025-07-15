@@ -22,6 +22,10 @@ import orderManagement from "@/components/admin/orderManagement.vue";
 
 // Import the components for the footer
 import helpAndFaqs from "@/components/footer/helpAndFaqs.vue";
+import deliveryInformation from "@/components/footer/deliveryInformation.vue";
+import ourStory from "@/components/footer/ourStory.vue";
+import privacyPolicy from "@/components/footer/privacyPolicy.vue";
+import returnPolicy from "@/components/footer/returnPolicy.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -88,6 +92,26 @@ const routes: Array<RouteRecordRaw> = [
     path: "/support/helpAndFaqs",
     name: "helpAndFaqs",
     component: helpAndFaqs,
+  },
+  {
+    path: "/support/deliveryInformation",
+    name: "deliveryInformation",
+    component: deliveryInformation,
+  },
+  {
+    path: "/support/ourStory",
+    name: "ourStory",
+    component: ourStory,
+  },
+  {
+    path: "/support/privacy-policy",
+    name: "privacyPolicy",
+    component: privacyPolicy,
+  },
+  {
+    path: "/support/return-policy",
+    name: "returnPolicy",
+    component: returnPolicy,
   },
   {
     path: "/admin",

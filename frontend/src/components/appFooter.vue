@@ -13,8 +13,12 @@
             <v-col cols="12" lg="4" md="4" sm="12" xs="12">
               <div class="d-flex flex-column align-center text-center">
                 <h1 class="footer-heading">HELP AND INFORMATION</h1>
-                <h2 class="footer-subheading">HELP AND FAQS</h2>
-                <h2 class="footer-subheading">DELIVERY INFORMATION</h2>
+                <h2 class="footer-subheading" @click="goToHelpAndFaqs">
+                  HELP AND FAQS
+                </h2>
+                <h2 class="footer-subheading" @click="goToDeliveryInformation">
+                  DELIVERY INFORMATION
+                </h2>
               </div>
               <v-divider
                 class="mt-4 mb-4 d-flex d-md-none"
@@ -25,7 +29,9 @@
             <v-col cols="12" lg="4" md="4" sm="12" xs="12">
               <div class="d-flex flex-column align-center text-center">
                 <h1 class="footer-heading">ABOUT THINKADOO</h1>
-                <h2 class="footer-subheading">OUR STORY</h2>
+                <h2 class="footer-subheading" @click="goToOurStory">
+                  OUR STORY
+                </h2>
               </div>
               <v-divider
                 class="mt-4 mb-4 d-flex d-md-none"
@@ -36,8 +42,12 @@
             <v-col cols="12" lg="4" md="4" sm="12" xs="12">
               <div class="d-flex flex-column align-center text-center">
                 <h1 class="footer-heading">CORPORATE INFORMATION</h1>
-                <h2 class="footer-subheading">PRIVACY POLICY</h2>
-                <h2 class="footer-subheading">RETURN POLICY</h2>
+                <h2 class="footer-subheading" @click="goToPrivacyPolicy">
+                  PRIVACY POLICY
+                </h2>
+                <h2 class="footer-subheading" @click="goToReturnPolicy">
+                  RETURN POLICY
+                </h2>
               </div>
             </v-col>
           </v-row>
@@ -68,7 +78,25 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-export default defineComponent({});
+export default defineComponent({
+  methods: {
+    goToHelpAndFaqs() {
+      this.$router.push({ name: "helpAndFaqs" });
+    },
+    goToDeliveryInformation() {
+      this.$router.push({ name: "deliveryInformation" });
+    },
+    goToOurStory() {
+      this.$router.push({ name: "ourStory" });
+    },
+    goToPrivacyPolicy() {
+      this.$router.push({ name: "privacyPolicy" });
+    },
+    goToReturnPolicy() {
+      this.$router.push({ name: "returnPolicy" });
+    },
+  },
+});
 </script>
 
 <style>

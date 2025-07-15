@@ -10,26 +10,6 @@
       </v-col>
     </v-row>
 
-    <!-- Search Section -->
-    <v-row no-gutters class="search-section py-8">
-      <v-col cols="12" class="text-center">
-        <v-container>
-          <v-row justify="center">
-            <v-col cols="12" md="8" lg="6">
-              <v-text-field
-                v-model="searchQuery"
-                label="Search for help..."
-                outlined
-                prepend-inner-icon="mdi-magnify"
-                class="search-input"
-                @input="filterFaqs"
-              ></v-text-field>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-col>
-    </v-row>
-
     <!-- FAQ Categories -->
     <v-container class="py-8">
       <v-row>
@@ -185,11 +165,6 @@ export default defineComponent({
   },
 
   methods: {
-    filterFaqs() {
-      // This method is called when search input changes
-      // The filtering is handled by the computed property
-    },
-
     contactSupport() {
       // Implement contact support functionality
       console.log("Contacting support...");
@@ -252,6 +227,7 @@ export default defineComponent({
 .active-category {
   background-color: #283618 !important;
   color: white !important;
+  border-radius: 4px !important;
 }
 
 .faq-panels {
@@ -296,7 +272,7 @@ export default defineComponent({
   color: white !important;
   font-family: "Playwrite GB J", serif;
   font-size: 18px;
-  padding: 12px 30px !important;
+  /* padding: 12px 12px 30px 30px !important; */
 }
 
 @media (max-width: 960px) {
