@@ -20,6 +20,24 @@
             <span>Login with email</span>
           </v-btn>
 
+          <!-- <v-btn class="login-email-btn mt-4">
+            <v-icon class="mr-5">mdi-google</v-icon>
+            <span>Continue with Google</span>
+          </v-btn> -->
+
+          <v-btn
+            class="login-google-btn mt-6"
+            @click="handleGoogleSignIn"
+            elevation="1"
+          >
+            <img
+              src="https://developers.google.com/identity/images/g-logo.png"
+              alt="Google"
+              class="google-logo"
+            />
+            <span class="google-btn-text">Sign in with Google</span>
+          </v-btn>
+
           <h1 class="not-a-member">Not a member ?</h1>
           <h1 class="sign-up-text">
             Go to sign up
@@ -158,6 +176,38 @@ export default defineComponent({
   color: white;
 }
 
+.login-google-btn {
+  width: 620px;
+  height: 80px;
+  background-color: #fff;
+  color: #3c4043;
+  font-size: 16px;
+  font-weight: 370;
+  font-family: "Roboto", sans-serif;
+  border: 1px solid #dadce0;
+  border: 3px solid #000;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: none;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.login-google-btn:hover {
+  box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 2px 6px rgba(60, 64, 67, 0.15);
+}
+
+.google-logo {
+  width: 60px;
+  height: 60px;
+  margin-right: 12px;
+}
+
+.google-btn-text {
+  font-size: 40px;
+}
+
 .not-a-member {
   font-size: 50px;
   font-weight: bold;
@@ -187,6 +237,16 @@ export default defineComponent({
 
   .login-email-btn {
     width: 620px;
+    font-size: 28px;
+  }
+
+  .google-logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+  }
+
+  .google-btn-text {
     font-size: 28px;
   }
 
