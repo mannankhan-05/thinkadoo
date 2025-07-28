@@ -20,11 +20,6 @@
             <span>Login with email</span>
           </v-btn>
 
-          <!-- <v-btn class="login-email-btn mt-4">
-            <v-icon class="mr-5">mdi-google</v-icon>
-            <span>Continue with Google</span>
-          </v-btn> -->
-
           <v-btn
             class="login-google-btn mt-6"
             @click="handleGoogleSignIn"
@@ -52,8 +47,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+declare global {
+  interface Window {
+    google: any;
+  }
+}
 
+import { defineComponent } from "vue";
 export default defineComponent({
   name: "authSelection",
 
@@ -63,6 +63,54 @@ export default defineComponent({
     },
     gotoSignUpPage() {
       this.$router.push({ name: "signUpPage" });
+    },
+
+    async handleGoogleSignIn() {
+      let googleInitialized = false;
+      try {
+        if (!window.google || !window.google.accounts) {
+          await new Promise<void>((resolve, reject) => {
+            const script = document.createElement("script");
+
+            // Load the Google Identity Services script
+            script.src = "https://accounts.google.com/gsi/client";
+            // Ensures the script loads non-blocking.
+            script.async = true;
+            // Defer loading to avoid blocking the initial render.
+            script.defer = true;
+
+            script.onload = () => resolve();
+            script.onerror = () => reject("Failed to load Google script");
+            document.head.appendChild(script);
+          });
+        }
+
+        if (!googleInitialized) {
+          window.google.accounts.id.initialize({
+            client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID,
+
+            // Google calls this when sign-in is successful.
+            callback: (response: any) => {
+              // The ID token (JWT).
+              const idToken = response.credential;
+
+              // Decode the JWT token to get user information
+              const payload = JSON.parse(atob(idToken.split(".")[1]));
+              console.log("👤 Google User:", payload);
+              alert(`Welcome, ${payload.name}`);
+            },
+
+            // Optional: Specify the scope of access you want
+            use_fedcm_for_prompt: false,
+          });
+          googleInitialized = true;
+        }
+
+        // Shows the Google One Tap prompt/popup.
+        window.google.accounts.id.prompt();
+      } catch (err) {
+        console.error("Google Sign-In Error:", err);
+      }
     },
   },
 });
