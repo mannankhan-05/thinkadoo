@@ -102,6 +102,7 @@ export default defineComponent({
       this.imageUrl = "";
     },
     handleFileChange(event: any) {
+      // User selects file → event triggered → extract file → check if valid → create preview URL → show preview
       const file = event.target.files[0];
       if (file && file instanceof File) {
         this.imageUrl = URL.createObjectURL(file);
