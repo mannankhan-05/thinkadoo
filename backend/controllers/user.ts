@@ -1,9 +1,14 @@
 import { Request, Response } from "express";
+import { OAuth2Client } from "google-auth-library";
 import { sendForgetPasswordCode } from "../mails/resetPasswordCode";
 import user from "../models/user";
 import bcrypt from "bcrypt";
-const saltRounds = 5;
 import logger from "../logger";
+import { RequestHandler } from "express";
+
+const saltRounds = 5;
+// create a new OAuth2 client
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // User model
 interface User {
@@ -12,6 +17,7 @@ interface User {
   image: string;
   email: string;
   password: string;
+  authProvider: string;
 }
 
 // To get all users
@@ -91,6 +97,65 @@ export const createUser = async (req: Request, res: Response) => {
       logger.error(`Error creating user with email : ${email}. Error : ${err}`);
       res.sendStatus(500);
     });
+};
+
+// Google Authentication
+export const googleAuth: RequestHandler = async (req, res) => {
+  try {
+    const { token } = req.body;
+    if (!token) {
+      res.status(400).json({ error: "Token is required" });
+      return;
+    }
+
+    // Verify Google ID token
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    if (!payload) {
+      res.status(401).json({ error: "Invalid token" });
+      return;
+    }
+
+    const { name, email } = payload;
+
+    // Check if user already exists
+    let existingUser = (await user.findOne({
+      where: { email },
+    })) as User | null;
+
+    // Create new user if not exists
+    if (!existingUser) {
+      await user.create({
+        name,
+        email,
+        password: null,
+        promotions: true,
+        isAdmin: false,
+        authProvider: "google",
+      });
+
+      res.json({ status: "signup", user: existingUser });
+      return;
+    }
+
+    // If the user is a local account but trying to use Google
+    if (existingUser.authProvider === "local" && existingUser.password) {
+      res.status(400).json({
+        error:
+          "This email is registered with a password. Please log in with email/password.",
+      });
+      return;
+    }
+
+    // Returning Google login
+    res.json({ status: "login", user: existingUser });
+  } catch (err) {
+    console.error("Google Auth Error:", err);
+    res.status(500).json({ error: "Google authentication failed" });
+  }
 };
 
 // To login a user (sign in)

@@ -4,6 +4,7 @@ import {
   getUsers,
   getUserById,
   createUser,
+  googleAuth,
   loginUser,
   editUser,
   sendCodeToEmail,
@@ -38,6 +39,8 @@ router.get("/users", getUsers);
 router.get("/user/:userId", getUserById);
 
 router.post("/createUser", createUser);
+
+router.post("/google/auth", googleAuth);
 
 router.post("/loginUser", loginUser);
 
