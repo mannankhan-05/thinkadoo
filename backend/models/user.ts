@@ -21,7 +21,7 @@ user.init(
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue: null,
     },
     promotions: {
       type: DataTypes.BOOLEAN,
@@ -30,6 +30,11 @@ user.init(
     isAdmin: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+    },
+    authProvider: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "local", // Default to local authentication
     },
   },
   {
