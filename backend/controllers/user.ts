@@ -128,7 +128,7 @@ export const googleAuth: RequestHandler = async (req, res) => {
 
     // Create new user if not exists
     if (!existingUser) {
-      await user.create({
+      const newUser = await user.create({
         name,
         email,
         password: null,
@@ -137,7 +137,7 @@ export const googleAuth: RequestHandler = async (req, res) => {
         authProvider: "google",
       });
 
-      res.json({ status: "signup", user: existingUser });
+      res.json({ status: "signup", user: newUser });
       return;
     }
 
