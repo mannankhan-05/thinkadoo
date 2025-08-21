@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import { nanoid } from "nanoid";
 import order from "../models/order";
-import book from "../models/book";
+import axios from "axios";
 import logger from "../logger";
+
+const LEMONS_API = "https://api.lemonsqueezy.com/v1";
 
 // Get All Orders (Admin only)
 export const getOrders = async (req: Request, res: Response) => {
@@ -94,4 +96,39 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
       logger.error(`Error updating Order status: ${err}`);
       res.status(500).json({ message: "Internal server error" });
     });
+};
+
+// checkout
+export const checkout = async (req: Request, res: Response) => {
+  try {
+    const response = await axios.post(
+      `${LEMONS_API}/checkouts`,
+      {
+        data: {
+          type: "checkouts",
+          attributes: {},
+          relationships: {
+            store: {
+              data: { type: "stores", id: process.env.LEMONS_STORE_ID },
+            },
+            variant: {
+              data: { type: "variants", id: process.env.LEMONS_PRODUCT_ID },
+            },
+          },
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.LEMONS_API_KEY}`,
+          "Content-Type": "application/vnd.api+json",
+          Accept: "application/vnd.api+json",
+        },
+      }
+    );
+
+    res.json({ url: response.data.data.attributes.url });
+  } catch (error) {
+    logger.error("error sending request to lemon squezy : " + error);
+    res.status(500).json({ error: "Checkout failed" });
+  }
 };

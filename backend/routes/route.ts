@@ -29,6 +29,7 @@ import {
   getOrders,
   createOrder,
   updateOrderStatus,
+  checkout,
 } from "../controllers/order";
 import { getOrderItems, addItemToOrder } from "../controllers/order_item";
 import { createCoupon, validateCoupon } from "../controllers/coupon";
@@ -80,6 +81,8 @@ router.get("/orders", getOrders);
 router.post("/createOrder", createOrder);
 
 router.put("/updateOrderStatus/:id", updateOrderStatus);
+
+router.post("/create-checkout", checkout);
 
 // order_item routes :
 router.get("/orderItems/:orderId", getOrderItems);

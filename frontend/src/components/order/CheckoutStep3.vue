@@ -432,8 +432,16 @@ export default defineComponent({
           });
         }
 
+        // inside placeOrder()
+        const checkoutRes = await axiosInstance.post("/create-checkout", {
+          orderId: this.orderConfirmationId, // optional (you can link DB orders to Lemon)
+        });
+        if (checkoutRes.data.url) {
+          window.location.href = checkoutRes.data.url; // redirect user to pay
+        }
+
         // Show success dialog
-        this.orderSuccessDialog = true;
+        // this.orderSuccessDialog = true;
       } catch (error) {
         console.error("Error placing order:", error);
         alert("There was an error placing your order. Please try again.");
